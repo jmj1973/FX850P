@@ -1,0 +1,55 @@
+﻿@using FX850P.Blazor.Components.Common
+@using FX850P.Blazor.ViewModels.CommonViewModels;
+
+<ErrorBoundary>
+    <ChildContent>
+        <MudDialog>
+            <DialogContent>
+                <MudForm Model="@role" @ref="_form" Validation="@(_roleValidator.ValidateValue)" ValidationDelay="0">
+                    <MudGrid>
+                        <MudItem xs="12">
+                            <MudTextField @bind-Value="role.Name"
+                                          For="@(() => role.Name)"
+                                          Immediate="true"
+                                          Label="Name"
+                                          Required="true" />
+                        </MudItem>
+                    </MudGrid>
+                </MudForm>
+            </DialogContent>
+            <DialogActions>
+                <MudButton OnClick="Cancel">Cancel</MudButton>
+                <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+            </DialogActions>
+        </MudDialog>
+    </ChildContent>
+    <ErrorContent>
+        <CustomError Exception="context"></CustomError>
+    </ErrorContent>
+</ErrorBoundary>
+
+@code {
+    [CascadingParameter] 
+    MudDialogInstance MudDialog { get; set; } = default!;
+
+    [Parameter]
+    public KeyValuePairViewModel<string> role { get; set; } = new KeyValuePairViewModel<string>();
+
+    private MudForm _form = default!;
+    private KeyValuePairViewModelValidator<string> _roleValidator = new KeyValuePairViewModelValidator<string>();
+
+    private void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+
+    private void Submit()
+    {
+        _form.Validate();
+
+        if (_form.IsValid)
+        {
+            MudDialog.Close(DialogResult.Ok<KeyValuePairViewModel<string>>(role));
+        }
+    }
+}

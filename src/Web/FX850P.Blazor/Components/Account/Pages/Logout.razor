@@ -1,0 +1,45 @@
+﻿@page "/Account/Logout"
+
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.Extensions.Logging
+@using FX850P.Domain.Entities.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject ILogger<Logout> Logger
+@inject NavigationManager NavigationManager
+@inject IdentityRedirectManager RedirectManager
+
+
+<PageTitle>Log out</PageTitle>
+<h1>Log out</h1>
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> _authenticateState { get; set; } = default!;
+
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    [SupplyParameterFromQuery]
+    private string? ReturnUrl { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // if (HttpMethods.IsGet(HttpContext.Request.Method))
+        // {
+        // }
+
+        //Auditing
+        var authState = await _authenticateState;
+        var user = authState.User;
+
+        if (SignInManager.IsSignedIn(user))
+        {
+            await SignInManager.SignOutAsync();
+        }
+
+        RedirectManager.RedirectTo("Account/Login");
+    }
+
+}

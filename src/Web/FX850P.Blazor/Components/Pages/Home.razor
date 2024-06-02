@@ -1,0 +1,24 @@
+﻿@page "/"
+
+@using Microsoft.AspNetCore.Authorization
+@using FX850P.Blazor.Components.Common
+
+@attribute [Authorize]
+
+<ErrorBoundary>
+    <ChildContent>
+
+        <PageTitle>@_title</PageTitle>
+
+    </ChildContent>
+    <ErrorContent>
+        <CustomError Exception="context"></CustomError>
+    </ErrorContent>
+</ErrorBoundary>
+
+@code {
+
+    private string _title = "Home";
+
+
+}

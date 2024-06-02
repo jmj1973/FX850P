@@ -1,0 +1,241 @@
+﻿@attribute [Authorize]
+
+@page "/roles"
+@rendermode InteractiveServer
+
+@using AutoMapper;
+@using MediatR;
+@using Microsoft.AspNetCore.Authorization
+@using FX850P.Application.Common.Dtos;
+@using FX850P.Application.Exceptions;
+@using FX850P.Application.Roles.Commands.CreateRole;
+@using FX850P.Application.Roles.Commands.DeleteRole;
+@using FX850P.Application.Roles.Commands.UpdateRole;
+@using FX850P.Application.Roles.Queries.GetRoleDetails;
+@using FX850P.Application.Roles.Queries.GetRoleList;
+@using FX850P.Blazor.Components.Common
+@using FX850P.Blazor.Extensions
+@using FX850P.Blazor.ViewModels.CommonViewModels;
+@using FX850P.Blazor.ViewModels.RoleViewModels;
+@using System.Reflection;
+
+@inject IMediator _mediator;
+@inject IMapper _mapper;
+@inject IDialogService _dialogService;
+@inject AuthenticationStateProvider _authenticationStateProvider;
+
+<ErrorBoundary>
+    <ChildContent>
+
+        <PageTitle>@_title</PageTitle>
+
+        <MudText Typo="Typo.h5" Class="pa-2">@_title</MudText>
+
+        <MudPaper Class="pa-1" Elevation="0">
+            <MudBreadcrumbs Items="_items"></MudBreadcrumbs>
+        </MudPaper>
+
+        <MudPaper Class="pa-1" Elevation="0">
+            <MudTable ServerData="@(new Func<TableState, Task<TableData<KeyValuePairViewModel<string>>>>(LoadData))" 
+                      @ref="_table" 
+                      Hover="true" 
+                      SortLabel="Sort By" 
+                      Elevation="0"
+                      Class="compact-table">
+                <ToolBarContent>
+                    <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" IconSize="Size.Small" Class="mt-0"
+                            @onclick="(e => Create())"></MudFab>
+                    <MudSpacer />
+                    <MudTextField T="string" ValueChanged="@(searchTerm => OnSearch(searchTerm))" Placeholder="Search"
+                                  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search"
+                                  IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                </ToolBarContent>
+                <HeaderContent>
+                    <MudTh><MudTableSortLabel T="KeyValuePairViewModel<string>" SortLabel="Id" InitialDirection="SortDirection.Ascending">Id</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel T="KeyValuePairViewModel<string>" SortLabel="Name">Name</MudTableSortLabel></MudTh>
+                    <MudTh>Actions</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Id">@context.Id</MudTd>
+                    <MudTd DataLabel="Name">@context.Name</MudTd>
+                    <MudTd>
+                        <MudMenu Label="Action">
+                            <MudMenuItem OnClick="(e => Update(context.Id))">Edit</MudMenuItem>
+                            <MudMenuItem OnClick="(e => Delete(context.Id))">Delete</MudMenuItem>
+                        </MudMenu>                
+                    </MudTd>
+
+                </RowTemplate>
+                <PagerContent>
+                    <MudTablePager PageSizeOptions="new int[]{20,50,100}" />
+                </PagerContent>
+            </MudTable>
+        </MudPaper>
+   </ChildContent>
+    <ErrorContent>
+        <CustomError Exception="context"></CustomError>
+    </ErrorContent>
+</ErrorBoundary>
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> _authenticateState { get; set; } = default!;
+
+    private string _title = "Roles";
+
+    private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
+    {
+        new BreadcrumbItem("Home", href: "/"),
+        new BreadcrumbItem("Roles", href: null, disabled: true)
+    };
+
+    // Search Value from (Search box)
+    private string _searchValue = "";
+
+    private MudTable<KeyValuePairViewModel<string>> _table = default!;
+
+    public async Task<TableData<KeyValuePairViewModel<string>>> LoadData(TableState state)
+    {
+        var query = new GetRoleListQuery
+            {
+                SearchString = _searchValue,
+                SortBy = state.SortLabel,
+                IsSortAscending = state.SortDirection == SortDirection.Descending ? false : true,
+                Page = state.Page + 1,
+                PageSize = state.PageSize
+            };
+
+        var result = await _mediator.Send(query);
+
+        var data = _mapper.Map<IEnumerable<KeyValuePairDto<string>>, IEnumerable<KeyValuePairViewModel<string>>>(result.PageItems);
+
+        return new TableData<KeyValuePairViewModel<string>>() { Items = data, TotalItems = result.Page.TotalItems };
+    }
+
+    private async Task OnSearch(string searchTerm)
+    {
+        _searchValue = searchTerm;
+        await _table.ReloadServerData();
+    }
+    @*
+    https://www.learmoreseekmore.com/2021/04/blazor-webassembly-crud-sample-using-mudblazor-component.html
+    https://stackoverflow.com/questions/63104080/getting-userid-of-current-user-blazor-webassembly
+    *@
+    private async Task Create()
+    {
+        var parameters = new DialogParameters();
+        parameters.Add("role", new KeyValuePairViewModel<string>());
+        var dialog = await _dialogService.Show<AddOrUpdateRole>("Create a Role", parameters).Result;
+
+        if (dialog.Data != null)
+        {
+            try
+            {
+                KeyValuePairViewModel<string> newRole = (KeyValuePairViewModel<string>)dialog.Data!;
+                var command = _mapper.Map<CreateRoleCommand>(newRole);
+
+                //Auditing
+                var authState = await _authenticateState;
+                command.CreatedById = authState.User.GetUserId();
+                command.DateCreated = DateTime.Now.ToUniversalTime();
+                command.ModifiedById = command.CreatedById;
+                command.DateModified = command.DateCreated;
+
+                var result = await _mediator.Send(command);
+
+                await _table.ReloadServerData();
+            }
+            catch (ValidationException ex)
+            {
+                foreach (var failure in ex.Failures)
+                {
+                    await _dialogService.ShowMessageBox("Warning",
+                                                        failure.Value[0],
+                                                        yesText: "OK", cancelText: "Cancel");
+                }
+            }
+            catch (Exception ex)
+            {
+                await _dialogService.ShowMessageBox("Warning",
+                                                    ex.Message,
+                                                    yesText: "OK", cancelText: "Cancel");
+            }
+        }
+    }
+
+    private async Task Update(string id)
+    {
+        var query = new GetRoleDetailsQuery { Id = id };
+        var result = await _mediator.Send(query);
+        var role = _mapper.Map<KeyValuePairViewModel<string>>(result);
+
+        var parameters = new DialogParameters();
+        parameters.Add("role", role);
+        var dialog = await _dialogService.Show<AddOrUpdateRole>("Update a Role", parameters).Result;
+
+        if (dialog.Data != null)
+        {
+            try
+            {
+                KeyValuePairViewModel<string> updateRole = (KeyValuePairViewModel<string>)dialog.Data!;
+                var command = _mapper.Map<UpdateRoleCommand>(updateRole);
+
+                //Auditing
+                var authState = await _authenticateState;
+                command.ModifiedById = authState.User.GetUserId();
+                command.DateModified = DateTime.Now.ToUniversalTime();
+
+                await _mediator.Send(command);
+
+                await _table.ReloadServerData();
+            }
+            catch (ValidationException ex)
+            {
+                foreach (var failure in ex.Failures)
+                {
+                    await _dialogService.ShowMessageBox("Warning",
+                                                        failure.Value[0],
+                                                        yesText: "OK", cancelText: "Cancel");
+                }
+            }
+            catch (Exception ex)
+            {
+                await _dialogService.ShowMessageBox("Warning",
+                                                    ex.Message,
+                                                    yesText: "OK", cancelText: "Cancel");
+            }
+        }
+    }
+
+    private async Task Delete(string id)
+    {
+        bool? result = await _dialogService.ShowMessageBox("Warning",
+                                                            "Deleting can not be undone!",
+                                                            yesText: "Delete!", cancelText: "Cancel");
+
+        if (result != null && result == true)
+        {
+            try
+            {
+                var command = new DeleteRoleCommand { Id = id };
+
+                //Auditing
+                var authState = await _authenticateState;
+                command.ModifiedById = authState.User.GetUserId();
+                command.DateModified = DateTime.Now.ToUniversalTime();
+
+                await _mediator.Send(command);
+
+                await _table.ReloadServerData();
+            }
+            catch (Exception ex)
+            {
+                await _dialogService.ShowMessageBox("Warning",
+                                                    ex.Message,
+                                                    yesText: "OK", cancelText: "Cancel");
+            }
+
+        }
+    }
+
+}

@@ -1,0 +1,101 @@
+@using FX850P.Blazor.Components.Common
+@using FX850P.Blazor.ViewModels.UserViewModels;
+@using FX850P.Presistence.Constants;
+
+<ErrorBoundary>
+    <ChildContent>
+        <MudDialog>
+            <DialogContent>
+                <MudContainer Style="height: 75vh; overflow-y: scroll">
+                    <MudForm Model="@user" @ref="_form" Validation="@(_userValidator.ValidateValue)" ValidationDelay="0">
+                        <MudGrid>
+                            <MudItem xs="12">
+                                <MudTextField @bind-Value="user.Email"
+                                              For="@(() => user.Email)"
+                                              Immediate="true"
+                                              Label="Email"
+                                              Required="true" />
+                            </MudItem>
+                            <MudItem xs="12" sm="6">
+                                <MudTextField @bind-Value="user.FirstName"
+                                              For="@(() => user.FirstName)"
+                                              Immediate="true"
+                                              Label="First Name"
+                                              Required="true" />
+                            </MudItem>
+                            <MudItem xs="12" sm="6">
+                                <MudTextField @bind-Value="user.LastName"
+                                              For="@(() => user.LastName)"
+                                              Immediate="true"
+                                              Label="Last Name"
+                                              Required="true" />
+                            </MudItem>            
+                            <MudItem xs="12">
+                                <MudTextField @bind-Value="user.PhoneNumber"
+                                              For="@(() => user.PhoneNumber)"
+                                              Immediate="true"
+                                              Label="Phone Number"
+                                              Required="true" />
+                            </MudItem>
+                            <MudItem xs="12">
+                                <MudSelect @bind-Value="enumValue" Label="Select Role" >
+                                    @foreach (Roles item in Enum.GetValues(typeof(Roles)))
+                                    {
+                                        <MudSelectItem Value="@item">@item</MudSelectItem>
+                                    }
+                                </MudSelect>
+                            </MudItem>
+                        </MudGrid>
+                    </MudForm>
+                </MudContainer>
+            </DialogContent>
+            <DialogActions>
+                <MudButton OnClick="Cancel">Cancel</MudButton>
+                <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+            </DialogActions>
+        </MudDialog>
+    </ChildContent>
+    <ErrorContent>
+        <CustomError Exception="context"></CustomError>
+    </ErrorContent>
+</ErrorBoundary>
+
+@code{
+    [CascadingParameter] 
+    MudDialogInstance MudDialog { get; set; } = default!;
+
+    [Parameter]
+    public UserViewModel user { get; set; } = new UserViewModel();
+
+    private MudForm _form = default!;
+    private UserViewModelValidator _userValidator = new UserViewModelValidator();
+
+    private Roles enumValue { get; set; } = Roles.User;
+
+    protected async override Task OnParametersSetAsync()
+    {
+        if (user.Role.Equals(Roles.Administrator.ToString()))
+        {
+            enumValue = Roles.Administrator;
+        }
+
+        await base.OnParametersSetAsync();
+    }
+
+    private void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+
+    private void Submit()
+    {
+        _form.Validate();
+
+        if (_form.IsValid)
+        {
+            user.Role = enumValue.ToString();
+
+            MudDialog.Close(DialogResult.Ok<UserViewModel>(user));
+        }
+    }
+}

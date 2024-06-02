@@ -1,0 +1,342 @@
+﻿@attribute [Authorize]
+
+@page "/users"
+@rendermode InteractiveServer
+
+@using AutoMapper;
+@using MediatR;
+@using Microsoft.AspNetCore.Authorization
+@using FX850P.Application.Exceptions;
+@using FX850P.Application.Users.Commands.LockUser
+@using FX850P.Application.Users.Commands.UnlockUser
+@using FX850P.Application.Users.Commands.UpdateUserPassword
+@using FX850P.Application.Users.Dtos;
+@using FX850P.Application.Users.Commands.AddRoleUser;
+@using FX850P.Application.Users.Commands.CreateUser;
+@using FX850P.Application.Users.Commands.UpdateUser;
+@using FX850P.Application.Users.Commands.DeleteUser;
+@using FX850P.Application.Users.Queries.GetUserDetails;
+@using FX850P.Application.Users.Queries.GetUserList;
+@using FX850P.Blazor.Components.Common
+@using FX850P.Blazor.Constants
+@using FX850P.Blazor.Extensions
+@using FX850P.Blazor.ViewModels.UserViewModels;
+@using FX850P.Presistence.Constants;
+@using System.Security.Claims;
+
+@inject IMediator _mediator;
+@inject IMapper _mapper;
+@inject IDialogService _dialogService;
+@inject AuthenticationStateProvider _authenticationStateProvider;
+
+<ErrorBoundary>
+    <ChildContent>
+        <PageTitle>@_title</PageTitle>
+
+        <MudText Typo="Typo.h5" Class="pa-2">@_title</MudText>
+
+        <MudPaper Class="pa-1" Elevation="0">
+            <MudBreadcrumbs Items="_items"></MudBreadcrumbs>
+        </MudPaper>
+
+        <MudPaper Class="pa-1" Elevation="0">
+            <MudTable ServerData="@(new Func<TableState, Task<TableData<UserListViewModel>>>(LoadData))" 
+                      @ref="_table" 
+                      Hover="true" 
+                      SortLabel="Sort By" 
+                      Elevation="0"
+                      Class="compact-table">
+                <ToolBarContent>
+                    <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" IconSize="Size.Small" Class="mt-0"
+                            @onclick="(e => Create())"></MudFab>
+                    <MudSpacer />
+                    <MudTextField T="string" ValueChanged="@(searchTerm => OnSearch(searchTerm))" Placeholder="Search"
+                                  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search"
+                                  IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                </ToolBarContent>
+                <HeaderContent>
+                    <MudTh><MudTableSortLabel T="UserListViewModel" SortLabel="Id" InitialDirection="SortDirection.Ascending">Id</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel T="UserListViewModel" SortLabel="Email">User</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel T="UserListViewModel" SortLabel="PhoneNumber">Phone Number</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel T="UserListViewModel" SortLabel="LockoutEnabled">Locked</MudTableSortLabel></MudTh>
+                    <MudTh>Action</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Id">@context.Id</MudTd>
+                    <MudTd DataLabel="User">@context.Email</MudTd>
+                    <MudTd DataLabel="Phone Number">@context.PhoneNumber</MudTd>
+                    <MudTd DataLabel="Locked">@context.LockoutEnabled</MudTd>
+                    <MudTd>
+                        <MudMenu Label="Action">
+                            <MudMenuItem OnClick="(e => Update(context.Id))">Edit</MudMenuItem>
+                            <MudMenuItem OnClick="(e => Delete(context.Id))">Delete</MudMenuItem>
+                            <MudMenuItem OnClick="(e => ChangePassword(context.Id))">Change Password</MudMenuItem>
+                            <MudMenuItem OnClick="(e => Lock(context.Id))">Lock</MudMenuItem>
+                            <MudMenuItem OnClick="(e => Unlock(context.Id))">Unlock</MudMenuItem>
+                        </MudMenu>
+                    </MudTd>
+                </RowTemplate>
+                <PagerContent>
+                    <MudTablePager PageSizeOptions="new int[]{20,50,100}" />
+                </PagerContent>
+            </MudTable>
+        </MudPaper>
+    </ChildContent>
+    <ErrorContent>
+        <CustomError Exception="context"></CustomError>
+    </ErrorContent>
+</ErrorBoundary>
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> _authenticateState { get; set; } = default!;
+
+    private string _title = "Users";
+
+    private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
+    {
+        new BreadcrumbItem("Home", href: "/"),
+        new BreadcrumbItem("Users", href: null, disabled: true)
+    };
+
+    // Search Value from (Search box)
+    private string _searchValue = "";
+
+    private MudTable<UserListViewModel> _table = default!;
+
+    public async Task<TableData<UserListViewModel>> LoadData(TableState state)
+    {
+        var query = new GetUserListQuery
+            {
+                SearchString = _searchValue,
+                SortBy = state.SortLabel,
+                IsSortAscending = state.SortDirection == SortDirection.Descending ? false : true,
+                Page = state.Page + 1,
+                PageSize = state.PageSize
+            };
+
+        var result = await _mediator.Send(query);
+
+        var data = _mapper.Map<IEnumerable<UserDto>, IEnumerable<UserListViewModel>>(result.PageItems);
+
+        return new TableData<UserListViewModel>() { Items = data, TotalItems = result.Page.TotalItems };
+    }
+
+    private async Task OnSearch(string searchTerm)
+    {
+        _searchValue = searchTerm;
+        await _table.ReloadServerData();
+    }
+
+    private async Task Create()
+    {
+        var dialogOptions = AppDialogOptions.NormalDialog();
+        var parameters = new DialogParameters();
+        var user = new UserViewModel() { LockoutEnabled = false, Role = Roles.User.ToString() };
+        parameters.Add("user", user);
+        var dialog = await _dialogService.Show<AddOrUpdateUser>("Create a User", parameters, dialogOptions).Result;
+
+        if (dialog.Data != null)
+        {
+            try
+            {
+                UserViewModel newUser = dialog.Data as UserViewModel;
+
+                var command = _mapper.Map<CreateUserCommand>(newUser);
+                command.UserName = command.Email;
+                command.Password = Passwords.User.Default;
+
+                //Auditing
+                var authState = await _authenticateState;
+                command.CreatedById = authState.User.GetUserId();
+                command.DateCreated = DateTime.Now.ToUniversalTime();
+                command.ModifiedById = command.CreatedById;
+                command.DateModified = command.DateCreated;
+
+                var result = await _mediator.Send(command);
+                //Add roles
+                if (result != null)
+                {
+                    var userRoleCommand = new AddRoleToUserCommand() { Id = result.Id, Role = newUser.Role };
+                    await _mediator.Send(userRoleCommand);
+                }
+
+                await _table.ReloadServerData();
+            }
+            catch (ValidationException ex)
+            {
+                foreach (var failure in ex.Failures)
+                {
+                    await _dialogService.ShowMessageBox("Warning",
+                                                        failure.Value[0],
+                                                        yesText: "OK", cancelText: "Cancel");
+                }
+            }
+            catch (Exception ex)
+            {
+                await _dialogService.ShowMessageBox("Warning",
+                                                    ex.Message,
+                                                    yesText: "OK", cancelText: "Cancel");
+            }
+
+
+        }        
+    }
+
+    private async Task Update(string id)
+    {
+        var dialogOptions = AppDialogOptions.NormalDialog();
+        var query = new GetUserDetailsQuery { Id = id };
+        var result = await _mediator.Send(query);
+        var user = _mapper.Map<UserViewModel>(result);
+
+        var parameters = new DialogParameters();
+        parameters.Add("user", user);
+        var dialog = await _dialogService.Show<AddOrUpdateUser>("Update a User", parameters, dialogOptions).Result;
+
+        if (dialog.Data != null)
+        {
+            try
+            {
+                UserViewModel updateUser = dialog.Data as UserViewModel;
+                var command = _mapper.Map<UpdateUserCommand>(updateUser);
+
+                //Auditing
+                var authState = await _authenticateState;
+                command.ModifiedById = authState.User.GetUserId();
+                command.DateModified = DateTime.Now.ToUniversalTime();
+
+                await _mediator.Send(command);
+
+                await _table.ReloadServerData();
+            }
+            catch (ValidationException ex)
+            {
+                foreach (var failure in ex.Failures)
+                {
+                    await _dialogService.ShowMessageBox("Warning",
+                                                        failure.Value[0],
+                                                        yesText: "OK", cancelText: "Cancel");
+                }
+            }
+            catch (Exception ex)
+            {
+                await _dialogService.ShowMessageBox("Warning",
+                                                    ex.Message,
+                                                    yesText: "OK", cancelText: "Cancel");
+            }
+
+
+        }
+
+    }
+
+    private async Task Delete(string id)
+    {
+        bool? result = await _dialogService.ShowMessageBox( "Warning", 
+                                                            "Deleting can not be undone!", 
+                                                            yesText:"Delete!", cancelText:"Cancel");
+
+        if (result != null && result == true)
+        {
+            try
+            {
+                var command = new DeleteUserCommand { Id = id };
+
+                //Auditing
+                var authState = await _authenticateState;
+                command.ModifiedById = authState.User.GetUserId();
+                command.DateModified = DateTime.Now.ToUniversalTime();
+
+                await _mediator.Send(command);
+
+                await _table.ReloadServerData();
+            }
+            catch (Exception ex)
+            {
+                await _dialogService.ShowMessageBox("Warning",
+                                                    ex.Message,
+                                                    yesText: "OK", cancelText: "Cancel");
+            }
+
+        }
+
+    }
+
+    private async Task ChangePassword(string id)
+    {
+        var dialogOptions = AppDialogOptions.NormalDialog();
+        var parameters = new DialogParameters();
+        var updatePassword = new UpdatePasswordViewModel();
+        updatePassword.Id = id;
+        parameters.Add("updatePassword", updatePassword);
+        var dialog = await _dialogService.Show<UpdatePasswordUser>("Change Password", parameters, dialogOptions).Result;
+
+        if (dialog.Data != null)
+        {
+            try
+            {
+                UpdatePasswordViewModel updateUpdatePassword = (UpdatePasswordViewModel)dialog.Data!;
+                var command = _mapper.Map<UpdateUserPasswordCommand>(updateUpdatePassword);
+
+                await _mediator.Send(command);
+
+                await _table.ReloadServerData();
+            }
+            catch (ValidationException ex)
+            {
+                foreach (var failure in ex.Failures)
+                {
+                    await _dialogService.ShowMessageBox("Warning",
+                                                        failure.Value[0],
+                                                        yesText: "OK", cancelText: "Cancel");
+                }
+            }
+            catch (Exception ex)
+            {
+                await _dialogService.ShowMessageBox("Warning",
+                                                    ex.Message,
+                                                    yesText: "OK", cancelText: "Cancel");
+            }
+
+        }
+
+    }
+
+    private async Task Lock(string id)
+    {
+        try
+        {
+            var command = new LockUserCommand() { Id = id };
+
+            await _mediator.Send(command);
+
+            await _table.ReloadServerData();
+        }
+        catch (ValidationException)
+        {
+        }
+        catch (Exception)
+        {
+        }
+    }
+
+    private async Task Unlock(string id)
+    {
+        try
+        {
+            var command= new UnlockUserCommand() { Id = id };
+
+            await _mediator.Send(command);
+
+            await _table.ReloadServerData();
+        }
+        catch (ValidationException)
+        {
+        }
+        catch (Exception)
+        {
+        }
+    }
+
+}

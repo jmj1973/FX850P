@@ -1,0 +1,11 @@
+﻿<AuthorizeView>
+    <Authorized>
+        <MudChip Href="Account/Manage" Color="Color.Primary">Hello, @context.User.Identity?.Name!</MudChip>
+        <MudButton Href="Account/Logout" 
+                   Target="_blank" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Logout" Color="Color.Primary">Log out</MudButton>
+    </Authorized>
+    <NotAuthorized>
+        <MudButton Href="Account/Login"
+                   Target="_blank" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Login" Color="Color.Primary">Log in</MudButton>
+    </NotAuthorized>
+</AuthorizeView>

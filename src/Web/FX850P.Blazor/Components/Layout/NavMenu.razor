@@ -1,0 +1,13 @@
+﻿<AuthorizeView Roles="User">
+    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
+</AuthorizeView>
+<AuthorizeView Roles="Administrator">
+    <MudNavMenu>
+        <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
+        <MudNavGroup Title="Settings" Icon="@Icons.Material.Filled.Settings">
+            <MudNavLink Href="users" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.People">Users</MudNavLink>
+            <MudNavLink Href="roles" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.FolderShared">Roles</MudNavLink>
+            <MudNavLink Href="information" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Info">Information</MudNavLink>
+        </MudNavGroup>
+    </MudNavMenu>
+</AuthorizeView>

@@ -1,0 +1,67 @@
+﻿@using System.Timers
+
+@inject ISnackbar Snackbar
+@inject IJSRuntime _jsRuntime
+@inject NavigationManager _navigationManager
+
+<MudPopoverProvider></MudPopoverProvider>
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> _authenticateState { get; set; } = default!;
+
+    private Timer _timerObj = default!;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Snackbar.Clear();
+        Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopCenter;
+        Snackbar.Configuration.MaxDisplayedSnackbars = 5;
+        Snackbar.Configuration.SnackbarVariant = Variant.Filled;
+        Snackbar.Configuration.PreventDuplicates = true;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            // Set the Timer delay.  5000 milliseconds, you can change it to 10 mins (600000).
+            _timerObj = new Timer(5000); //Testing
+                                         //_timerObj = new Timer(600000);
+            _timerObj.Elapsed += UpdateTimer;
+            _timerObj.AutoReset = false;
+            // Identify whether the user is active or inactive using onmousemove and onkeypress in JS function.
+            await _jsRuntime.InvokeVoidAsync("timeOutCall", DotNetObjectReference.Create(this));
+            //StateHasChanged();
+        }
+    }
+
+    [JSInvokable]
+    public void TimerInterval()
+    {
+        // Resetting the Timer if the user in active state.
+        _timerObj.Stop();
+        // Call the TimeInterval to logout when the user is inactive.
+        _timerObj.Start();
+    }
+
+    private void UpdateTimer(Object? source, ElapsedEventArgs e)
+    {
+        InvokeAsync(async () =>
+        {
+            // Log out when the user is inactive.
+            var authstate = await _authenticateState;
+            if (authstate.User?.Identity?.IsAuthenticated ?? false)
+            {
+                _navigationManager.NavigateTo("Account/Logout");
+            }
+        });
+    }
+
+}

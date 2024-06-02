@@ -1,0 +1,68 @@
+﻿@attribute [Authorize]
+
+@page "/information"
+@rendermode InteractiveServer
+
+@using Microsoft.AspNetCore.Authorization
+@using FX850P.Blazor.Components.Common
+@using FX850P.Blazor.ViewModels.InformationViewModels;
+@using System.Reflection;
+
+<ErrorBoundary>
+    <ChildContent>
+
+        <PageTitle>@_title</PageTitle>
+
+        <MudText Typo="Typo.h5" Class="pa-2">@_title</MudText>
+
+        <MudPaper Class="pa-1" Elevation="0">
+            <MudBreadcrumbs Items="_items"></MudBreadcrumbs>
+        </MudPaper>
+
+        <MudPaper Class="pa-4" Elevation="0">
+            <MudGrid Justify="Justify.Center">
+                <MudItem xs="2">
+                    <MudText>Version</MudText>
+                </MudItem>
+                <MudItem xs="10">
+                    <MudText>@_informationViewModel.Version</MudText>
+                </MudItem>
+                <MudItem xs="2">
+                    <MudText>Release Date</MudText>
+                </MudItem>
+                <MudItem xs="10">
+                    <MudText>@_informationViewModel.ReleaseDate</MudText>
+                </MudItem>
+            </MudGrid>
+        </MudPaper>
+    </ChildContent>
+    <ErrorContent>
+        <CustomError Exception="context"></CustomError>
+    </ErrorContent>
+</ErrorBoundary>
+
+@code {
+    private string _title = "Information";
+
+    private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
+    {
+        new BreadcrumbItem("Home", href: "/"),
+        new BreadcrumbItem("Information", href: null, disabled: true)
+    };
+
+    private InformationViewModel _informationViewModel = default!;
+
+    protected override void OnInitialized()
+    {
+        var location = Assembly.GetEntryAssembly()?.Location;
+
+        var date = System.IO.File.GetCreationTime(location);
+
+        _informationViewModel = new InformationViewModel
+        {
+            Version = Assembly.GetEntryAssembly()?.GetName().Version,
+            ReleaseDate = date
+        };
+    }
+
+}
