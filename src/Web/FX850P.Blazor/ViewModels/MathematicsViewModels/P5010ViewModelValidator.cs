@@ -13,7 +13,7 @@ namespace FX850P.Blazor.ViewModels.MathematicsViewModels
             RuleFor(x => x.Base)
                 .NotEmpty().WithMessage("{PropertyName} is required.")
                 .NotNull()
-                .GreaterThan(1).WithMessage("{PropertyName} > 1 is required.");
+                .GreaterThan(1).WithMessage("{PropertyName} > 1");
         }
 
         public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>

@@ -1,0 +1,113 @@
+﻿@page "/mathematics/p5020"
+@using FX850P.Blazor.Components.Common
+@using FX850P.Blazor.ViewModels.MathematicsViewModels
+
+<ErrorBoundary>
+    <ChildContent>
+        <PageTitle>@_title</PageTitle>
+
+        <MudText Typo="Typo.h5" Class="pa-2">@_title</MudText>
+
+        <MudPaper Class="pa-1" Elevation="0">
+            <MudBreadcrumbs Items="_items"></MudBreadcrumbs>
+        </MudPaper>
+
+        <MudPaper Class="pa-1" Elevation="0">
+            <MudContainer>
+                <MudForm Model="@_p5020" @ref="_form" Validation="@(_p5020Validator.ValidateValue)" ValidationDelay="0">
+                    <MudGrid>
+                        <MudText>@(@"G.C.M & L.C.M  (1 =< A.B =< 10^10)")</MudText>
+                        <MudItem xs="12" Class="pa-4">
+                            <MudNumericField @bind-Value="_p5020.A"
+                                             For="@(() => _p5020.A)"
+                                             Immediate="true"
+                                             Label="A ?"
+                                             Required="true" />
+
+                        </MudItem>
+                        <MudItem xs="12" Class="pa-4">
+                            <MudNumericField @bind-Value="_p5020.B"
+                                             For="@(() => _p5020.B)"
+                                             Immediate="true"
+                                             Label="B ?"
+                                             Required="true" />
+
+                        </MudItem>
+                        <MudText>@_p5020.Result</MudText>
+                    </MudGrid>
+                </MudForm>
+                <MudSpacer />
+                <MudGrid>
+                    <MudItem xs="12" Class="pa-4 py-10">
+                        <MudButton OnClick="Cancel">Cancel</MudButton>
+                        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+                    </MudItem>
+                </MudGrid>
+            </MudContainer>
+        </MudPaper>
+    </ChildContent>
+    <ErrorContent>
+        <CustomError Exception="context"></CustomError>
+    </ErrorContent>
+</ErrorBoundary>
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> _authenticateState { get; set; } = default!;
+
+    private string _title = "5020 GREATEST COMMON MEASURE / LEASRT COMMON MULTIPLE";
+
+    private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
+    {
+        new BreadcrumbItem("Home", href: "/"),
+        new BreadcrumbItem("5020 GREATEST COMMON MEASURE / LEASRT COMMON MULTIPLE", href: null, disabled: true)
+    };
+
+    private MudForm _form = default!;
+    private P5020ViewModel _p5020 = new P5020ViewModel();
+    private P5020ViewModelValidator _p5020Validator = new P5020ViewModelValidator();
+
+
+    protected override void OnInitialized()
+    {
+        _p5020.Result = "";
+    }
+
+
+    private void Cancel()
+    {
+        _p5020.Result = "";
+        _p5020.A = 0;
+        _p5020.B = 0;
+    }
+
+    private async Task Submit()
+    {
+        await _form.Validate();
+
+        if (_form.IsValid)
+        {
+            _p5020.GCM = GCM(_p5020.A, _p5020.B);
+            _p5020.LCM = LCM(_p5020.A, _p5020.B);
+
+            _p5020.Result = $"G.C.M = {_p5020.GCM} L.C.M = {_p5020.LCM}";
+        }
+    }
+
+    private  int GCM(int a, int b)
+    {
+        while (b != 0)
+        {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+
+    private int LCM(int a, int b)
+    {
+        return (a / GCM(a, b)) * b;
+    }
+
+}

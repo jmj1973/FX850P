@@ -2,8 +2,6 @@
 @using FX850P.Blazor.Components.Common
 @using FX850P.Blazor.ViewModels.MathematicsViewModels
 
-
-
 <ErrorBoundary>
     <ChildContent>
         <PageTitle>@_title</PageTitle>
@@ -27,7 +25,7 @@
                                             Required="true"/>
 
                         </MudItem>
-                        <MudText>@_p5010.ResultText</MudText>
+                        <MudText>@_p5010.Result</MudText>
                     </MudGrid>
                 </MudForm>
                 <MudSpacer />
@@ -64,13 +62,13 @@
 
     protected override void OnInitialized()
     {
-        _p5010.ResultText = "";
+        _p5010.Result = "";
     }
 
 
     private void Cancel()
     {
-        _p5010.ResultText = "";
+        _p5010.Result = "";
         _p5010.Base = 0;
 
     }
@@ -81,7 +79,7 @@
 
         if (_form.IsValid)
         {
-            _p5010.ResultText = $"{_p5010.Base} =";
+            _p5010.Result = $"{_p5010.Base} =";
             Calc();
         }
     }
@@ -99,8 +97,8 @@
                     x++;
                 }
 
-                _p5010.ResultText += (b == 2) ? " " : " + ";
-                _p5010.ResultText += $"{b}^{x}";                                
+                _p5010.Result += (b == 2) ? " " : " + ";
+                _p5010.Result += $"{b}^{x}";                                
             }
         }
     }

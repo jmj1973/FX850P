@@ -4,6 +4,6 @@
     {
         public int Base { get; set; }
 
-        public string ResultText { get; set; } = default;
+        public string Result { get; set; } = default;
     }
 }
