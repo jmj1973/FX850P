@@ -1,0 +1,109 @@
+﻿@page "/mathematics/p5010"
+@using FX850P.Blazor.Components.Common
+@using FX850P.Blazor.ViewModels.MathematicsViewModels
+
+
+
+<ErrorBoundary>
+    <ChildContent>
+        <PageTitle>@_title</PageTitle>
+
+        <MudText Typo="Typo.h5" Class="pa-2">@_title</MudText>
+
+        <MudPaper Class="pa-1" Elevation="0">
+            <MudBreadcrumbs Items="_items"></MudBreadcrumbs>
+        </MudPaper>
+
+        <MudPaper Class="pa-1" Elevation="0">
+            <MudContainer>
+                <MudForm Model="@_p5010" @ref="_form" Validation="@(_p5010Validator.ValidateValue)" ValidationDelay="0">
+                    <MudGrid>
+                        <MudText>@(@"Prime Factors  (2 =< Base =< 10^10)")</MudText>
+                        <MudItem xs="12" Class="pa-4">
+                            <MudNumericField @bind-Value="_p5010.Base"
+                                             For="@(() => _p5010.Base)"
+                                            Immediate="true"
+                                            Label="Base ?"
+                                            Required="true"/>
+
+                        </MudItem>
+                        <MudText>@_p5010.ResultText</MudText>
+                    </MudGrid>
+                </MudForm>
+                <MudSpacer />
+                <MudGrid>
+                    <MudItem xs="12" Class="pa-4 py-10">
+                        <MudButton OnClick="Cancel">Cancel</MudButton>
+                        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+                    </MudItem>
+                </MudGrid>
+            </MudContainer>
+        </MudPaper>
+    </ChildContent>
+    <ErrorContent>
+        <CustomError Exception="context"></CustomError>
+    </ErrorContent>
+</ErrorBoundary>
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> _authenticateState { get; set; } = default!;
+
+    private string _title = "5010 PRIME FACTOR ANALYSIS";
+
+    private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
+    {
+        new BreadcrumbItem("Home", href: "/"),
+        new BreadcrumbItem("5010 PRIME FACTOR ANALYSIS", href: null, disabled: true)
+    };
+
+    private MudForm _form = default!;
+    private P5010ViewModel _p5010 = new P5010ViewModel();
+    private P5010ViewModelValidator _p5010Validator = new P5010ViewModelValidator();
+
+
+    protected override void OnInitialized()
+    {
+        _p5010.ResultText = "";
+    }
+
+
+    private void Cancel()
+    {
+        _p5010.ResultText = "";
+        _p5010.Base = 0;
+
+    }
+
+    private async Task Submit()
+    {
+        await _form.Validate();
+
+        if (_form.IsValid)
+        {
+            _p5010.ResultText = $"{_p5010.Base} =";
+            Calc();
+        }
+    }
+
+    private void Calc()
+    {
+        for (int b = 2; _p5010.Base > 1; b++)
+        {
+            if (_p5010.Base % b == 0)
+            {
+                int x = 0;
+                while (_p5010.Base % b == 0)
+                {
+                    _p5010.Base /= b;
+                    x++;
+                }
+
+                _p5010.ResultText += (b == 2) ? " " : " + ";
+                _p5010.ResultText += $"{b}^{x}";                                
+            }
+        }
+    }
+
+
+}

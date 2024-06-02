@@ -1,4 +1,7 @@
 # FX850P
+
+ This is a project to create the My Old Casio FX-850P functions in an Asp.Net Core application.
+
  Use Visual Studio Code and .Net 8.0
  
  [Release](doc/RELEASE.md)
