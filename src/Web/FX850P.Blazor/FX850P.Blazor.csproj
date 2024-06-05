@@ -36,6 +36,14 @@
     <ProjectReference Include="..\..\Infrastructure\FX850P.Presistence.SQLite\FX850P.Presistence.SQLite.csproj" />
     <ProjectReference Include="..\..\Infrastructure\FX850P.Presistence\FX850P.Presistence.csproj" />
   </ItemGroup>
+
+  
+  
+  <ItemGroup>
+    <Content Update="wwwroot\favicon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   
   
   <ItemGroup>

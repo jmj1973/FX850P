@@ -1,11 +1,24 @@
-﻿<AuthorizeView>
+﻿@inject NavigationManager NavigationManager
+
+<AuthorizeView>
     <Authorized>
         <MudChip Href="Account/Manage" Color="Color.Primary">Hello, @context.User.Identity?.Name!</MudChip>
-        <MudButton Href="Account/Logout" 
-                   Target="_blank" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Logout" Color="Color.Primary">Log out</MudButton>
+        <MudButton Target="_blank" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Logout" Color="Color.Primary" OnClick="Logout">Log out</MudButton>
     </Authorized>
     <NotAuthorized>
-        <MudButton Href="Account/Login"
-                   Target="_blank" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Login" Color="Color.Primary">Log in</MudButton>
+        <MudButton Target="_blank" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Login" Color="Color.Primary" OnClick="Login">Log in</MudButton>
     </NotAuthorized>
 </AuthorizeView>
+
+@code {
+
+    private async Task Logout()
+    {
+        NavigationManager.NavigateTo("Account/Logout");
+    }
+
+    private async Task Login()
+    {
+        NavigationManager.NavigateTo("Account/Login");
+    }
+}
