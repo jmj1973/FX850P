@@ -1,6 +1,6 @@
 ﻿namespace FX850P.Blazor.ViewModels.RoleViewModels
 {
-    public class RoleListViewModel
+    public class RoleViewModel
     {
         public string Id { get; set; } = default!;
 
