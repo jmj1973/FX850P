@@ -17,6 +17,7 @@ using FX850P.Presistence;
 using System.Reflection;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace FX850P.Blazor
 {
@@ -63,6 +64,12 @@ namespace FX850P.Blazor
                     loggingBuilder.AddConsole();
                 }
                 loggingBuilder.AddDebug();
+
+                var logger = new LoggerConfiguration()
+                                    .ReadFrom.Configuration(Configuration)
+                                    .Enrich.FromLogContext()
+                                    .CreateLogger();
+                loggingBuilder.AddSerilog(logger);
             });
 
             services.AddBlazorOptions(Configuration);
