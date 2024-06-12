@@ -262,7 +262,7 @@ namespace FX850P.Presistence.PostgreSQL.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMINISTRATOR@JMJ1973.CO.ZA",
                             NormalizedUserName = "ADMINISTRATOR@JMJ1973.CO.ZA",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKysUmDX1hzvV9FdcAFILjn+UTX0biDuxZtwHolAEfdii5gaLSEbDMv6smAOMk7ozQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDoK/DvFjVGOhylsE7jtc/kdId2Fe09ruleRMVP60RWmpREgf1PYLDyAyjrRCRrDRw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "daf39b52-aef3-4cab-9d04-75bc25270dfa",
                             TwoFactorEnabled = false,

@@ -253,7 +253,7 @@ namespace FX850P.Presistence.SQLite.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMINISTRATOR@JMJ1973.CO.ZA",
                             NormalizedUserName = "ADMINISTRATOR@JMJ1973.CO.ZA",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEaTFQ2AEVFKk9cuThEmtD3QsONYH+FLMvKjEETowgv7TKmpRedzsIAJAVBbedHtFA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDoK/DvFjVGOhylsE7jtc/kdId2Fe09ruleRMVP60RWmpREgf1PYLDyAyjrRCRrDRw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "3be93973-1007-430f-952f-75ad727386a0",
                             TwoFactorEnabled = false,

@@ -176,7 +176,7 @@ namespace FX850P.Presistence.PostgreSQL.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, "4e0c97d1-22ed-4985-b48a-f03747f2690b", "administrator@jmj1973.co.za", true, "System", "Admin", false, null, "ADMINISTRATOR@JMJ1973.CO.ZA", "ADMINISTRATOR@JMJ1973.CO.ZA", "AQAAAAIAAYagAAAAEKysUmDX1hzvV9FdcAFILjn+UTX0biDuxZtwHolAEfdii5gaLSEbDMv6smAOMk7ozQ==", null, false, "daf39b52-aef3-4cab-9d04-75bc25270dfa", false, "administrator@jmj1973.co.za" },
+                    { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, "4e0c97d1-22ed-4985-b48a-f03747f2690b", "administrator@jmj1973.co.za", true, "System", "Admin", false, null, "ADMINISTRATOR@JMJ1973.CO.ZA", "ADMINISTRATOR@JMJ1973.CO.ZA", "AQAAAAEAACcQAAAAEDoK/DvFjVGOhylsE7jtc/kdId2Fe09ruleRMVP60RWmpREgf1PYLDyAyjrRCRrDRw==", null, false, "daf39b52-aef3-4cab-9d04-75bc25270dfa", false, "administrator@jmj1973.co.za" },
                     { "9e224968-33e4-4652-b7b7-8574d048cdb9", 0, "aa279239-3f28-43cc-8921-a1ce717a0c80", "user@jmj1973.co.za", true, "System", "User", false, null, "USER@JMJ1973.CO.ZA", "USER@JMJ1973.CO.ZA", "AQAAAAIAAYagAAAAEPhXEqF5iqxnug+kUDfMYs2NRuMV+v7RDBrSPiCA1lEAhlL2H0E0iof/wXs5vyoljg==", null, false, "528afa75-6ef5-4a84-bcee-1563df050595", false, "user@jmj1973.co.za" }
                 });
 

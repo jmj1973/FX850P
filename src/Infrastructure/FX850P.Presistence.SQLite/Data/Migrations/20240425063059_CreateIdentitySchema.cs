@@ -175,7 +175,7 @@ namespace FX850P.Presistence.SQLite.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, "4066ad7e-7bf1-4eff-b983-bf1f1931f20d", "administrator@jmj1973.co.za", true, "System", "Admin", false, null, "ADMINISTRATOR@JMJ1973.CO.ZA", "ADMINISTRATOR@JMJ1973.CO.ZA", "AQAAAAIAAYagAAAAEEaTFQ2AEVFKk9cuThEmtD3QsONYH+FLMvKjEETowgv7TKmpRedzsIAJAVBbedHtFA==", null, false, "3be93973-1007-430f-952f-75ad727386a0", false, "administrator@jmj1973.co.za" },
+                    { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, "4066ad7e-7bf1-4eff-b983-bf1f1931f20d", "administrator@jmj1973.co.za", true, "System", "Admin", false, null, "ADMINISTRATOR@JMJ1973.CO.ZA", "ADMINISTRATOR@JMJ1973.CO.ZA", "AQAAAAEAACcQAAAAEDoK/DvFjVGOhylsE7jtc/kdId2Fe09ruleRMVP60RWmpREgf1PYLDyAyjrRCRrDRw==", null, false, "3be93973-1007-430f-952f-75ad727386a0", false, "administrator@jmj1973.co.za" },
                     { "9e224968-33e4-4652-b7b7-8574d048cdb9", 0, "a6284005-86ee-4308-aad0-9b56fe24194c", "user@jmj1973.co.za", true, "System", "User", false, null, "USER@JMJ1973.CO.ZA", "USER@JMJ1973.CO.ZA", "AQAAAAIAAYagAAAAEDXftxSUK1I7/nlUwZspb6fIQyg0CqXjBeRufNkMkHb1jKnU1dJ1J8OBVYqCb7hHuw==", null, false, "de6a08f2-3465-47e5-ade5-ee60d940ad37", false, "user@jmj1973.co.za" }
                 });
 
