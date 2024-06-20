@@ -251,15 +251,11 @@ paket-files/
 .idea/
 *.sln.iml
 
-# LicenseServer
-src/eCost.LicenseServer.Web/Logs/*
-src/eCost.LicenseServer.Web.Host/Logs/*
-src/eCost.LicenseServer.IdentityServer/Logs/*
-src/eCost.LicenseServer.HttpApi.Host/Logs/*
-src/eCost.LicenseServer.HttpApi.HostWithIds/Logs/*
-src/eCost.LicenseServer.DbMigrator/Logs/*
-src/eCost.LicenseServer.Blazor.Server/Logs/*
-src/eCost.LicenseServer.Blazor.Server.Tiered/Logs/*
+# FX850P
+/src/Web/FX850P.Blazor/Logs/*
+/src/Web/FX850P.Blazor/FX850P.db
+/src/Web/FX850P.Blazor/FX850P.db-shm
+/src/Web/FX850P.Blazor/FX850P.db-wal
 
 # Use abp install-libs to restore.
 **/wwwroot/libs/*
@@ -267,16 +263,16 @@ src/eCost.LicenseServer.Blazor.Server.Tiered/Logs/*
 
 # Custome appsettings per latop
 *.Development.*
-/src/Web/ServiceMate.Blazor/appsettings.Development.json
-/src/Infrastructure/ServiceMate.Presistence/obj/ServiceMate.Presistence.csproj.nuget.g.props
-/src/Infrastructure/ServiceMate.Presistence/obj/ServiceMate.Presistence.csproj.nuget.dgspec.json
-/src/Infrastructure/ServiceMate.Presistence/obj/project.assets.json
-/src/Infrastructure/ServiceMate.Infrastructure/obj/ServiceMate.Infrastructure.csproj.nuget.g.props
-/src/Infrastructure/ServiceMate.Infrastructure/obj/ServiceMate.Infrastructure.csproj.nuget.dgspec.json
-/src/Infrastructure/ServiceMate.Infrastructure/obj/project.assets.json
-/src/Core/ServiceMate.Domain/obj/ServiceMate.Domain.csproj.nuget.g.props
-/src/Core/ServiceMate.Domain/obj/ServiceMate.Domain.csproj.nuget.dgspec.json
-/src/Core/ServiceMate.Domain/obj/project.assets.json
-/src/Core/ServiceMate.Application/obj/ServiceMate.Application.csproj.nuget.g.props
-/src/Core/ServiceMate.Application/obj/ServiceMate.Application.csproj.nuget.dgspec.json
-/src/Core/ServiceMate.Application/obj/project.assets.json
+/src/Web/FX850P.Blazor/appsettings.Development.json
+/src/Infrastructure/FX850P.Presistence/obj/FX850P.Presistence.csproj.nuget.g.props
+/src/Infrastructure/FX850P.Presistence/obj/FX850P.Presistence.csproj.nuget.dgspec.json
+/src/Infrastructure/FX850P.Presistence/obj/project.assets.json
+/src/Infrastructure/FX850P.Infrastructure/obj/FX850P.Infrastructure.csproj.nuget.g.props
+/src/Infrastructure/FX850P.Infrastructure/obj/FX850P.Infrastructure.csproj.nuget.dgspec.json
+/src/Infrastructure/FX850P.Infrastructure/obj/project.assets.json
+/src/Core/FX850P.Domain/obj/FX850P.Domain.csproj.nuget.g.props
+/src/Core/FX850P.Domain/obj/FX850P.Domain.csproj.nuget.dgspec.json
+/src/Core/FX850P.Domain/obj/project.assets.json
+/src/Core/FX850P.Application/obj/FX850P.Application.csproj.nuget.g.props
+/src/Core/FX850P.Application/obj/FX850P.Application.csproj.nuget.dgspec.json
+/src/Core/FX850P.Application/obj/project.assets.json
