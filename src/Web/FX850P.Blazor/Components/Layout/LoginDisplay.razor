@@ -2,7 +2,7 @@
 
 <AuthorizeView>
     <Authorized>
-        <MudChip Color="Color.Primary">Hello, @context.User.Identity?.Name!</MudChip>
+        <MudChip T="string" Color="Color.Primary">Hello, @context.User.Identity?.Name!</MudChip>
         <MudButton Target="_blank" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Logout" Color="Color.Primary" OnClick="Logout">Log out</MudButton>
     </Authorized>
     <NotAuthorized>

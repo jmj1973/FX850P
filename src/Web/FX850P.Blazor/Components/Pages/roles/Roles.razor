@@ -18,6 +18,7 @@
 @using FX850P.Blazor.ViewModels.CommonViewModels;
 @using FX850P.Blazor.ViewModels.RoleViewModels;
 @using System.Reflection;
+@using System.Threading
 
 @inject IMediator _mediator;
 @inject IMapper _mapper;
@@ -36,7 +37,7 @@
         </MudPaper>
 
         <MudPaper Class="pa-1" Elevation="0">
-            <MudTable ServerData="@(new Func<TableState, Task<TableData<KeyValuePairViewModel<string>>>>(LoadData))" 
+            <MudTable ServerData="@(new Func<TableState, CancellationToken, Task<TableData<KeyValuePairViewModel<string>>>>(LoadData))" 
                       @ref="_table" 
                       Hover="true" 
                       SortLabel="Sort By" 
@@ -94,7 +95,7 @@
 
     private MudTable<KeyValuePairViewModel<string>> _table = default!;
 
-    public async Task<TableData<KeyValuePairViewModel<string>>> LoadData(TableState state)
+    public async Task<TableData<KeyValuePairViewModel<string>>> LoadData(TableState state, CancellationToken token)
     {
         var query = new GetRoleListQuery
             {
@@ -105,7 +106,7 @@
                 PageSize = state.PageSize
             };
 
-        var result = await _mediator.Send(query);
+        var result = await _mediator.Send(query, token);
 
         var data = _mapper.Map<IEnumerable<KeyValuePairDto<string>>, IEnumerable<KeyValuePairViewModel<string>>>(result.PageItems);
 

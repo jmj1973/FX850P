@@ -23,6 +23,7 @@
 @using FX850P.Blazor.ViewModels.UserViewModels;
 @using FX850P.Presistence.Constants;
 @using System.Security.Claims;
+@using System.Threading
 
 @inject IMediator _mediator;
 @inject IMapper _mapper;
@@ -40,7 +41,7 @@
         </MudPaper>
 
         <MudPaper Class="pa-1" Elevation="0">
-            <MudTable ServerData="@(new Func<TableState, Task<TableData<UserViewModel>>>(LoadData))" 
+            <MudTable ServerData="@(new Func<TableState, CancellationToken, Task<TableData<UserViewModel>>>(LoadData))"
                       @ref="_table" 
                       Hover="true" 
                       SortLabel="Sort By" 
@@ -104,7 +105,7 @@
 
     private MudTable<UserViewModel> _table = default!;
 
-    public async Task<TableData<UserViewModel>> LoadData(TableState state)
+    public async Task<TableData<UserViewModel>> LoadData(TableState state, CancellationToken token)
     {
         var query = new GetUserListQuery
             {
@@ -115,7 +116,7 @@
                 PageSize = state.PageSize
             };
 
-        var result = await _mediator.Send(query);
+        var result = await _mediator.Send(query, token);
 
         var data = _mapper.Map<IEnumerable<UserDto>, IEnumerable<UserViewModel>>(result.PageItems);
 
