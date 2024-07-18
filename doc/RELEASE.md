@@ -10,5 +10,6 @@
 - ADD:      Add serilog to file
 - CHANGE:   MudBlazor 7.0.0. 
             https://github.com/MudBlazor/MudBlazor/issues/8447
+- CHANGE:   MudBlazor 7.3.0. 
 
 
