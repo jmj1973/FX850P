@@ -145,7 +145,6 @@ namespace FX850P.Blazor
                 app.UseExceptionHandler("/Error");
                 //https://blog.elmah.io/the-asp-net-core-security-headers-guide/
                 //https://neelbhatt.com/2018/02/04/enforce-ssl-and-use-hsts-in-net-core-net-core-security-part-i/
-                //app.UseHsts();
             }
 
             app.UseHttpsRedirection();
@@ -167,18 +166,18 @@ namespace FX850P.Blazor
                 endpoints.MapAdditionalIdentityEndpoints();
 
                 //Disabling the Register
-                endpoints.MapGet("/Identity/Account/Register", context => Task.Factory.StartNew(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
-                endpoints.MapPost("/Identity/Account/Register", context => Task.Factory.StartNew(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
-                endpoints.MapGet("/Identity/Account/ConfirmEmail", context => Task.Factory.StartNew(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
-                endpoints.MapPost("/Identity/Account/ConfirmEmail", context => Task.Factory.StartNew(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
-                endpoints.MapGet("/Identity/Account/ForgotPassword", context => Task.Factory.StartNew(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
-                endpoints.MapPost("/Identity/Account/ForgotPassword", context => Task.Factory.StartNew(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
-                endpoints.MapGet("/Identity/Account/ResetPassword", context => Task.Factory.StartNew(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
-                endpoints.MapPost("/Identity/Account/ResetPassword", context => Task.Factory.StartNew(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
-                endpoints.MapGet("/Identity/Account/SendCode", context => Task.Factory.StartNew(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
-                endpoints.MapPost("/Identity/Account/SendCode", context => Task.Factory.StartNew(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
-                endpoints.MapGet("/Identity/Account/VerifyCode", context => Task.Factory.StartNew(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
-                endpoints.MapPost("/Identity/Account/VerifyCode", context => Task.Factory.StartNew(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
+                endpoints.MapGet("/Identity/Account/Register", context => Task.Run(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
+                endpoints.MapPost("/Identity/Account/Register", context => Task.Run(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
+                endpoints.MapGet("/Identity/Account/ConfirmEmail", context => Task.Run(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
+                endpoints.MapPost("/Identity/Account/ConfirmEmail", context => Task.Run(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
+                endpoints.MapGet("/Identity/Account/ForgotPassword", context => Task.Run(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
+                endpoints.MapPost("/Identity/Account/ForgotPassword", context => Task.Run(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
+                endpoints.MapGet("/Identity/Account/ResetPassword", context => Task.Run(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
+                endpoints.MapPost("/Identity/Account/ResetPassword", context => Task.Run(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
+                endpoints.MapGet("/Identity/Account/SendCode", context => Task.Run(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
+                endpoints.MapPost("/Identity/Account/SendCode", context => Task.Run(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
+                endpoints.MapGet("/Identity/Account/VerifyCode", context => Task.Run(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
+                endpoints.MapPost("/Identity/Account/VerifyCode", context => Task.Run(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
             });
 
             app.UsePresistence();

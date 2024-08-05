@@ -12,13 +12,17 @@
 
 @code {
 
-    private async Task Logout()
+    private Task Logout()
     {
         NavigationManager.NavigateTo("Account/Logout");
+
+        return Task.CompletedTask;
     }
 
-    private async Task Login()
+    private Task Login()
     {
         NavigationManager.NavigateTo("Account/Login");
+
+        return Task.CompletedTask;
     }
 }

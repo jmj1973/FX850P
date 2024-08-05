@@ -54,13 +54,22 @@
 
     protected override void OnInitialized()
     {
-        var location = Assembly.GetEntryAssembly()?.Location;
+        string? location = Assembly.GetEntryAssembly()?.Location;
 
-        var date = System.IO.File.GetCreationTime(location);
+        DateTime date = DateTime.Now;
+
+        if (!string.IsNullOrWhiteSpace(location))
+            date = System.IO.File.GetCreationTime(location);
+
+        Version? assemblyVersion = Assembly.GetEntryAssembly()?.GetName().Version;
+        Version version = new Version();
+
+        if (assemblyVersion != null)
+            version = assemblyVersion;
 
         _informationViewModel = new InformationViewModel
         {
-            Version = Assembly.GetEntryAssembly()?.GetName().Version,
+            Version = version,
             ReleaseDate = date
         };
     }

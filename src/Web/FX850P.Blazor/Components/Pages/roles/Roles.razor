@@ -100,7 +100,7 @@
         var query = new GetRoleListQuery
             {
                 SearchString = _searchValue,
-                SortBy = state.SortLabel,
+                SortBy = (string.IsNullOrWhiteSpace(state.SortLabel)) ? "" : state.SortLabel,
                 IsSortAscending = state.SortDirection == SortDirection.Descending ? false : true,
                 Page = state.Page + 1,
                 PageSize = state.PageSize
@@ -128,7 +128,7 @@
         parameters.Add("role", new KeyValuePairViewModel<string>());
         var dialog = await _dialogService.Show<AddOrUpdateRole>("Create a Role", parameters).Result;
 
-        if (dialog.Data != null)
+        if (dialog != null && dialog.Data != null)
         {
             try
             {
@@ -174,7 +174,7 @@
         parameters.Add("role", role);
         var dialog = await _dialogService.Show<AddOrUpdateRole>("Update a Role", parameters).Result;
 
-        if (dialog.Data != null)
+        if (dialog != null && dialog.Data != null)
         {
             try
             {

@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,17 +29,14 @@ namespace FX850P.Blazor.ViewModels.UserViewModels
                 .NotNull()
                 .MinimumLength(6).WithMessage("{PropertyName} must exceed {ComparisonValue} characters.");
 
-            //RuleFor(u => u.Password)
-            //    .NotEmpty().WithMessage("{PropertyName} is required.")
-            //    .NotNull()
-            //    .MinimumLength(6).WithMessage("{PropertyName} must exceed {ComparisonValue} characters.");
-
         }
         public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>
         {
-            var result = await ValidateAsync(ValidationContext<UserViewModel>.CreateWithOptions((UserViewModel)model, x => x.IncludeProperties(propertyName)));
+            ValidationResult result = await ValidateAsync(ValidationContext<UserViewModel>.CreateWithOptions((UserViewModel)model, x => x.IncludeProperties(propertyName)));
             if (result.IsValid)
+            {
                 return Array.Empty<string>();
+            }
             return result.Errors.Select(e => e.ErrorMessage);
         };
 

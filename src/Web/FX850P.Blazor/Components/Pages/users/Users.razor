@@ -110,7 +110,7 @@
         var query = new GetUserListQuery
             {
                 SearchString = _searchValue,
-                SortBy = state.SortLabel,
+                SortBy = (string.IsNullOrWhiteSpace(state.SortLabel)) ? "" : state.SortLabel,
                 IsSortAscending = state.SortDirection == SortDirection.Descending ? false : true,
                 Page = state.Page + 1,
                 PageSize = state.PageSize
@@ -137,11 +137,12 @@
         parameters.Add("user", user);
         var dialog = await _dialogService.Show<AddOrUpdateUser>("Create a User", parameters, dialogOptions).Result;
 
-        if (dialog.Data != null)
+        if (dialog != null && dialog.Data != null)
         {
             try
             {
-                UserViewModel newUser = dialog.Data as UserViewModel;
+                UserViewModel? newUser = dialog.Data as UserViewModel;
+                ArgumentNullException.ThrowIfNull(newUser);
 
                 var command = _mapper.Map<CreateUserCommand>(newUser);
                 command.UserName = command.Email;
@@ -195,11 +196,13 @@
         parameters.Add("user", user);
         var dialog = await _dialogService.Show<AddOrUpdateUser>("Update a User", parameters, dialogOptions).Result;
 
-        if (dialog.Data != null)
+        if (dialog != null && dialog.Data != null)
         {
             try
             {
-                UserViewModel updateUser = dialog.Data as UserViewModel;
+                UserViewModel? updateUser = dialog.Data as UserViewModel;
+                ArgumentNullException.ThrowIfNull(updateUser);
+
                 var command = _mapper.Map<UpdateUserCommand>(updateUser);
 
                 //Auditing
@@ -273,7 +276,7 @@
         parameters.Add("updatePassword", updatePassword);
         var dialog = await _dialogService.Show<UpdatePasswordUser>("Change Password", parameters, dialogOptions).Result;
 
-        if (dialog.Data != null)
+        if (dialog != null && dialog.Data != null)
         {
             try
             {

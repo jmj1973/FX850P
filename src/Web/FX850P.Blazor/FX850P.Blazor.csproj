@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -8,6 +8,13 @@
     <Version>1.0.0</Version>
     <AssemblyVersion>1.0.0.1</AssemblyVersion>
     <FileVersion>1.0.0.1</FileVersion>
+
+	  <!-- Configure code analysis. -->
+	  <AnalysisLevel>latest</AnalysisLevel>
+	  <AnalysisMode>All</AnalysisMode>
+	  <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	  <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+	  <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>	  
   </PropertyGroup>
 
   
@@ -22,11 +29,20 @@
 	<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
 	<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="8.0.0" />
 	<PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.7" />
-	<PackageReference Include="MudBlazor" Version="7.3.0" />
-	<PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
+	<PackageReference Include="MudBlazor" Version="7.5.0" />
+	<PackageReference Include="Serilog.AspNetCore" Version="8.0.2" />
   </ItemGroup>
 
-  
+
+	<ItemGroup Condition="'$(MSBuildProjectExtension)' != '.dcproj'">
+		<PackageReference Include="SonarAnalyzer.CSharp" Version="*">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>
+				runtime; build; native; contentfiles; analyzers; buildtransitive
+			</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>	
+	
   
   <ItemGroup>
     <ProjectReference Include="..\..\Core\FX850P.Application\FX850P.Application.csproj" />

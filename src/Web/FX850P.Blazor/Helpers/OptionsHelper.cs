@@ -1,13 +1,9 @@
 ﻿using FX850P.Infrastructure.Options;
 using FX850P.Blazor.Options;
 
-namespace FX850P.Blazor.Helpers
+namespace FX850P.Blazor.Helpers;
+
+public static class OptionsHelper
 {
-    public class OptionsHelper
-    {
-        internal static void Configure(AppOptions options)
-        {
-            options.Inject(new BioServiceBlazorAppOptions());
-        }
-    }
+    internal static void Configure(AppOptions options) => options.Inject(new BioServiceBlazorAppOptions());
 }

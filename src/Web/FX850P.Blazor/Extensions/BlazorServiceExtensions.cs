@@ -10,82 +10,78 @@ using FX850P.Infrastructure.Extensions;
 using FX850P.Infrastructure.Options;
 using FX850P.Blazor.Options;
 using FX850P.Blazor.Services;
+using System;
 
-namespace FX850P.Blazor.Extensions
+namespace FX850P.Blazor.Extensions;
+
+public static class BlazorServiceExtensions
 {
-    public static class BlazorServiceExtensions
+    public static IServiceCollection AddAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
-        public static IServiceCollection AddAuthentication(this IServiceCollection services, IConfiguration configuration)
-        {
-            var appOptions = new BioServiceBlazorAppOptions();
+        var appOptions = new BioServiceBlazorAppOptions();
 
-            var tokenValidationOptions = configuration.GetSection("TokenValidationOptions")
-                                                      .Get<TokenValidationOptions>();
+        TokenValidationOptions? tokenValidationOptions = configuration.GetSection("TokenValidationOptions")
+                                                                      .Get<TokenValidationOptions>();
+        ArgumentNullException.ThrowIfNull(tokenValidationOptions);
 
-            var hostingOptions = configuration.GetSection("HostingOptions")
-                                              .Get<HostingOptions, BlazorHostingOptions>();
+        HostingOptions hostingOptions = configuration.GetSection("HostingOptions")
+                                          .Get<HostingOptions, BlazorHostingOptions>();
 
-            var cookieName = $"{appOptions.ProductName}.{hostingOptions.Port}";
+        string cookieName = $"{appOptions.ProductName}.{hostingOptions.Port}";
 
-            // Authentication: Enable JwtBearer and Cookie Authentication
-            services.AddAuthentication(options =>
+        // Authentication: Enable JwtBearer and Cookie Authentication
+        services.AddAuthentication(options =>
+                {
+                    options.DefaultScheme = IdentityConstants.ApplicationScheme;
+                    options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+                })
+                .AddCookie(options =>
+                {
+                    options.Cookie.Name = cookieName;
+                    options.SlidingExpiration = true;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = tokenValidationOptions.RequireHttpsMetadata;
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        options.DefaultScheme = IdentityConstants.ApplicationScheme;
-                        options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
-                    })
-                    .AddCookie(options =>
-                    {
-                        options.Cookie.Name = cookieName;
-                        options.SlidingExpiration = true;
-                    })
-                    .AddJwtBearer(options =>
-                    {
-                        options.RequireHttpsMetadata = tokenValidationOptions.RequireHttpsMetadata;
-                        options.SaveToken = true;
-                        options.TokenValidationParameters = new TokenValidationParameters
-                        {
-                            ValidateIssuer = tokenValidationOptions.ValidateIssuer,
-                            ValidIssuer = tokenValidationOptions.ValidIssuer,
-                            ValidateAudience = tokenValidationOptions.ValidateAudience,
-                            ValidAudience = tokenValidationOptions.ValidAudience,
-                            ValidateIssuerSigningKey = true,
-                            IssuerSigningKey = tokenValidationOptions.IssuerSigningKey,
-                            ValidateLifetime = tokenValidationOptions.ValidateLifetime,
-                            ClockSkew = tokenValidationOptions.ClockSkew,
-                        };
-                    });
+                        ValidateIssuer = tokenValidationOptions.ValidateIssuer,
+                        ValidIssuer = tokenValidationOptions.ValidIssuer,
+                        ValidateAudience = tokenValidationOptions.ValidateAudience,
+                        ValidAudience = tokenValidationOptions.ValidAudience,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = tokenValidationOptions.IssuerSigningKey,
+                        ValidateLifetime = tokenValidationOptions.ValidateLifetime,
+                        ClockSkew = tokenValidationOptions.ClockSkew,
+                    };
+                });
 
 
 
-            return services;
-        }
+        return services;
+    }
 
 
-        public static IServiceCollection ConfigureBlazorServices(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+    public static IServiceCollection ConfigureBlazorServices(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
-            //services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<ApplicationUser>>();
+        // Lookup services
+        services.AddTransient<IRoleLookupService, RoleLookupService>();
 
-            // Lookup services
-            services.AddTransient<IRoleLookupService, RoleLookupService>();
-
-            return services;
-        }
+        return services;
+    }
 
 
-        public static IServiceCollection AddBlazorOptions(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.Configure<AppOptions>(options => OptionsHelper.Configure(options));
-            services.Configure<TokenValidationOptions>(configuration.GetSection("TokenValidationOptions"));
+    public static IServiceCollection AddBlazorOptions(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<AppOptions>(options => OptionsHelper.Configure(options));
+        services.Configure<TokenValidationOptions>(configuration.GetSection("TokenValidationOptions"));
 
-            //services.Configure<TenantOptions>(configuration.GetSection("TenantOptions"));
-            //services.Configure<FileStoreOptions>(configuration.GetSection("FileStoreOptions"));
+        HostingOptions hostingOptions = configuration.GetSection("HostingOptions").Get<HostingOptions, BlazorHostingOptions>();
+        services.Configure<HostingOptions>(options => options.Inject(hostingOptions));
 
-            var hostingOptions = configuration.GetSection("HostingOptions").Get<HostingOptions, BlazorHostingOptions>();
-            services.Configure<HostingOptions>(options => options.Inject(hostingOptions));
-
-            return services;
-        }
+        return services;
     }
 }

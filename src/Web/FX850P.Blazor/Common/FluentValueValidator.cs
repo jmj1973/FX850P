@@ -14,6 +14,7 @@ namespace FX850P.Blazor.Common
     {
         public FluentValueValidator(Action<IRuleBuilderInitial<T, T>> rule)
         {
+            ArgumentNullException.ThrowIfNull(rule);
             rule(RuleFor(x => x));
         }
 
@@ -21,7 +22,7 @@ namespace FX850P.Blazor.Common
         {
             var result = Validate(arg);
             if (result.IsValid)
-                return new string[0];
+                return Array.Empty<string>();
             return result.Errors.Select(e => e.ErrorMessage);
         }
 
