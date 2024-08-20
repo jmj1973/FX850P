@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{C4016A26-8F3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{8BC58AD8-F413-4999-93B2-1784BC40CF19}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		doc\API.md = doc\API.md
 		doc\APPLICATION.md = doc\APPLICATION.md
 		doc\BLAZOR.md = doc\BLAZOR.md
