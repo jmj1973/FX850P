@@ -110,7 +110,7 @@ namespace FX850P.Blazor
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             //The ASP.NET Core security headers guide
             //https://blog.elmah.io/the-asp-net-core-security-headers-guide/
