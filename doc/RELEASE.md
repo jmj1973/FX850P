@@ -17,3 +17,23 @@
 
 - ADD:      Static Code analysis
             https://www.milanjovanovic.tech/blog/improving-code-quality-in-csharp-with-static-code-analysis?utm_source=newsletter&utm_medium=email&utm_campaign=tnw101    
+
+
+NOTE:
+=====
+Make sure the correct db is confiured for the migrations in appsettings.json
+
+MSSQL
+=====
+
+dotnet ef -s src/Web/FX850P.Blazor/FX850P.Blazor.csproj migrations add CreateIdentitySchema -p src/Infrastructure/FX850P.Blazor.Presistence.MSSQL/FX850P.Blazor.Presistence.MSSQL.csproj -c ApplicationDBContext -o Data/Migrations
+
+PostgreSQL
+==========
+
+dotnet ef -s src/Web/FX850P.Blazor/FX850P.Blazor.csproj migrations add CreateIdentitySchema -p src/Infrastructure/FX850P.Blazor.Presistence.PostgreSQL/FX850P.Blazor.Presistence.PostgreSQL.csproj -c ApplicationDBContext -o Data/Migrations
+
+SQLite
+======
+
+dotnet ef -s src/Web/FX850P.Blazor/FX850P.Blazor.csproj migrations add CreateIdentitySchema -p src/Infrastructure/FX850P.Blazor.Presistence.SQLite/FX850P.Blazor.Presistence.SQLite.csproj -c ApplicationDBContext -o Data/Migrations
