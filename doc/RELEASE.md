@@ -26,14 +26,14 @@ Make sure the correct db is confiured for the migrations in appsettings.json
 MSSQL
 =====
 
-dotnet ef -s src/Web/FX850P.Blazor/FX850P.Blazor.csproj migrations add CreateIdentitySchema -p src/Infrastructure/FX850P.Blazor.Presistence.MSSQL/FX850P.Blazor.Presistence.MSSQL.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Blazor/FX850P.Blazor.csproj migrations add CreateIdentitySchema -p src/Infrastructure/FX850P.Presistence.MSSQL/FX850P.Presistence.MSSQL.csproj -c ApplicationDBContext -o Data/Migrations
 
 PostgreSQL
 ==========
 
-dotnet ef -s src/Web/FX850P.Blazor/FX850P.Blazor.csproj migrations add CreateIdentitySchema -p src/Infrastructure/FX850P.Blazor.Presistence.PostgreSQL/FX850P.Blazor.Presistence.PostgreSQL.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Blazor/FX850P.Blazor.csproj migrations add CreateIdentitySchema -p src/Infrastructure/FX850P.Presistence.PostgreSQL/FX850P.Presistence.PostgreSQL.csproj -c ApplicationDBContext -o Data/Migrations
 
 SQLite
 ======
 
-dotnet ef -s src/Web/FX850P.Blazor/FX850P.Blazor.csproj migrations add CreateIdentitySchema -p src/Infrastructure/FX850P.Blazor.Presistence.SQLite/FX850P.Blazor.Presistence.SQLite.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Blazor/FX850P.Blazor.csproj migrations add CreateIdentitySchema -p src/Infrastructure/FX850P.Presistence.SQLite/FX850P.Presistence.SQLite.csproj -c ApplicationDBContext -o Data/Migrations
