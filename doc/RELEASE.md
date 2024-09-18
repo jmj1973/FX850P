@@ -3,6 +3,7 @@
 1.0.0.1
 =======
 
+- CHANGE:   Update net8 SDK to 8.0.401
 - CHANGE:   Update net8 SDK to 8.0.400
 - CHANGE:   Update net8 SDK to 8.0.303
 - CHANGE:   Update net8 SDK to 8.0.302
@@ -17,6 +18,10 @@
 
 - ADD:      Static Code analysis
             https://www.milanjovanovic.tech/blog/improving-code-quality-in-csharp-with-static-code-analysis?utm_source=newsletter&utm_medium=email&utm_campaign=tnw101    
+
+- CHANGE:   Upgrade donet-ef tools
+dotnet tool update --global dotnet-ef
+
 
 
 NOTE:
