@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
 using FX850P.Application.Common.Dtos;
 
-namespace FX850P.Blazor.ViewModels.CommonViewModels
+namespace FX850P.Blazor.ViewModels.CommonViewModels;
+
+public class CommonProfile : Profile
 {
-    public class CommonProfile : Profile
+    public CommonProfile()
     {
-        public CommonProfile()
-        {
-            CreateMap<KeyValuePairDto<string>, KeyValuePairViewModel<string>>().ReverseMap();
-        }
+        CreateMap<KeyValuePairDto<string>, KeyValuePairViewModel<string>>().ReverseMap();
     }
 }

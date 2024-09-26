@@ -3,41 +3,40 @@ using System.Linq;
 using System.Linq.Expressions;
 using FX850P.Domain.Presistence.Interfaces;
 
-namespace FX850P.Presistence.Specifications
+namespace FX850P.Presistence.Specifications;
+
+public abstract class Specification<TType> : ISpecification<TType>
 {
-    public abstract class Specification<TType> : ISpecification<TType>
+    public abstract Expression<Func<TType, bool>> Expression { get; }
+
+    /// <summary>
+    /// Holds the compiled expression so that it doesn't need to compile it everytime.
+    /// </summary>
+    Func<TType, bool> _compiledFunc = default!;
+
+    public virtual bool IsSatisfiedBy(TType entity)
     {
-        public abstract Expression<Func<TType, bool>> Expression { get; }
+        _compiledFunc = _compiledFunc ?? this.Expression.Compile();
+        return _compiledFunc(entity);
+    }
 
-        /// <summary>
-        /// Holds the compiled expression so that it doesn't need to compile it everytime.
-        /// </summary>
-        Func<TType, bool> _compiledFunc = default!;
+    public virtual IQueryable<TType> Include(IQueryable<TType> set)
+    {
+        return set;
+    }
 
-        public virtual bool IsSatisfiedBy(TType entity)
-        {
-            _compiledFunc = _compiledFunc ?? this.Expression.Compile();
-            return _compiledFunc(entity);
-        }
+    public static implicit operator Expression<Func<TType, bool>>(Specification<TType> specification)
+    {
+        return specification.Expression;
+    }
 
-        public virtual IQueryable<TType> Include(IQueryable<TType> set)
-        {
-            return set;
-        }
+    public static implicit operator Func<TType, bool>(Specification<TType> specification)
+    {
+        return specification.IsSatisfiedBy;
+    }
 
-        public static implicit operator Expression<Func<TType, bool>>(Specification<TType> specification)
-        {
-            return specification.Expression;
-        }
-
-        public static implicit operator Func<TType, bool>(Specification<TType> specification)
-        {
-            return specification.IsSatisfiedBy;
-        }
-
-        public override string ToString()
-        {
-            return Expression.ToString();
-        }
+    public override string ToString()
+    {
+        return Expression.ToString();
     }
 }

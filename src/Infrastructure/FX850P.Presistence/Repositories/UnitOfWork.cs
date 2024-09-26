@@ -1,25 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using FX850P.Domain.Presistence.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
-namespace FX850P.Presistence.Repositories
+namespace FX850P.Presistence.Repositories;
+
+public class UnitOfWork : IUnitOfWork
 {
-    public class UnitOfWork : IUnitOfWork
+    private readonly IDbContextFactory<ApplicationDBContext> _factory;
+
+    public UnitOfWork(IDbContextFactory<ApplicationDBContext> factory)
     {
-        private readonly IDbContextFactory<ApplicationDBContext> _factory;
+        _factory = factory;
+    }
 
-        public UnitOfWork(IDbContextFactory<ApplicationDBContext> factory)
+    public Task<int> SaveAsync(CancellationToken cancellationToken)
+    {
+        using (var context = _factory.CreateDbContext())
         {
-            _factory = factory;
-        }
-
-        public Task<int> SaveAsync(CancellationToken cancellationToken)
-        {
-            using (var context = _factory.CreateDbContext())
-            {
-                return context.SaveChangesAsync(cancellationToken);
-            }
+            return context.SaveChangesAsync(cancellationToken);
         }
     }
 }

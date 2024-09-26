@@ -6,16 +6,15 @@ using FX850P.Application.Users.Queries.GetUserList;
 using FX850P.Domain.Entities.Identity;
 using FX850P.Domain.Resources;
 
-namespace FX850P.Application.Users
+namespace FX850P.Application.Users;
+
+public class UserProfile : Profile
 {
-    public class UserProfile : Profile
+    public UserProfile()
     {
-        public UserProfile() 
-        {
-            CreateMap<GetUserListQuery, UserQuery>();
-            CreateMap<CreateUserCommand, ApplicationUser>();
-            CreateMap<UpdateUserCommand, ApplicationUser>();
-            CreateMap<ApplicationUser, UserDto>();
-        }
+        CreateMap<GetUserListQuery, UserQuery>();
+        CreateMap<CreateUserCommand, ApplicationUser>();
+        CreateMap<UpdateUserCommand, ApplicationUser>();
+        CreateMap<ApplicationUser, UserDto>();
     }
 }

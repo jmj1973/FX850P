@@ -1,16 +1,15 @@
 ﻿using FluentValidation;
 
 
-namespace FX850P.Application.Roles.Commands.CreateRole
+namespace FX850P.Application.Roles.Commands.CreateRole;
+
+public class CreateRoleCommandValidator : AbstractValidator<CreateRoleCommand>
 {
-    public class CreateRoleCommandValidator : AbstractValidator<CreateRoleCommand>
+    public CreateRoleCommandValidator()
     {
-        public CreateRoleCommandValidator() 
-        {
-            RuleFor(u => u.Name)
-                .NotEmpty().WithMessage("{PropertyName} is required.")
-                .NotNull()
-                .MaximumLength(20).WithMessage("{PropertyName} must not exceed {ComparisonValue} characters.");
-        }
+        RuleFor(u => u.Name)
+            .NotEmpty().WithMessage("{PropertyName} is required.")
+            .NotNull()
+            .MaximumLength(20).WithMessage("{PropertyName} must not exceed {ComparisonValue} characters.");
     }
 }

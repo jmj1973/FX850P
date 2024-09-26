@@ -1,9 +1,8 @@
 ﻿
 
-namespace FX850P.Presistence.Constants
+namespace FX850P.Presistence.Constants;
+
+public static class CustomClaimTypes
 {
-    public static class CustomClaimTypes
-    {
-        public const string Uid = "uid";
-    }
+    public const string Uid = "uid";
 }

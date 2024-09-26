@@ -1,12 +1,11 @@
 ﻿
-namespace FX850P.Domain.Presistence.Interfaces
+namespace FX850P.Domain.Presistence.Interfaces;
+
+public interface IQueryObject
 {
-    public interface IQueryObject
-    {
-        public string SearchString { get; set; }
-        string SortBy { get; set; }
-        bool IsSortAscending { get; set; }
-        int Page { get; set; }
-        int PageSize { get; set; }
-    }
+    public string SearchString { get; set; }
+    string SortBy { get; set; }
+    bool IsSortAscending { get; set; }
+    int Page { get; set; }
+    int PageSize { get; set; }
 }

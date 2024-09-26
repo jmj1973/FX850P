@@ -1,54 +1,53 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
 using FX850P.Application.Common.Dtos;
 using FX850P.Application.Exceptions;
 using FX850P.Domain.Entities.Identity;
 using FX850P.Domain.Presistence.Interfaces;
 using MediatR;
-using System.Threading.Tasks;
-using System.Threading;
-using System;
 
-namespace FX850P.Application.Roles.Commands.CreateRole
+namespace FX850P.Application.Roles.Commands.CreateRole;
+
+public class CreateRoleCommandHandler : IRequestHandler<CreateRoleCommand, KeyValuePairDto<string>>
 {
-    public class CreateRoleCommandHandler : IRequestHandler<CreateRoleCommand, KeyValuePairDto<string>>
+    private readonly IRoleService _roleService;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly IMapper _mapper;
+
+    public CreateRoleCommandHandler(IRoleService roleService, IUnitOfWork unitOfWork, IMapper mapper)
     {
-        private readonly IRoleService _roleService;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
+        _roleService = roleService;
+        _unitOfWork = unitOfWork;
+        _mapper = mapper;
+    }
 
-        public CreateRoleCommandHandler(IRoleService roleService, IUnitOfWork unitOfWork, IMapper mapper)
+    public async Task<KeyValuePairDto<string>> Handle(CreateRoleCommand request, CancellationToken cancellationToken)
+    {
+        // Validate
+        var validator = new CreateRoleCommandValidator();
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+        if (validationResult.IsValid == false)
+            throw new ValidationException(validationResult.Errors);
+
+        //Check if exist
+        var existingUser = await _roleService.ExistAsync(r => r.Name.ToUpper() == request.Name.ToUpper());
+
+        if (existingUser)
         {
-            _roleService = roleService;
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
+            throw new Exception($"Role '{request.Name}' already exists.");
         }
 
-        public async Task<KeyValuePairDto<string>> Handle(CreateRoleCommand request, CancellationToken cancellationToken)
+        // Add User
+        var role = new ApplicationRole
         {
-            // Validate
-            var validator = new CreateRoleCommandValidator();
-            var validationResult = await validator.ValidateAsync(request, cancellationToken);
+            Name = request.Name
+        };
 
-            if (validationResult.IsValid == false)
-                throw new ValidationException(validationResult.Errors);
+        await _roleService.AddAsync(role);
 
-            //Check if exist
-            var existingUser = await _roleService.ExistAsync(r => r.Name.ToUpper() == request.Name.ToUpper());
-
-            if (existingUser)
-            {
-                throw new Exception($"Role '{request.Name}' already exists.");
-            }
-
-            // Add User
-            var role = new ApplicationRole
-            {
-                Name = request.Name
-            };
-
-            await _roleService.AddAsync(role);
-
-            return _mapper.Map<KeyValuePairDto<string>>(role);
-        }
+        return _mapper.Map<KeyValuePairDto<string>>(role);
     }
 }

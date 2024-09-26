@@ -1,10 +1,9 @@
 ﻿using FX850P.Application.Users.Dtos;
 using MediatR;
 
-namespace FX850P.Application.Users.Queries.GetUserDetails
+namespace FX850P.Application.Users.Queries.GetUserDetails;
+
+public class GetUserDetailsQuery : IRequest<UserDto>
 {
-    public class GetUserDetailsQuery : IRequest<UserDto>
-    {
-        public string Id { get; set; } = default!;
-    }
+    public string Id { get; set; } = default!;
 }

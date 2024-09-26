@@ -1,14 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using FX850P.Application.Identity.Interfaces;
 using FX850P.Application.Identity.Models;
 using FX850P.Domain.Presistence.Interfaces;
 using FX850P.Presistence.Repositories;
 using FX850P.Presistence.Services;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FX850P.Presistence;
 
@@ -22,14 +22,14 @@ public static class PresistenceServicesRegistration
         string? conStr = "";
 
         //https://www.reddit.com/r/Blazor/comments/ep3mwp/blazor_concurrency_problem_using_entity_framework/
-        services.AddDbContextFactory<ApplicationDBContext>(options => 
+        services.AddDbContextFactory<ApplicationDBContext>(options =>
         {
             if (!string.IsNullOrEmpty(dbType))
             {
                 switch (dbType.ToLower())
                 {
                     case "sqlite":
-                        options.UseSqlite(configuration.GetConnectionString("SQLiteConnection"), options => 
+                        options.UseSqlite(configuration.GetConnectionString("SQLiteConnection"), options =>
                             options.MigrationsAssembly("FX850P.Presistence.SQLite"));
                         break;
                     case "sqlite.secure":
@@ -38,11 +38,11 @@ public static class PresistenceServicesRegistration
                         {
                             conStr += ";Password=!h0AaOJ3HNuSy4UEd#";
                         }
-                        options.UseSqlite(conStr, options => 
+                        options.UseSqlite(conStr, options =>
                             options.MigrationsAssembly("FX850P.Presistence.SQLite"));
                         break;
                     case "postgresql":
-                        options.UseNpgsql(configuration.GetConnectionString("PostgreSQLConnection"), options => 
+                        options.UseNpgsql(configuration.GetConnectionString("PostgreSQLConnection"), options =>
                             options.MigrationsAssembly("FX850P.Presistence.PostgreSQL"));
                         break;
                     case "mssql":

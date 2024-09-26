@@ -1,16 +1,16 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System;
+using FX850P.Blazor.Components.Account;
+using FX850P.Blazor.Contracts;
+using FX850P.Blazor.Helpers;
+using FX850P.Blazor.Options;
+using FX850P.Blazor.Services;
+using FX850P.Domain.Entities.Identity;
+using FX850P.Infrastructure.Extensions;
+using FX850P.Infrastructure.Options;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using FX850P.Blazor.Components.Account;
-using FX850P.Blazor.Contracts;
-using FX850P.Domain.Entities.Identity;
-using FX850P.Blazor.Helpers;
-using FX850P.Infrastructure.Extensions;
-using FX850P.Infrastructure.Options;
-using FX850P.Blazor.Options;
-using FX850P.Blazor.Services;
-using System;
 
 namespace FX850P.Blazor.Extensions;
 

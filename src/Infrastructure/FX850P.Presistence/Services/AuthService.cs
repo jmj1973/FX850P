@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
@@ -12,85 +9,87 @@ using FX850P.Application.Identity.Interfaces;
 using FX850P.Application.Identity.Models;
 using FX850P.Domain.Entities.Identity;
 using FX850P.Presistence.Constants;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
-namespace FX850P.Presistence.Services
+namespace FX850P.Presistence.Services;
+
+public class AuthService : IAuthService
 {
-    public class AuthService : IAuthService
+    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly SignInManager<ApplicationUser> _signInManager;
+    private readonly JwtSettings _jwtSettings;
+
+    public AuthService(UserManager<ApplicationUser> userManager,
+        IOptions<JwtSettings> jwtSettings,
+        SignInManager<ApplicationUser> signInManager)
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly JwtSettings _jwtSettings;
+        _userManager = userManager;
+        _jwtSettings = jwtSettings.Value;
+        _signInManager = signInManager;
+    }
 
-        public AuthService(UserManager<ApplicationUser> userManager,
-            IOptions<JwtSettings> jwtSettings,
-            SignInManager<ApplicationUser> signInManager)
+    public async Task<AuthResponse> Login(AuthRequest request)
+    {
+        var user = await _userManager.FindByEmailAsync(request.Email);
+
+        if (user == null)
         {
-            _userManager = userManager;
-            _jwtSettings = jwtSettings.Value;
-            _signInManager = signInManager;
+            throw new Exception($"User with {request.Email} not found.");
         }
 
-        public async Task<AuthResponse> Login(AuthRequest request)
+        var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, lockoutOnFailure: false);
+
+        if (!result.Succeeded)
         {
-            var user = await _userManager.FindByEmailAsync(request.Email);
-
-            if (user == null)
-            {
-                throw new Exception($"User with {request.Email} not found.");
-            }
-
-            var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, lockoutOnFailure: false);
-
-            if (!result.Succeeded)
-            {
-                throw new Exception($"Credentials for '{request.Email} aren't valid'.");
-            }
-
-            JwtSecurityToken jwtSecurityToken = await GenerateToken(user);
-
-            AuthResponse response = new AuthResponse
-            {
-                Id = user.Id,
-                Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
-                Email = user.Email,
-                UserName = user.UserName
-            };
-
-            return response;
+            throw new Exception($"Credentials for '{request.Email} aren't valid'.");
         }
 
-        private async Task<JwtSecurityToken> GenerateToken(ApplicationUser user)
+        JwtSecurityToken jwtSecurityToken = await GenerateToken(user);
+
+        AuthResponse response = new AuthResponse
         {
-            var userClaims = await _userManager.GetClaimsAsync(user);
-            var roles = await _userManager.GetRolesAsync(user);
+            Id = user.Id,
+            Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
+            Email = user.Email,
+            UserName = user.UserName
+        };
 
-            var roleClaims = new List<Claim>();
+        return response;
+    }
 
-            for (int i = 0; i < roles.Count; i++)
-            {
-                roleClaims.Add(new Claim(ClaimTypes.Role, roles[i]));
-            }
+    private async Task<JwtSecurityToken> GenerateToken(ApplicationUser user)
+    {
+        var userClaims = await _userManager.GetClaimsAsync(user);
+        var roles = await _userManager.GetRolesAsync(user);
 
-            var claims = new[]
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(CustomClaimTypes.Uid, user.Id)
-            }
-            .Union(userClaims)
-            .Union(roleClaims);
+        var roleClaims = new List<Claim>();
 
-            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
-            var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
-
-            var jwtSecurityToken = new JwtSecurityToken(
-                issuer: _jwtSettings.Issuer,
-                audience: _jwtSettings.Audience,
-                claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes),
-                signingCredentials: signingCredentials);
-            return jwtSecurityToken;
+        for (int i = 0; i < roles.Count; i++)
+        {
+            roleClaims.Add(new Claim(ClaimTypes.Role, roles[i]));
         }
+
+        var claims = new[]
+        {
+            new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new Claim(JwtRegisteredClaimNames.Email, user.Email),
+            new Claim(CustomClaimTypes.Uid, user.Id)
+        }
+        .Union(userClaims)
+        .Union(roleClaims);
+
+        var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
+        var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
+
+        var jwtSecurityToken = new JwtSecurityToken(
+            issuer: _jwtSettings.Issuer,
+            audience: _jwtSettings.Audience,
+            claims: claims,
+            expires: DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes),
+            signingCredentials: signingCredentials);
+        return jwtSecurityToken;
     }
 }

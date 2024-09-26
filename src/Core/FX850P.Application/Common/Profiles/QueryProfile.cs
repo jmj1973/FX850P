@@ -2,16 +2,15 @@
 using FX850P.Application.Common.Dtos;
 using FX850P.Domain.Common;
 
-namespace FX850P.Application.Common.Profiles
+namespace FX850P.Application.Common.Profiles;
+
+public class QueryProfile : Profile
 {
-    public class QueryProfile : Profile
+    public QueryProfile()
     {
-        public QueryProfile()
-        {
-            CreateMap(typeof(QueryResult<>), typeof(QueryResultDto<>));
+        CreateMap(typeof(QueryResult<>), typeof(QueryResultDto<>));
 
-            CreateMap<PageResult, PageResultDto>();
-        }
-
+        CreateMap<PageResult, PageResultDto>();
     }
+
 }

@@ -1,39 +1,38 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
 using FX850P.Application.Common.Dtos;
 using FX850P.Application.Exceptions;
 using FX850P.Application.Users.Dtos;
 using FX850P.Domain.Presistence.Interfaces;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
 
-namespace FX850P.Application.Roles.Queries.GetRoleDetails
+namespace FX850P.Application.Roles.Queries.GetRoleDetails;
+
+public class GetRoleDetailsQueryHandler : IRequestHandler<GetRoleDetailsQuery, KeyValuePairDto<string>>
 {
-    public class GetRoleDetailsQueryHandler : IRequestHandler<GetRoleDetailsQuery, KeyValuePairDto<string>>
+    private readonly IRoleService _roleService;
+    private readonly IMapper _mapper;
+
+    public GetRoleDetailsQueryHandler(IRoleService roleService, IMapper mapper)
     {
-        private readonly IRoleService _roleService;
-        private readonly IMapper _mapper;
+        _roleService = roleService;
+        _mapper = mapper;
+    }
 
-        public GetRoleDetailsQueryHandler(IRoleService roleService, IMapper mapper)
+    public async Task<KeyValuePairDto<string>> Handle(GetRoleDetailsQuery request, CancellationToken cancellationToken)
+    {
+        var role = await _roleService.FindUniqueAsync(r => r.Id == request.Id, cancellationToken);
+
+        if (role is null)
         {
-            _roleService = roleService;
-            _mapper = mapper;
+            throw new NotFoundException(nameof(role), request.Id);
         }
 
-        public async Task<KeyValuePairDto<string>> Handle(GetRoleDetailsQuery request, CancellationToken cancellationToken)
-        {
-            var role = await _roleService.FindUniqueAsync(r => r.Id == request.Id, cancellationToken);
-
-            if (role is null)
-            {
-                throw new NotFoundException(nameof(role), request.Id);
-            }
-
-            return _mapper.Map<KeyValuePairDto<string>>(role);
-        }
+        return _mapper.Map<KeyValuePairDto<string>>(role);
     }
 }
