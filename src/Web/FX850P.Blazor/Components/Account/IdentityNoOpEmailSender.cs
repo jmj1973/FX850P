@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Threading.Tasks;
 using FX850P.Domain.Entities.Identity;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace FX850P.Blazor.Components.Account;
 

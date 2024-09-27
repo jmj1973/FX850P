@@ -3,6 +3,11 @@
 1.0.0.1
 =======
 
+- CHANGE:   Updating your project to use File Scoped Namespaces
+
+dotnet tool update --global dotnet-format
+dotnet format FX850P.sln --severity info --diagnostics=IDE0161
+
 - CHANGE:   Update net8 SDK to 8.0.401
 - CHANGE:   Update net8 SDK to 8.0.400
 - CHANGE:   Update net8 SDK to 8.0.303

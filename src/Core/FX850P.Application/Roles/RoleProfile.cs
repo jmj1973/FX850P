@@ -6,16 +6,15 @@ using FX850P.Application.Roles.Queries.GetRoleList;
 using FX850P.Domain.Entities.Identity;
 using FX850P.Domain.Resources;
 
-namespace FX850P.Application.Roles
+namespace FX850P.Application.Roles;
+
+public class RoleProfile : Profile
 {
-    public class RoleProfile : Profile
+    public RoleProfile()
     {
-        public RoleProfile() 
-        {
-            CreateMap<GetRoleListQuery, RoleQuery>();
-            CreateMap<CreateRoleCommand, ApplicationRole>();
-            CreateMap<UpdateRoleCommand, ApplicationRole>();
-            CreateMap<ApplicationRole, KeyValuePairDto<string>>();
-        }
+        CreateMap<GetRoleListQuery, RoleQuery>();
+        CreateMap<CreateRoleCommand, ApplicationRole>();
+        CreateMap<UpdateRoleCommand, ApplicationRole>();
+        CreateMap<ApplicationRole, KeyValuePairDto<string>>();
     }
 }

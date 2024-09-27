@@ -1,8 +1,7 @@
-﻿namespace FX850P.Application.Users.Dtos
+﻿namespace FX850P.Application.Users.Dtos;
+
+public class UserRolesDto
 {
-    public class UserRolesDto
-    {
-        public string RoleName { get; set; } = default!;
-        public bool Selected { get; set; }
-    }
+    public string RoleName { get; set; } = default!;
+    public bool Selected { get; set; }
 }

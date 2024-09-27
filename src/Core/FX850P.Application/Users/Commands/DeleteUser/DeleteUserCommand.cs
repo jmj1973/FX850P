@@ -1,12 +1,11 @@
-﻿using FX850P.Application.Users.Dtos;
+﻿using FX850P.Application.Common.Commands;
+using FX850P.Application.Users.Dtos;
 using MediatR;
-using FX850P.Application.Common.Commands;
 
 
-namespace FX850P.Application.Users.Commands.DeleteUser
+namespace FX850P.Application.Users.Commands.DeleteUser;
+
+public class DeleteUserCommand : BaseAuditCommand, IRequest<UserDto>
 {
-    public class DeleteUserCommand : BaseAuditCommand, IRequest<UserDto>
-    {
-        public string Id { get; set; } = default!;
-    }
+    public string Id { get; set; } = default!;
 }

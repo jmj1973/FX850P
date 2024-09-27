@@ -1,5 +1,5 @@
-﻿using FX850P.Infrastructure.Options;
-using FX850P.Blazor.Options;
+﻿using FX850P.Blazor.Options;
+using FX850P.Infrastructure.Options;
 
 namespace FX850P.Blazor.Helpers;
 

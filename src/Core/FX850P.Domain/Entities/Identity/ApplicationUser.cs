@@ -1,22 +1,21 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
-namespace FX850P.Domain.Entities.Identity
+namespace FX850P.Domain.Entities.Identity;
+
+public class ApplicationUser : IdentityUser
 {
-    public class ApplicationUser : IdentityUser
+    public string FirstName { get; set; } = default!;
+    public string LastName { get; set; } = default!;
+
+    [NotMapped]
+    public string FullName
     {
-        public string FirstName { get; set; } = default!;
-        public string LastName { get; set; } = default!;
-
-        [NotMapped]
-        public string FullName
+        get
         {
-            get
-            {
-                var space = string.IsNullOrWhiteSpace(FirstName) || string.IsNullOrWhiteSpace(LastName) ? "" : " ";
-                return $"{FirstName}{space}{LastName}";
-            }
+            var space = string.IsNullOrWhiteSpace(FirstName) || string.IsNullOrWhiteSpace(LastName) ? "" : " ";
+            return $"{FirstName}{space}{LastName}";
         }
-
     }
+
 }

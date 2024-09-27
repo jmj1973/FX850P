@@ -2,108 +2,108 @@
 using System;
 using System.Threading.Tasks;
 
-namespace FX850P.Domain.Common
+namespace FX850P.Domain.Common;
+
+public class ServiceResult<TType>
 {
-    public class ServiceResult<TType>
+    private TType _result = default(TType)!;
+    public TType Result => _result;
+
+    public bool IsValid { get; protected set; }
+
+    public string Error { get; protected set; }
+
+    #region Contructor
+    public ServiceResult()
     {
-        private TType _result = default(TType)!;
-        public TType Result => _result;
+        IsValid = false;
+        Error = "Uknown error.";
+    }
 
-        public bool IsValid { get; protected set; }
+    public ServiceResult<TType> SuccessIfNotNull(TType result)
+    {
+        _result = result;
+        if (_result != null)
+            Success();
+        return this;
+    }
 
-        public string Error { get; protected set; }
+    public static ServiceResult<TType> FailResult(string error)
+    {
+        var result = new ServiceResult<TType>();
+        result.Fail(error);
+        return result;
+    }
+    public static ServiceResult<TType> SuccessResult()
+    {
+        var result = new ServiceResult<TType>();
+        result.Success();
+        return result;
+    }
+    public static ServiceResult<TType> SuccessResultIfNotNull(TType value)
+    {
+        var result = new ServiceResult<TType>();
+        result.SuccessIfNotNull(value);
+        return result;
+    }
+    #endregion
 
-        #region Contructor
-        public ServiceResult()
-        {
-            IsValid = false;
-            Error = "Uknown error.";
-        }
+    public virtual ServiceResult<TType> Fail(string error)
+    {
+        IsValid = false;
+        Error = error;
+        return this;
+    }
 
-        public ServiceResult<TType> SuccessIfNotNull(TType result)
-        {
-            _result = result;
-            if (_result != null) Success();
-            return this;
-        }
+    public ServiceResult<TType> Success()
+    {
+        IsValid = true;
+        Error = "";
+        return this;
+    }
 
-        public static ServiceResult<TType> FailResult(string error)
+    public async Task ExecuteIfValidAsync<TReturnType, TInnerType>(Func<Task<TReturnType>> method) where TReturnType : ServiceResult<TInnerType>
+    {
+        if (IsValid)
         {
-            var result = new ServiceResult<TType>();
-            result.Fail(error);
-            return result;
-        }
-        public static ServiceResult<TType> SuccessResult()
-        {
-            var result = new ServiceResult<TType>();
-            result.Success();
-            return result;
-        }
-        public static ServiceResult<TType> SuccessResultIfNotNull(TType value)
-        {
-            var result = new ServiceResult<TType>();
-            result.SuccessIfNotNull(value);
-            return result;
-        }
-        #endregion
-
-        public virtual ServiceResult<TType> Fail(string error)
-        {
-            IsValid = false;
-            Error = error;
-            return this;
-        }
-
-        public ServiceResult<TType> Success()
-        {
-            IsValid = true;
-            Error = "";
-            return this;
-        }
-
-        public async Task ExecuteIfValidAsync<TReturnType, TInnerType>(Func<Task<TReturnType>> method) where TReturnType : ServiceResult<TInnerType>
-        {
-            if (IsValid)
+            var result = await method();
+            if (!result.IsValid)
             {
-                var result = await method();
-                if (!result.IsValid)
-                {
-                    Fail(result.Error);
-                }
-            }
-        }
-        public async Task ExecuteIfValidAsync(Func<Task<ServiceResult>> method)
-        {
-            if (IsValid)
-            {
-                var result = await method();
-                if (!result.IsValid)
-                {
-                    Fail(result.Error);
-                }
+                Fail(result.Error);
             }
         }
     }
-
-    public class ServiceResult : ServiceResult<object>
+    public async Task ExecuteIfValidAsync(Func<Task<ServiceResult>> method)
     {
-        public new static ServiceResult SuccessResult()
+        if (IsValid)
         {
-            var result = new ServiceResult();
-            result.Success();
-            return result;
+            var result = await method();
+            if (!result.IsValid)
+            {
+                Fail(result.Error);
+            }
         }
-        public new static ServiceResult SuccessResultIfNotNull(object obj)
-        {
-            var result = new ServiceResult();
-            result.Success();
-            return result;
-        }
-        public new static ServiceResult FailResult(string error)
-        {
-            var result = new ServiceResult();
-            result.Fail(error);
-            return result;
-        }
+    }
+}
+
+public class ServiceResult : ServiceResult<object>
+{
+    public new static ServiceResult SuccessResult()
+    {
+        var result = new ServiceResult();
+        result.Success();
+        return result;
+    }
+    public new static ServiceResult SuccessResultIfNotNull(object obj)
+    {
+        var result = new ServiceResult();
+        result.Success();
+        return result;
+    }
+    public new static ServiceResult FailResult(string error)
+    {
+        var result = new ServiceResult();
+        result.Fail(error);
+        return result;
     }
 }

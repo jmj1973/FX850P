@@ -1,9 +1,8 @@
 ﻿
-namespace FX850P.Presistence.Constants
+namespace FX850P.Presistence.Constants;
+
+public enum Roles
 {
-    public enum Roles
-    {
-        Administrator,
-        User
-    }
+    Administrator,
+    User
 }

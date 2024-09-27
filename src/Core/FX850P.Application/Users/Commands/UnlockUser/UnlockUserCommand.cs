@@ -1,10 +1,9 @@
 ﻿using FX850P.Application.Users.Dtos;
 using MediatR;
 
-namespace FX850P.Application.Users.Commands.UnlockUser
+namespace FX850P.Application.Users.Commands.UnlockUser;
+
+public class UnlockUserCommand : IRequest<UserDto>
 {
-    public class UnlockUserCommand : IRequest<UserDto>
-    {
-        public string Id { get; set; } = default!;
-    }
+    public string Id { get; set; } = default!;
 }
