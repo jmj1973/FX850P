@@ -18,7 +18,7 @@ public static class BlazorServiceExtensions
 {
     public static IServiceCollection AddAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
-        var appOptions = new BioServiceBlazorAppOptions();
+        var appOptions = new Fx850pBlazorAppOptions();
 
         TokenValidationOptions? tokenValidationOptions = configuration.GetSection("TokenValidationOptions")
                                                                       .Get<TokenValidationOptions>();
