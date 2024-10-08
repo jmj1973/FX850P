@@ -31,7 +31,7 @@ public class Startup
 
     public Startup(IWebHostEnvironment env)
     {
-        var builder = new ConfigurationBuilder()
+        IConfigurationBuilder builder = new ConfigurationBuilder()
             .SetBasePath(env.ContentRootPath)
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
@@ -65,7 +65,7 @@ public class Startup
             }
             loggingBuilder.AddDebug();
 
-            var logger = new LoggerConfiguration()
+            Serilog.Core.Logger logger = new LoggerConfiguration()
                                 .ReadFrom.Configuration(Configuration)
                                 .Enrich.FromLogContext()
                                 .CreateLogger();

@@ -27,20 +27,20 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, UserD
     {
         // Validate
         var validator = new CreateUserCommandValidator();
-        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+        FluentValidation.Results.ValidationResult validationResult = await validator.ValidateAsync(request, cancellationToken);
 
         if (validationResult.IsValid == false)
             throw new ValidationException(validationResult.Errors);
 
         //Check if exist
-        var existingUser = await _userService.ExistAsync(u => u.UserName.ToUpper() == request.UserName.ToUpper());
+        bool existingUser = await _userService.ExistAsync(u => u.UserName.ToUpper() == request.UserName.ToUpper());
 
         if (existingUser)
         {
             throw new Exception($"Username '{request.UserName}' already exists.");
         }
 
-        var existingEmail = await _userService.ExistAsync(u => u.Email.ToUpper() == request.Email.ToUpper());
+        bool existingEmail = await _userService.ExistAsync(u => u.Email.ToUpper() == request.Email.ToUpper());
 
         if (existingUser)
         {
@@ -59,7 +59,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, UserD
 
         await _userService.AddAsync(user, request.Password, request.Role);
 
-        var returnUser = _mapper.Map<UserDto>(user);
+        UserDto returnUser = _mapper.Map<UserDto>(user);
         returnUser.Role = request.Role;
 
         return returnUser;

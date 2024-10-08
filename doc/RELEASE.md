@@ -3,6 +3,8 @@
 1.0.0.1
 =======
 
+- FIX:      Static code analays solution wide
+
 - CHANGE:   Updating your project to use File Scoped Namespaces
 
 dotnet tool update --global dotnet-format

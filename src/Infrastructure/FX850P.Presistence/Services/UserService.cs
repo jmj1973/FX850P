@@ -18,10 +18,7 @@ public class UserService : IUserService
 {
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public UserService(UserManager<ApplicationUser> userManager)
-    {
-        _userManager = userManager;
-    }
+    public UserService(UserManager<ApplicationUser> userManager) => _userManager = userManager;
 
     public async Task<QueryResult<ApplicationUser>> GetPagedListAsync(UserQuery query, CancellationToken cancellationToken)
     {
@@ -29,7 +26,7 @@ public class UserService : IUserService
         {
             Page = new PageResult()
         };
-        var queryDb = _userManager.Users;
+        IQueryable<ApplicationUser> queryDb = _userManager.Users;
 
         var columnsOrder = new Dictionary<string, Expression<Func<ApplicationUser, object>>>
         {
@@ -65,14 +62,14 @@ public class UserService : IUserService
 
     public async Task<ApplicationUser> FindUniqueAsync(Expression<Func<ApplicationUser, bool>> predicate)
     {
-        var query = _userManager.Users;
+        IQueryable<ApplicationUser> query = _userManager.Users;
 
         return await query.Where(predicate)
                           .FirstOrDefaultAsync();
     }
     public async Task<ApplicationUser> FindUniqueAsync(Expression<Func<ApplicationUser, bool>> predicate, CancellationToken cancellationToken)
     {
-        var query = _userManager.Users;
+        IQueryable<ApplicationUser> query = _userManager.Users;
 
         return await query.Where(predicate)
                            .FirstOrDefaultAsync(cancellationToken);
@@ -80,7 +77,7 @@ public class UserService : IUserService
 
     public async Task<bool> ExistAsync(Expression<Func<ApplicationUser, bool>> predicate)
     {
-        var query = _userManager.Users;
+        IQueryable<ApplicationUser> query = _userManager.Users;
 
         return await query.AsNoTracking()
                           .AnyAsync(predicate);
@@ -88,7 +85,7 @@ public class UserService : IUserService
 
     public async Task<bool> ExistAsync(Expression<Func<ApplicationUser, bool>> predicate, CancellationToken cancellationToken)
     {
-        var query = _userManager.Users;
+        IQueryable<ApplicationUser> query = _userManager.Users;
 
         return await query.AsNoTracking()
                           .AnyAsync(predicate, cancellationToken);
@@ -96,7 +93,7 @@ public class UserService : IUserService
 
     public async Task AddAsync(ApplicationUser entity, string password, string role)
     {
-        var result = await _userManager.CreateAsync(entity, password);
+        IdentityResult result = await _userManager.CreateAsync(entity, password);
 
         if (result.Succeeded)
         {
@@ -110,7 +107,7 @@ public class UserService : IUserService
 
     public async Task AddAsync(ApplicationUser entity, string password, string role, CancellationToken cancellationToken)
     {
-        var result = await _userManager.CreateAsync(entity, password);
+        IdentityResult result = await _userManager.CreateAsync(entity, password);
 
         if (result.Succeeded)
         {
@@ -134,11 +131,11 @@ public class UserService : IUserService
 
     public async Task<ServiceResult> UpdatePasswordAsync(ApplicationUser entity, string oldPassword, string newPassword)
     {
-        var identityResult = await _userManager.ChangePasswordAsync(entity, oldPassword, newPassword);
+        IdentityResult identityResult = await _userManager.ChangePasswordAsync(entity, oldPassword, newPassword);
 
         var serviceResult = ServiceResult.SuccessResult();
 
-        foreach (var error in identityResult.Errors)
+        foreach (IdentityError error in identityResult.Errors)
         {
             serviceResult = ServiceResult.FailResult(error.Description);
         }

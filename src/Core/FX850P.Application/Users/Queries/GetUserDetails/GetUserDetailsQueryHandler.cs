@@ -22,18 +22,18 @@ public class GetUserDetailsQueryHandler : IRequestHandler<GetUserDetailsQuery, U
 
     public async Task<UserDto> Handle(GetUserDetailsQuery request, CancellationToken cancellationToken)
     {
-        var user = await _userService.FindUniqueAsync(u => u.Id == request.Id, cancellationToken);
+        Domain.Entities.Identity.ApplicationUser? user = await _userService.FindUniqueAsync(u => u.Id == request.Id, cancellationToken);
 
         if (user is null)
         {
             throw new NotFoundException(nameof(user), request.Id);
         }
 
-        var roles = await _userService.GetUserRoles(user);
+        System.Collections.Generic.IList<string> roles = await _userService.GetUserRoles(user);
 
-        var role = roles.FirstOrDefault();
+        string? role = roles.FirstOrDefault();
 
-        var returnUser = _mapper.Map<UserDto>(user);
+        UserDto returnUser = _mapper.Map<UserDto>(user);
 
         returnUser.Role = string.IsNullOrWhiteSpace(role) ? "User" : role;
 

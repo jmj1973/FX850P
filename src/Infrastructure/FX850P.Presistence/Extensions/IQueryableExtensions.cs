@@ -33,10 +33,10 @@ public static class IQueryableExtensions
 
     public static IQueryable<T> ApplyFiltering<T, M>(this IQueryable<T> query, M filter, Dictionary<bool, Expression<Func<T, bool>>> columns)
     {
-        foreach (var column in columns)
+        foreach (KeyValuePair<bool, Expression<Func<T, bool>>> column in columns)
         {
-            var expression = column.Value;
-            var hasValue = column.Key;
+            Expression<Func<T, bool>> expression = column.Value;
+            bool hasValue = column.Key;
 
             if (hasValue)
             {
@@ -49,7 +49,7 @@ public static class IQueryableExtensions
 
     public static IQueryable<T> ApplyFiltering<T, M>(this IQueryable<T> query, M filter, List<ColumnFilter<T>> columns)
     {
-        foreach (var column in columns)
+        foreach (ColumnFilter<T> column in columns)
         {
             if (column.HasValue)
             {

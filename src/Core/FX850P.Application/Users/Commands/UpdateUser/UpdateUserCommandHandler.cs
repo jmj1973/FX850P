@@ -25,13 +25,13 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, UserD
     {
         // Validation
         var validator = new UpdateUserCommandValidator();
-        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+        FluentValidation.Results.ValidationResult validationResult = await validator.ValidateAsync(request, cancellationToken);
 
         if (validationResult.IsValid == false)
             throw new ValidationException(validationResult.Errors);
 
         // Check if exist
-        var user = await _userService.FindUniqueAsync(u => u.Id == request.Id, cancellationToken);
+        Domain.Entities.Identity.ApplicationUser? user = await _userService.FindUniqueAsync(u => u.Id == request.Id, cancellationToken);
 
         if (user is null)
         {
@@ -43,15 +43,15 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, UserD
         await _userService.UpdateAsync(user);
 
         //Remove old roles
-        var roles = await _userService.GetUserRoles(user);
-        foreach (var removeRole in roles)
+        System.Collections.Generic.IList<string> roles = await _userService.GetUserRoles(user);
+        foreach (string removeRole in roles)
         {
             await _userService.RemoveRoleFromUser(user, removeRole);
         }
 
         await _userService.AddRoleToUser(user, request.Role);
 
-        var returnUser = _mapper.Map<UserDto>(user);
+        UserDto returnUser = _mapper.Map<UserDto>(user);
         returnUser.Role = request.Role;
 
         return returnUser;

@@ -24,7 +24,7 @@ public class P5020ViewModelValidator : AbstractValidator<P5020ViewModel>
 
     public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>
     {
-        var result = await ValidateAsync(ValidationContext<P5020ViewModel>.CreateWithOptions((P5020ViewModel)model, x => x.IncludeProperties(propertyName)));
+        FluentValidation.Results.ValidationResult result = await ValidateAsync(ValidationContext<P5020ViewModel>.CreateWithOptions((P5020ViewModel)model, x => x.IncludeProperties(propertyName)));
         if (result.IsValid)
             return Array.Empty<string>();
         return result.Errors.Select(e => e.ErrorMessage);

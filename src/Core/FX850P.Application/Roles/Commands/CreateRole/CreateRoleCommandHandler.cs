@@ -27,13 +27,13 @@ public class CreateRoleCommandHandler : IRequestHandler<CreateRoleCommand, KeyVa
     {
         // Validate
         var validator = new CreateRoleCommandValidator();
-        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+        FluentValidation.Results.ValidationResult validationResult = await validator.ValidateAsync(request, cancellationToken);
 
         if (validationResult.IsValid == false)
             throw new ValidationException(validationResult.Errors);
 
         //Check if exist
-        var existingUser = await _roleService.ExistAsync(r => r.Name.ToUpper() == request.Name.ToUpper());
+        bool existingUser = await _roleService.ExistAsync(r => r.Name.ToUpper() == request.Name.ToUpper());
 
         if (existingUser)
         {

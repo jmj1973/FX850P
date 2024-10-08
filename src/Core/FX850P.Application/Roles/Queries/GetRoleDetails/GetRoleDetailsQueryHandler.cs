@@ -26,7 +26,7 @@ public class GetRoleDetailsQueryHandler : IRequestHandler<GetRoleDetailsQuery, K
 
     public async Task<KeyValuePairDto<string>> Handle(GetRoleDetailsQuery request, CancellationToken cancellationToken)
     {
-        var role = await _roleService.FindUniqueAsync(r => r.Id == request.Id, cancellationToken);
+        Domain.Entities.Identity.ApplicationRole? role = await _roleService.FindUniqueAsync(r => r.Id == request.Id, cancellationToken);
 
         if (role is null)
         {

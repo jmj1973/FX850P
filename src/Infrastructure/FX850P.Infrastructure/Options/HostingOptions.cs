@@ -71,7 +71,7 @@ public class HostingOptions
 
     public int GetPreferedPort()
     {
-        var sslPort = (SslPort ?? Port);
+        int sslPort = (SslPort ?? Port);
 
         return UseSSL ? sslPort : Port;
     }

@@ -25,7 +25,7 @@ public class DeleteRoleCommandHandler : IRequestHandler<DeleteRoleCommand, KeyVa
     public async Task<KeyValuePairDto<string>> Handle(DeleteRoleCommand request, CancellationToken cancellationToken)
     {
         // Check if exist
-        var role = await _roleService.FindUniqueAsync(r => r.Id == request.Id, cancellationToken);
+        Domain.Entities.Identity.ApplicationRole? role = await _roleService.FindUniqueAsync(r => r.Id == request.Id, cancellationToken);
 
         if (role is null)
         {

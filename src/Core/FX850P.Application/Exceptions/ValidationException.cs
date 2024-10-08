@@ -7,20 +7,17 @@ namespace FX850P.Application.Exceptions;
 
 public class ValidationException : ApplicationException
 {
-    public ValidationException() : base("One or more validation failures have occurred.")
-    {
-        Failures = new Dictionary<string, string[]>();
-    }
+    public ValidationException() : base("One or more validation failures have occurred.") => Failures = new Dictionary<string, string[]>();
 
     public ValidationException(List<ValidationFailure> failures) : this()
     {
-        var propertyNames = failures
+        IEnumerable<string> propertyNames = failures
             .Select(e => e.PropertyName)
             .Distinct();
 
-        foreach (var propertyName in propertyNames)
+        foreach (string? propertyName in propertyNames)
         {
-            var propertyFailures = failures
+            string[] propertyFailures = failures
                 .Where(e => e.PropertyName == propertyName)
                 .Select(e => e.ErrorMessage)
                 .ToArray();

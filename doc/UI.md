@@ -2,20 +2,20 @@
 # Steps
 
 ```
-dotnet add src/Web/ServiceMate.Api package Microsoft.EntityFrameworkCore.Tools
-dotnet add src/Web/ServiceMate.Api package MediatR
-dotnet add src/Web/ServiceMate.Api package Swashbuckle.AspNetCore
-dotnet add src/Web/ServiceMate.Api package Microsoft.EntityFrameworkCore.Design
-dotnet add src/Web/ServiceMate.Api package Microsoft.Extensions.Hosting.WindowsServices    
-dotnet add src/Web/ServiceMate.Api package Microsoft.VisualStudio.Web.CodeGeneration.Design
+dotnet add src/Web/FX850P.Api package Microsoft.EntityFrameworkCore.Tools
+dotnet add src/Web/FX850P.Api package MediatR
+dotnet add src/Web/FX850P.Api package Swashbuckle.AspNetCore
+dotnet add src/Web/FX850P.Api package Microsoft.EntityFrameworkCore.Design
+dotnet add src/Web/FX850P.Api package Microsoft.Extensions.Hosting.WindowsServices    
+dotnet add src/Web/FX850P.Api package Microsoft.VisualStudio.Web.CodeGeneration.Design
 ```   
 
 9.1. Add the reference projects
 
    ```
-   dotnet add src/Web/ServiceMate.Api reference src/Core/ServiceMate.Application/ServiceMate.Application.csproj
-   dotnet add src/Web/ServiceMate.Api reference src/Infrastructure/ServiceMate.Infrastructure/ServiceMate.Infrastructure.csproj
-   dotnet add src/Web/ServiceMate.Api reference src/Infrastructure/ServiceMate.Presistence/ServiceMate.Presistence.csproj
+   dotnet add src/Web/FX850P.Api reference src/Core/FX850P.Application/FX850P.Application.csproj
+   dotnet add src/Web/FX850P.Api reference src/Infrastructure/FX850P.Infrastructure/FX850P.Infrastructure.csproj
+   dotnet add src/Web/FX850P.Api reference src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj
    ```
 
 9.2. Confirue the clean services in startup.cs
@@ -28,13 +28,13 @@ Package Manage Console
 // Examples - Commandline Tools for EF Core
 // Make sure the package Microsoft.EntityFrameworkCore.Design in the startup project
 // ----------------------------------------------------------------------------------------------------------------------------------
-//  - add-migration -project ServiceMate.Presistence -context ApplicationDbContext -OutputDir Data/Migrations <migrationname>
-//  - update-database  -project ServiceMate.Presistence -context ApplicationDbContext <migrationname>
-//  - remove-migration -project ServiceMate.Presistence -context ApplicationDbContext <migrationname>
+//  - add-migration -project FX850P.Presistence -context ApplicationDbContext -OutputDir Data/Migrations <migrationname>
+//  - update-database  -project FX850P.Presistence -context ApplicationDbContext <migrationname>
+//  - remove-migration -project FX850P.Presistence -context ApplicationDbContext <migrationname>
 //
 ```
 
-add-migration -project ServiceMate.Presistence -context ApplicationDBContext -OutputDir Data/Migrations CreateIdentitySchema
+add-migration -project FX850P.Presistence -context ApplicationDBContext -OutputDir Data/Migrations CreateIdentitySchema
 
 CLI
 
@@ -52,51 +52,51 @@ dotnet ef
 
 migration add
 ```
-dotnet ef -s src/Web/ServiceMate.Api/ServiceMate.Api.csproj migrations add CreateIdentitySchema -p src/Infrastructure/ServiceMate.Presistence/ServiceMate.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Api/FX850P.Api.csproj migrations add CreateIdentitySchema -p src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
 
-dotnet ef -s src/Web/ServiceMate.Api/ServiceMate.Api.csproj migrations add AddTechnician -p src/Infrastructure/ServiceMate.Presistence/ServiceMate.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Api/FX850P.Api.csproj migrations add AddTechnician -p src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
 
-dotnet ef -s src/Web/ServiceMate.Api/ServiceMate.Api.csproj migrations add AddStatusStateAndStatusFlag -p src/Infrastructure/ServiceMate.Presistence/ServiceMate.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Api/FX850P.Api.csproj migrations add AddStatusStateAndStatusFlag -p src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
 
-dotnet ef -s src/Web/ServiceMate.Api/ServiceMate.Api.csproj migrations add AddCompany -p src/Infrastructure/ServiceMate.Presistence/ServiceMate.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Api/FX850P.Api.csproj migrations add AddCompany -p src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
 
-dotnet ef -s src/Web/ServiceMate.Api/ServiceMate.Api.csproj migrations add AddLabourCodeAndPartAndProduct -p src/Infrastructure/ServiceMate.Presistence/ServiceMate.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Api/FX850P.Api.csproj migrations add AddLabourCodeAndPartAndProduct -p src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
 
-dotnet ef -s src/Web/ServiceMate.Api/ServiceMate.Api.csproj migrations add AddChargeType -p src/Infrastructure/ServiceMate.Presistence/ServiceMate.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Api/FX850P.Api.csproj migrations add AddChargeType -p src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
 
-dotnet ef -s src/Web/ServiceMate.Api/ServiceMate.Api.csproj migrations add AddJob -p src/Infrastructure/ServiceMate.Presistence/ServiceMate.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Api/FX850P.Api.csproj migrations add AddJob -p src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
 
-dotnet ef -s src/Web/ServiceMate.Api/ServiceMate.Api.csproj migrations add AddDamageProductsAndPartHistories -p src/Infrastructure/ServiceMate.Presistence/ServiceMate.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Api/FX850P.Api.csproj migrations add AddDamageProductsAndPartHistories -p src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
 
-dotnet ef -s src/Web/ServiceMate.Api/ServiceMate.Api.csproj migrations add MakeTechnicianOptinalWhenCreatingJob -p src/Infrastructure/ServiceMate.Presistence/ServiceMate.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Api/FX850P.Api.csproj migrations add MakeTechnicianOptinalWhenCreatingJob -p src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
 
-dotnet ef -s src/Web/ServiceMate.Api/ServiceMate.Api.csproj migrations add AddLabourCodesAndNotes -p src/Infrastructure/ServiceMate.Presistence/ServiceMate.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Api/FX850P.Api.csproj migrations add AddLabourCodesAndNotes -p src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
 
-dotnet ef -s src/Web/ServiceMate.Api/ServiceMate.Api.csproj migrations add MakeJobFieldsOptionalWhenCreatingJob -p src/Infrastructure/ServiceMate.Presistence/ServiceMate.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Api/FX850P.Api.csproj migrations add MakeJobFieldsOptionalWhenCreatingJob -p src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
 
-dotnet ef -s src/Web/ServiceMate.Api/ServiceMate.Api.csproj migrations add AddPartInformationToPartHistory -p src/Infrastructure/ServiceMate.Presistence/ServiceMate.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Api/FX850P.Api.csproj migrations add AddPartInformationToPartHistory -p src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
 
-dotnet ef -s src/Web/ServiceMate.Api/ServiceMate.Api.csproj migrations add AddQuantityToPartHistory -p src/Infrastructure/ServiceMate.Presistence/ServiceMate.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Api/FX850P.Api.csproj migrations add AddQuantityToPartHistory -p src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
 
-dotnet ef -s src/Web/ServiceMate.Api/ServiceMate.Api.csproj migrations add AddDocuments -p src/Infrastructure/ServiceMate.Presistence/ServiceMate.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Api/FX850P.Api.csproj migrations add AddDocuments -p src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
 
-dotnet ef -s src/Web/ServiceMate.Api/ServiceMate.Api.csproj migrations add AddNotes -p src/Infrastructure/ServiceMate.Presistence/ServiceMate.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Api/FX850P.Api.csproj migrations add AddNotes -p src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
 
-dotnet ef -s src/Web/ServiceMate.Api/ServiceMate.Api.csproj migrations add AddSeedForLabourCodes -p src/Infrastructure/ServiceMate.Presistence/ServiceMate.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Api/FX850P.Api.csproj migrations add AddSeedForLabourCodes -p src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
 
-dotnet ef -s src/Web/ServiceMate.Api/ServiceMate.Api.csproj migrations add AddPartIdToPartHistories -p src/Infrastructure/ServiceMate.Presistence/ServiceMate.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Api/FX850P.Api.csproj migrations add AddPartIdToPartHistories -p src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
 
-dotnet ef -s src/Web/ServiceMate.Api/ServiceMate.Api.csproj migrations add AddAuditToDocuments -p src/Infrastructure/ServiceMate.Presistence/ServiceMate.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Api/FX850P.Api.csproj migrations add AddAuditToDocuments -p src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
 
-dotnet ef -s src/Web/ServiceMate.Api/ServiceMate.Api.csproj migrations add AddFilenameAnTypeToDocuments -p src/Infrastructure/ServiceMate.Presistence/ServiceMate.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Api/FX850P.Api.csproj migrations add AddFilenameAnTypeToDocuments -p src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
 
-dotnet ef -s src/Web/ServiceMate.Api/ServiceMate.Api.csproj migrations add AddGuidToDocuments -p src/Infrastructure/ServiceMate.Presistence/ServiceMate.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Api/FX850P.Api.csproj migrations add AddGuidToDocuments -p src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
 
-dotnet ef -s src/Web/ServiceMate.Api/ServiceMate.Api.csproj migrations add AddDamageReportAndDamageReportType -p src/Infrastructure/ServiceMate.Presistence/ServiceMate.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Api/FX850P.Api.csproj migrations add AddDamageReportAndDamageReportType -p src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
 
-dotnet ef -s src/Web/ServiceMate.Api/ServiceMate.Api.csproj migrations add ExpandStreetAddressForCompany -p src/Infrastructure/ServiceMate.Presistence/ServiceMate.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Api/FX850P.Api.csproj migrations add ExpandStreetAddressForCompany -p src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
 
-dotnet ef -s src/Web/ServiceMate.Api/ServiceMate.Api.csproj migrations add AssessmentFeeToDamageReport -p src/Infrastructure/ServiceMate.Presistence/ServiceMate.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
+dotnet ef -s src/Web/FX850P.Api/FX850P.Api.csproj migrations add AssessmentFeeToDamageReport -p src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj -c ApplicationDBContext -o Data/Migrations
 
 ```
 

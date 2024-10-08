@@ -25,20 +25,20 @@ public class UpdateUserPasswordCommandHandler : IRequestHandler<UpdateUserPasswo
     {
         // Validate
         var validator = new UpdateUserPasswordCommandValidator();
-        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+        FluentValidation.Results.ValidationResult validationResult = await validator.ValidateAsync(request, cancellationToken);
 
         if (validationResult.IsValid == false)
             throw new ValidationException(validationResult.Errors);
 
         // Check if exist
-        var user = await _userService.FindUniqueAsync(u => u.Id == request.Id, cancellationToken);
+        Domain.Entities.Identity.ApplicationUser? user = await _userService.FindUniqueAsync(u => u.Id == request.Id, cancellationToken);
 
         if (user is null)
         {
             throw new NotFoundException(nameof(user), request.Id);
         }
 
-        var serviceResult = await _userService.UpdatePasswordAsync(user, request.OldPassword, request.NewPassword);
+        Domain.Common.ServiceResult serviceResult = await _userService.UpdatePasswordAsync(user, request.OldPassword, request.NewPassword);
 
         if (serviceResult.IsValid == false)
             throw new BadRequestException(serviceResult.Error);

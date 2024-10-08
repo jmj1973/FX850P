@@ -25,7 +25,7 @@ public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, UserD
     public async Task<UserDto> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
     {
         // Check if exist
-        var user = await _userService.FindUniqueAsync(u => u.Id == request.Id, cancellationToken);
+        Domain.Entities.Identity.ApplicationUser? user = await _userService.FindUniqueAsync(u => u.Id == request.Id, cancellationToken);
 
         if (user is null)
         {

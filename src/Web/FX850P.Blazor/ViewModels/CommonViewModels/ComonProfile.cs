@@ -5,8 +5,5 @@ namespace FX850P.Blazor.ViewModels.CommonViewModels;
 
 public class CommonProfile : Profile
 {
-    public CommonProfile()
-    {
-        CreateMap<KeyValuePairDto<string>, KeyValuePairViewModel<string>>().ReverseMap();
-    }
+    public CommonProfile() => CreateMap<KeyValuePairDto<string>, KeyValuePairViewModel<string>>().ReverseMap();
 }

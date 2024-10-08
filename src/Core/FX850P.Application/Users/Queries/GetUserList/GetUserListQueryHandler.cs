@@ -26,8 +26,8 @@ public class GetUserListQueryHandler : IRequestHandler<GetUserListQuery, QueryRe
 
     public async Task<QueryResultDto<UserDto>> Handle(GetUserListQuery request, CancellationToken cancellationToken)
     {
-        var userQuery = _mapper.Map<UserQuery>(request);
-        var queryResult = await _userService.GetPagedListAsync(userQuery, cancellationToken);
+        UserQuery userQuery = _mapper.Map<UserQuery>(request);
+        Domain.Common.QueryResult<Domain.Entities.Identity.ApplicationUser> queryResult = await _userService.GetPagedListAsync(userQuery, cancellationToken);
         return _mapper.Map<QueryResultDto<UserDto>>(queryResult);
     }
 }

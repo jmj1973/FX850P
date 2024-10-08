@@ -18,10 +18,7 @@ public class RoleService : IRoleService
 {
     private readonly RoleManager<ApplicationRole> _roleManager;
 
-    public RoleService(RoleManager<ApplicationRole> roleManager)
-    {
-        _roleManager = roleManager;
-    }
+    public RoleService(RoleManager<ApplicationRole> roleManager) => _roleManager = roleManager;
 
     public async Task<QueryResult<ApplicationRole>> GetPagedListAsync(RoleQuery query, CancellationToken cancellationToken)
     {
@@ -29,7 +26,7 @@ public class RoleService : IRoleService
         {
             Page = new PageResult()
         };
-        var queryDb = _roleManager.Roles;
+        IQueryable<ApplicationRole> queryDb = _roleManager.Roles;
 
         var columnsOrder = new Dictionary<string, Expression<Func<ApplicationRole, object>>>
         {
@@ -62,21 +59,21 @@ public class RoleService : IRoleService
 
     public async Task<ApplicationRole> FindUniqueAsync(Expression<Func<ApplicationRole, bool>> predicate)
     {
-        var query = _roleManager.Roles;
+        IQueryable<ApplicationRole> query = _roleManager.Roles;
 
         return await query.Where(predicate)
                           .FirstOrDefaultAsync();
     }
     public async Task<ApplicationRole> FindUniqueAsync(Expression<Func<ApplicationRole, bool>> predicate, CancellationToken cancellationToken)
     {
-        var query = _roleManager.Roles;
+        IQueryable<ApplicationRole> query = _roleManager.Roles;
 
         return await query.Where(predicate)
                           .FirstOrDefaultAsync(cancellationToken);
     }
     public async Task<bool> ExistAsync(Expression<Func<ApplicationRole, bool>> predicate)
     {
-        var query = _roleManager.Roles;
+        IQueryable<ApplicationRole> query = _roleManager.Roles;
 
         return await query.AsNoTracking()
                           .AnyAsync(predicate);
@@ -84,7 +81,7 @@ public class RoleService : IRoleService
 
     public async Task<bool> ExistAsync(Expression<Func<ApplicationRole, bool>> predicate, CancellationToken cancellationToken)
     {
-        var query = _roleManager.Roles;
+        IQueryable<ApplicationRole> query = _roleManager.Roles;
 
         return await query.AsNoTracking()
                           .AnyAsync(predicate, cancellationToken);
@@ -92,7 +89,7 @@ public class RoleService : IRoleService
 
     public async Task AddAsync(ApplicationRole entity)
     {
-        var result = await _roleManager.CreateAsync(entity);
+        IdentityResult result = await _roleManager.CreateAsync(entity);
 
         if (result.Succeeded == false)
         {
@@ -102,7 +99,7 @@ public class RoleService : IRoleService
 
     public async Task AddAsync(ApplicationRole entity, CancellationToken cancellationToken)
     {
-        var result = await _roleManager.CreateAsync(entity);
+        IdentityResult result = await _roleManager.CreateAsync(entity);
 
         if (result.Succeeded == false)
         {

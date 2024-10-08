@@ -27,13 +27,13 @@ public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommand, KeyVa
     {
         // Validation
         var validator = new UpdateRoleCommandValidator();
-        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+        FluentValidation.Results.ValidationResult validationResult = await validator.ValidateAsync(request, cancellationToken);
 
         if (validationResult.IsValid == false)
             throw new ValidationException(validationResult.Errors);
 
         // Check if exist
-        var role = await _roleService.FindUniqueAsync(r => r.Id == request.RoleId, cancellationToken);
+        ApplicationRole? role = await _roleService.FindUniqueAsync(r => r.Id == request.RoleId, cancellationToken);
 
         if (role is null)
         {

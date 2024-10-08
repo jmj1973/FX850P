@@ -28,7 +28,7 @@ public class AddRoleToUserCommandHandler : IRequestHandler<AddRoleToUserCommand,
 
     public async Task<UserDto> Handle(AddRoleToUserCommand request, CancellationToken cancellationToken)
     {
-        var user = await _userService.FindUniqueAsync(u => u.Id == request.Id, cancellationToken);
+        Domain.Entities.Identity.ApplicationUser? user = await _userService.FindUniqueAsync(u => u.Id == request.Id, cancellationToken);
 
         if (user is null)
         {
@@ -36,15 +36,15 @@ public class AddRoleToUserCommandHandler : IRequestHandler<AddRoleToUserCommand,
         }
 
         //Remove old roles
-        var roles = await _userService.GetUserRoles(user);
-        foreach (var removeRole in roles)
+        IList<string> roles = await _userService.GetUserRoles(user);
+        foreach (string removeRole in roles)
         {
             await _userService.RemoveRoleFromUser(user, removeRole);
         }
 
         await _userService.AddRoleToUser(user, request.Role);
 
-        var returnUser = _mapper.Map<UserDto>(user);
+        UserDto returnUser = _mapper.Map<UserDto>(user);
         returnUser.Role = request.Role;
 
         return returnUser;

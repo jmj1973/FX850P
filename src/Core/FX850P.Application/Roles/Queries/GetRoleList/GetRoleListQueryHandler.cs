@@ -21,8 +21,8 @@ public class GetRoleListQueryHandler : IRequestHandler<GetRoleListQuery, QueryRe
 
     public async Task<QueryResultDto<KeyValuePairDto<string>>> Handle(GetRoleListQuery request, CancellationToken cancellationToken)
     {
-        var roleQuery = _mapper.Map<RoleQuery>(request);
-        var queryResult = await _roleService.GetPagedListAsync(roleQuery, cancellationToken);
+        RoleQuery roleQuery = _mapper.Map<RoleQuery>(request);
+        Domain.Common.QueryResult<Domain.Entities.Identity.ApplicationRole> queryResult = await _roleService.GetPagedListAsync(roleQuery, cancellationToken);
         return _mapper.Map<QueryResultDto<KeyValuePairDto<string>>>(queryResult);
     }
 }

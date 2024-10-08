@@ -20,7 +20,7 @@ public class FluentValueValidator<T> : AbstractValidator<T>
 
     private IEnumerable<string> ValidateValue(T arg)
     {
-        var result = Validate(arg);
+        FluentValidation.Results.ValidationResult result = Validate(arg);
         if (result.IsValid)
             return Array.Empty<string>();
         return result.Errors.Select(e => e.ErrorMessage);

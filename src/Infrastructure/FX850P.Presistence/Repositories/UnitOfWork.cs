@@ -9,16 +9,11 @@ public class UnitOfWork : IUnitOfWork
 {
     private readonly IDbContextFactory<ApplicationDBContext> _factory;
 
-    public UnitOfWork(IDbContextFactory<ApplicationDBContext> factory)
-    {
-        _factory = factory;
-    }
+    public UnitOfWork(IDbContextFactory<ApplicationDBContext> factory) => _factory = factory;
 
     public Task<int> SaveAsync(CancellationToken cancellationToken)
     {
-        using (var context = _factory.CreateDbContext())
-        {
-            return context.SaveChangesAsync(cancellationToken);
-        }
+        using ApplicationDBContext context = _factory.CreateDbContext();
+        return context.SaveChangesAsync(cancellationToken);
     }
 }

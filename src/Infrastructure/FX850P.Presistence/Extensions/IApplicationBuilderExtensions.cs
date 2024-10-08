@@ -10,11 +10,9 @@ public static class IApplicationBuilderExtensions
     {
         TDbContext dbContext = default!;
 
-        using (var serviceScope = app.ApplicationServices.CreateScope())
-        {
-            dbContext = serviceScope.ServiceProvider.GetRequiredService<TDbContext>();
-            dbContext.Database.Migrate();
-        }
+        using IServiceScope serviceScope = app.ApplicationServices.CreateScope();
+        dbContext = serviceScope.ServiceProvider.GetRequiredService<TDbContext>();
+        dbContext.Database.Migrate();
 
         return;
     }

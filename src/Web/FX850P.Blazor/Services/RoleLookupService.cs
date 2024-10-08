@@ -15,10 +15,7 @@ public class RoleLookupService : IRoleLookupService
 {
     private readonly IMediator _mediator;
 
-    public RoleLookupService(IMediator mediator)
-    {
-        _mediator = mediator;
-    }
+    public RoleLookupService(IMediator mediator) => _mediator = mediator;
 
     public async Task<List<KeyValuePairViewModel<string>>> ListAsync()
     {

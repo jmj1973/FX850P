@@ -32,14 +32,14 @@ public class AuthService : IAuthService
 
     public async Task<AuthResponse> Login(AuthRequest request)
     {
-        var user = await _userManager.FindByEmailAsync(request.Email);
+        ApplicationUser? user = await _userManager.FindByEmailAsync(request.Email);
 
         if (user == null)
         {
             throw new Exception($"User with {request.Email} not found.");
         }
 
-        var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, lockoutOnFailure: false);
+        SignInResult result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, lockoutOnFailure: false);
 
         if (!result.Succeeded)
         {
@@ -48,7 +48,7 @@ public class AuthService : IAuthService
 
         JwtSecurityToken jwtSecurityToken = await GenerateToken(user);
 
-        AuthResponse response = new AuthResponse
+        var response = new AuthResponse
         {
             Id = user.Id,
             Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
@@ -61,8 +61,8 @@ public class AuthService : IAuthService
 
     private async Task<JwtSecurityToken> GenerateToken(ApplicationUser user)
     {
-        var userClaims = await _userManager.GetClaimsAsync(user);
-        var roles = await _userManager.GetRolesAsync(user);
+        IList<Claim> userClaims = await _userManager.GetClaimsAsync(user);
+        IList<string> roles = await _userManager.GetRolesAsync(user);
 
         var roleClaims = new List<Claim>();
 
@@ -71,7 +71,7 @@ public class AuthService : IAuthService
             roleClaims.Add(new Claim(ClaimTypes.Role, roles[i]));
         }
 
-        var claims = new[]
+        IEnumerable<Claim> claims = new[]
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),

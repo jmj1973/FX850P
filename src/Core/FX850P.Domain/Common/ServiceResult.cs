@@ -66,7 +66,7 @@ public class ServiceResult<TType>
     {
         if (IsValid)
         {
-            var result = await method();
+            TReturnType result = await method();
             if (!result.IsValid)
             {
                 Fail(result.Error);
@@ -77,7 +77,7 @@ public class ServiceResult<TType>
     {
         if (IsValid)
         {
-            var result = await method();
+            ServiceResult result = await method();
             if (!result.IsValid)
             {
                 Fail(result.Error);

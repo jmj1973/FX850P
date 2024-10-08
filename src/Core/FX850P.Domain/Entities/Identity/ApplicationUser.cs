@@ -13,7 +13,7 @@ public class ApplicationUser : IdentityUser
     {
         get
         {
-            var space = string.IsNullOrWhiteSpace(FirstName) || string.IsNullOrWhiteSpace(LastName) ? "" : " ";
+            string space = string.IsNullOrWhiteSpace(FirstName) || string.IsNullOrWhiteSpace(LastName) ? "" : " ";
             return $"{FirstName}{space}{LastName}";
         }
     }

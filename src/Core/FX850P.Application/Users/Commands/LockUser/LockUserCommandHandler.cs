@@ -28,7 +28,7 @@ public class LockUserCommandHandler : IRequestHandler<LockUserCommand, UserDto>
     public async Task<UserDto> Handle(LockUserCommand request, CancellationToken cancellationToken)
     {
         // Check if exist
-        var user = await _userService.FindUniqueAsync(u => u.Id == request.Id, cancellationToken);
+        Domain.Entities.Identity.ApplicationUser? user = await _userService.FindUniqueAsync(u => u.Id == request.Id, cancellationToken);
 
         if (user is null)
         {
