@@ -3,6 +3,7 @@
 1.0.0.1
 =======
 
+- CHANGE:   MudBlazor 7.15.0. 
 - CHANGE:   Update net8 SDK to 8.0.403
 
 - FIX:      Static code analays solution wide
