@@ -1,4 +1,11 @@
 
+1.1.0.1
+=======
+
+- CHANGE:   Update net8 SDK to 9.0.100
+
+- FIX:      PendingModelChangesWarning when creating new database 
+            https://github.com/dotnet/efcore/issues/34431 
 
 1.0.0.1
 =======

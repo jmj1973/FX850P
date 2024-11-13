@@ -74,43 +74,43 @@
     - FX850P.Application (Core)
        Class Library .NET 8.0
        ```
-       dotnet new classlib -f net8.0 -n FX850P.Application -o src/Core/FX850P.Application
+       dotnet new classlib -f net9.0 -n FX850P.Application -o src/Core/FX850P.Application
        dotnet sln add src/Core/FX850P.Application/FX850P.Application.csproj
        ```
     - FX850P.Clean.Domain (Core)
        Class Library .NET 8.0
        ```
-       dotnet new classlib -f net8.0 -n FX850P.Domain -o src/Core/FX850P.Domain
+       dotnet new classlib -f net9.0 -n FX850P.Domain -o src/Core/FX850P.Domain
        dotnet sln add src/Core/FX850P.Domain/FX850P.Domain.csproj
        ```       
     - FX850P.Infrastructure (Infrastructure)
        Class Library .NET 8.0
        ```
-       dotnet new classlib -f net8.0 -n FX850P.Infrastructure -o src/Infrastructure/FX850P.Infrastructure
+       dotnet new classlib -f net9.0 -n FX850P.Infrastructure -o src/Infrastructure/FX850P.Infrastructure
        dotnet sln add src/Infrastructure/FX850P.Infrastructure/FX850P.Infrastructure.csproj
        ```              
     - FX850P.Presistence (Infrastructure)
        Class Library .NET 8.0
        ```
-       dotnet new classlib -f net8.0 -n FX850P.Presistence -o src/Infrastructure/FX850P.Presistence
+       dotnet new classlib -f net9.0 -n FX850P.Presistence -o src/Infrastructure/FX850P.Presistence
        dotnet sln add src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj
        ```    
     - FX850P.Api (Web)
        ASP.NET Core Web API .NET 8.0
        ```
-       dotnet new webapi -f net8.0 -n FX850P.Api -o src/Web/FX850P.Api
+       dotnet new webapi -f net9.0 -n FX850P.Api -o src/Web/FX850P.Api
        dotnet sln add src/Web/FX850P.Api/FX850P.Api.csproj
        ``` 
     - FX850P.Mvc (Web)
        ASP.NET Core Web App (Model-View-Controller) .NET 8.0
        ```
-       dotnet new mvc -f net8.0 -n FX850P.Mvc -o src/Web/FX850P.Mvc
+       dotnet new mvc -f net9.0 -n FX850P.Mvc -o src/Web/FX850P.Mvc
        dotnet sln add src/Web/FX850P.Mvc/FX850P.Mvc.csproj
        ```        
     - FX850P.Ui (Web)
        ASP.NET Core Web App (Model-View-Controller) .NET 8.0
        ```
-       dotnet new mvc -f net8.0 -n FX850P.Ui -o src/Web/FX850P.Ui
+       dotnet new mvc -f net9.0 -n FX850P.Ui -o src/Web/FX850P.Ui
        dotnet sln add src/Web/FX850P.Ui/FX850P.Ui.csproj
        ```        
 

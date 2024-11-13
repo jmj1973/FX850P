@@ -92,7 +92,11 @@ public static class PresistenceServicesRegistration
                 });
             }
 
-            options.ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning));
+            options.ConfigureWarnings(warnings =>
+            {
+                warnings.Throw(RelationalEventId.MultipleCollectionIncludeWarning);
+                warnings.Log(RelationalEventId.PendingModelChangesWarning);
+            });
             options.EnableSensitiveDataLogging();
         });
 
