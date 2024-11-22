@@ -148,7 +148,7 @@ public class Startup
         }
 
         app.UseHttpsRedirection();
-        app.UseStaticFiles();
+        //app.UseStaticFiles();
 
         app.UseRouting();
 
@@ -160,6 +160,8 @@ public class Startup
 
         app.UseEndpoints(endpoints =>
         {
+            endpoints.MapStaticAssets();
+
             endpoints.MapRazorComponents<Components.App>()
                      .AddInteractiveServerRenderMode();
 
