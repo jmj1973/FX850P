@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using FX850P.Domain.Entities;
 using FX850P.Domain.Entities.Identity;
 using FX850P.Presistence.Configurations;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -12,6 +13,8 @@ public class ApplicationDBContext : IdentityDbContext<ApplicationUser>
     public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options)
     {
     }
+
+    public DbSet<Test> Tests { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
