@@ -11,7 +11,7 @@
  Version 1.74.3
 
 ## .Net 9.0
- Microsoft .NET SDK 8.0.301
+ Microsoft .NET SDK 9.0.100
 
 ## Running the code
  Check the gode out
