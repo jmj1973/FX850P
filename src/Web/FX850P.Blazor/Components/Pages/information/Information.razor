@@ -28,6 +28,12 @@
                     <MudText>@_informationViewModel.Version</MudText>
                 </MudItem>
                 <MudItem xs="2">
+                    <MudText>Description</MudText>
+                </MudItem>
+                <MudItem xs="10">
+                    <MudText>@_informationViewModel.Description</MudText>
+                </MudItem>
+                <MudItem xs="2">
                     <MudText>Release Date</MudText>
                 </MudItem>
                 <MudItem xs="10">
@@ -70,7 +76,8 @@
         _informationViewModel = new InformationViewModel
         {
             Version = version,
-            ReleaseDate = date
+            ReleaseDate = date,
+            Description = System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription
         };
     }
 

@@ -9,4 +9,6 @@ public class InformationViewModel
 
     [Display(Name = "Release Date")]
     public DateTime ReleaseDate { get; set; }
+
+    public string Description { get; set; } = default!;
 }

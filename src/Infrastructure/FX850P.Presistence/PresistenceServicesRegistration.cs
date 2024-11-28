@@ -114,6 +114,8 @@ public static class PresistenceServicesRegistration
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+        services.AddScoped<ITestRepository, TestRepository>();
+
         //services.AddScoped<IBankingDetailRepository, BankingDetailRepository>();
         //services.AddScoped<ICompanyRepository, CompanyRepository>();
         //services.AddScoped<IChargeTypeRepository, ChargeTypeRepository>();
