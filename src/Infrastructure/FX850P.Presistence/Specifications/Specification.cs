@@ -20,10 +20,7 @@ public abstract class Specification<TType> : ISpecification<TType>
         return _compiledFunc(entity);
     }
 
-    public virtual IQueryable<TType> Include(IQueryable<TType> set)
-    {
-        return set;
-    }
+    public virtual IQueryable<TType> Include(IQueryable<TType> set) => set;
 
     public static implicit operator Expression<Func<TType, bool>>(Specification<TType> specification)
     {
@@ -35,8 +32,5 @@ public abstract class Specification<TType> : ISpecification<TType>
         return specification.IsSatisfiedBy;
     }
 
-    public override string ToString()
-    {
-        return Expression.ToString();
-    }
+    public override string ToString() => Expression.ToString();
 }

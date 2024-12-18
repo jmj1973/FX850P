@@ -6,9 +6,7 @@ namespace FX850P.Presistence.Configurations;
 
 public class RoleConfiguration : IEntityTypeConfiguration<ApplicationRole>
 {
-    public void Configure(EntityTypeBuilder<ApplicationRole> builder)
-    {
-        builder.HasData(
+    public void Configure(EntityTypeBuilder<ApplicationRole> builder) => builder.HasData(
             new ApplicationRole
             {
                 Id = "cac43a6e-f7bb-4448-baaf-1add431ccbbf",
@@ -22,5 +20,4 @@ public class RoleConfiguration : IEntityTypeConfiguration<ApplicationRole>
                 NormalizedName = "ADMINISTRATOR"
             }
         );
-    }
 }

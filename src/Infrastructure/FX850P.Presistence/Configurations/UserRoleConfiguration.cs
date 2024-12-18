@@ -6,9 +6,7 @@ namespace FX850P.Presistence.Configurations;
 
 public class UserRoleConfiguration : IEntityTypeConfiguration<IdentityUserRole<string>>
 {
-    public void Configure(EntityTypeBuilder<IdentityUserRole<string>> builder)
-    {
-        builder.HasData(
+    public void Configure(EntityTypeBuilder<IdentityUserRole<string>> builder) => builder.HasData(
             new IdentityUserRole<string>
             {
                 RoleId = "cbc43a8e-f7bb-4445-baaf-1add431ffbbf",
@@ -20,5 +18,4 @@ public class UserRoleConfiguration : IEntityTypeConfiguration<IdentityUserRole<s
                 UserId = "9e224968-33e4-4652-b7b7-8574d048cdb9"
             }
         );
-    }
 }

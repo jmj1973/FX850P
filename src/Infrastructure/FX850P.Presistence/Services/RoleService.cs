@@ -37,7 +37,7 @@ public class RoleService : IRoleService
         var columnsFilter = new Dictionary<bool, Expression<Func<ApplicationRole, bool>>>
         {
             //[userQuery.Id.HasValue] = x => x.Id == movieQuery.Id,
-            [!String.IsNullOrWhiteSpace(query.SearchString)] = x => x.Name.Contains(query.SearchString),
+            [!string.IsNullOrWhiteSpace(query.SearchString)] = x => x.Name.Contains(query.SearchString),
             //[movieQuery.GenreId.HasValue] = x => x.GenreId == movieQuery.GenreId,
             //[movieQuery.NumberInStock.HasValue] = x => x.NumberInStock == movieQuery.NumberInStock,
         };
@@ -107,19 +107,10 @@ public class RoleService : IRoleService
         }
     }
 
-    public async Task UpdateAsync(ApplicationRole entity)
-    {
-        await _roleManager.UpdateAsync(entity);
-    }
+    public async Task UpdateAsync(ApplicationRole entity) => await _roleManager.UpdateAsync(entity);
 
-    public async Task UpdateAsync(ApplicationRole entity, CancellationToken cancellationToken)
-    {
-        await _roleManager.UpdateAsync(entity);
-    }
+    public async Task UpdateAsync(ApplicationRole entity, CancellationToken cancellationToken) => await _roleManager.UpdateAsync(entity);
 
-    public async Task DeleteAsync(ApplicationRole entity)
-    {
-        await _roleManager.DeleteAsync(entity);
-    }
+    public async Task DeleteAsync(ApplicationRole entity) => await _roleManager.DeleteAsync(entity);
 
 }

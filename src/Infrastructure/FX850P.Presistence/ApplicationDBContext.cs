@@ -24,8 +24,7 @@ public class ApplicationDBContext : IdentityDbContext<ApplicationUser>
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(RoleConfiguration).Assembly);
     }
 
-    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-    {
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) =>
         //foreach (var entry in ChangeTracker.Entries<BaseAuditDomainEnity<int>>())
         //{
         //    entry.Entity.DateModified = DateTime.Now.ToUniversalTime();
@@ -36,7 +35,6 @@ public class ApplicationDBContext : IdentityDbContext<ApplicationUser>
         //    }
         //}
 
-        return base.SaveChangesAsync(cancellationToken);
-    }
+        base.SaveChangesAsync(cancellationToken);
 
 }

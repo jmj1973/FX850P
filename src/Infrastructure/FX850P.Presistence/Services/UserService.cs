@@ -39,7 +39,7 @@ public class UserService : IUserService
         var columnsFilter = new Dictionary<bool, Expression<Func<ApplicationUser, bool>>>
         {
             //[userQuery.Id.HasValue] = x => x.Id == movieQuery.Id,
-            [!String.IsNullOrWhiteSpace(query.SearchString)] = x => x.Email.Contains(query.SearchString) ||
+            [!string.IsNullOrWhiteSpace(query.SearchString)] = x => x.Email.Contains(query.SearchString) ||
                                                                     x.PhoneNumber.Contains(query.SearchString),
             //[movieQuery.GenreId.HasValue] = x => x.GenreId == movieQuery.GenreId,
             //[movieQuery.NumberInStock.HasValue] = x => x.NumberInStock == movieQuery.NumberInStock,
@@ -101,7 +101,9 @@ public class UserService : IUserService
         }
         else
         {
-            throw new Exception($"{result.Errors}");
+            // Get the first error to process
+            IdentityError error = result.Errors.First();
+            throw new Exception($"{error.Description}");
         }
     }
 
@@ -121,15 +123,9 @@ public class UserService : IUserService
         }
     }
 
-    public async Task UpdateAsync(ApplicationUser entity)
-    {
-        await _userManager.UpdateAsync(entity);
-    }
+    public async Task UpdateAsync(ApplicationUser entity) => await _userManager.UpdateAsync(entity);
 
-    public async Task UpdateAsync(ApplicationUser entity, CancellationToken cancellationToken)
-    {
-        await _userManager.UpdateAsync(entity);
-    }
+    public async Task UpdateAsync(ApplicationUser entity, CancellationToken cancellationToken) => await _userManager.UpdateAsync(entity);
 
     public async Task<ServiceResult> UpdatePasswordAsync(ApplicationUser entity, string oldPassword, string newPassword)
     {
@@ -157,24 +153,12 @@ public class UserService : IUserService
         await _userManager.SetLockoutEndDateAsync(entity, DateTime.Now - TimeSpan.FromMinutes(1));
     }
 
-    public async Task DeleteAsync(ApplicationUser entity)
-    {
-        await _userManager.DeleteAsync(entity);
-    }
+    public async Task DeleteAsync(ApplicationUser entity) => await _userManager.DeleteAsync(entity);
 
-    public async Task AddRoleToUser(ApplicationUser entity, string Role)
-    {
-        await _userManager.AddToRoleAsync(entity, Role);
-    }
+    public async Task AddRoleToUser(ApplicationUser entity, string Role) => await _userManager.AddToRoleAsync(entity, Role);
 
-    public async Task RemoveRoleFromUser(ApplicationUser entity, string Role)
-    {
-        await _userManager.RemoveFromRoleAsync(entity, Role);
-    }
+    public async Task RemoveRoleFromUser(ApplicationUser entity, string Role) => await _userManager.RemoveFromRoleAsync(entity, Role);
 
-    public async Task<IList<string>> GetUserRoles(ApplicationUser entity)
-    {
-        return await _userManager.GetRolesAsync(entity);
-    }
+    public async Task<IList<string>> GetUserRoles(ApplicationUser entity) => await _userManager.GetRolesAsync(entity);
 
 }
