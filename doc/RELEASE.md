@@ -1,4 +1,9 @@
 
+1.1.0.3
+=======
+
+- FIX:      Show the correct errormessage when trying to create user.
+
 1.1.0.2
 =======
 

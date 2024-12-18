@@ -115,7 +115,9 @@ public class UserService : IUserService
         }
         else
         {
-            throw new Exception($"{result.Errors}");
+            // Get the first error to process
+            IdentityError error = result.Errors.First();
+            throw new Exception($"{error.Description}");
         }
     }
 
