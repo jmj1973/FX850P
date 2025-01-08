@@ -154,7 +154,7 @@
    [BLAZOR](doc/BLAZOR.md)    
    
 11. TESTING
-    [TESTING](doc/BLAZOR.md) 
+    [TESTING](doc/TESTING.md) 
 
 Flow of adding new entities
 ==========================
