@@ -3,7 +3,7 @@
 
 ### Reference
 
-From the folloing resouce :
+From the following resource :
 
 https://learn.microsoft.com/en-us/dotnet/core/install/linux-ubuntu#register-the-ubuntu-net-backports-package-repository
 https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-environment-variables#net-sdk-and-cli-environment-variables
