@@ -65,11 +65,11 @@ dotnet test ../../../FX50P.sln --collect:"XPlat Code Coverage"
 
 Windows
 
-reportgenerator -reports:"c:/projects/jmj1973/FX850P/test/Web/FX850P.Blazor.Tests/**/coverage.cobertura.xml" -targetdir:"c:/projects/unimps-app-devicescope-ng/test/UniMPS.App.DeviceScope.Tests/coveragereport" -reporttypes:Html -historydir:c:/projects/jmj1973/FX850P/test/Web/FX850P.Blazor.Tests/CoverageHistory
+reportgenerator -reports:"c:/projects/jmj1973/FX850P/test/Web/FX850P.Blazor.Tests/**/coverage.cobertura.xml" -targetdir:"c:/projects/jmj1973/FX850P/test/Web/FX850P.Blazor.Tests/coveragereport" -reporttypes:Html -historydir:c:/projects/jmj1973/FX850P/test/Web/FX850P.Blazor.Tests/CoverageHistory
 
 Linux
 
-reportgenerator -reports:"~/projects/jmj1973/FX850P/test/Web/FX850P.Blazor.Tests/**/coverage.cobertura.xml" -targetdir:"~/projects/unimps-app-devicescope-ng/test/UniMPS.App.DeviceScope.Tests/coveragereport" -reporttypes:Html -historydir:~/projects/jmj1973/FX850P/test/Web/FX850P.Blazor.Tests/CoverageHistory
+reportgenerator -reports:"/home/jan/projects/jmj1973/FX850P/test/Web/FX850P.Blazor.Tests/**/coverage.cobertura.xml" -targetdir:"/home/jan/projects/jmj1973/FX850P/test/Web/FX850P.Blazor.Tests/coveragereport" -reporttypes:Html -historydir:/home/jan/projects/jmj1973/FX850P/test/Web/FX850P.Blazor.TestsCoverageHistory
 
 
 
