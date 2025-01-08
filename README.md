@@ -11,7 +11,7 @@
  Version 1.74.3
 
 ## .Net 9.0
- Microsoft .NET SDK 9.0.100
+ Microsoft .NET SDK 9.0.101
 
 ## Running the code
  Check the gode out
@@ -121,7 +121,13 @@
        dotnet new mudblazor --host server -n FX850P.Blazor -o src/Web/FX850P.Blazor
        dotnet sln add src/Web/FX850P.Blazor/FX850P.Blazor.csproj
        ```        
-       
+
+    - FX850P.Blazor.Tests (Web)
+       xUniy Test project .NET 9.0
+       ```
+       dotnet new xunit -f net9.0 -o test/Web/FX850P.Blazor.Tests
+       dotnet sln add test/Web/FX850P.Blazor.Tests/FX850P.Blazor.Tests.csproj
+       ```                    
 
 3. Domain
    [Domain](doc/DOMAIN.md)
@@ -145,9 +151,11 @@
    [UI](doc/UI.md) 
 
 10. BLAZOR
-   [BLAZOR](doc/BLAZOR.md) 
+   [BLAZOR](doc/BLAZOR.md)    
    
-   
+11. TESTING
+    [TESTING](doc/BLAZOR.md) 
+
 Flow of adding new entities
 ==========================
 
