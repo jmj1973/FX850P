@@ -6,8 +6,8 @@
     <ImplicitUsings>false</ImplicitUsings>
     <UserSecretsId>aspnet-FX850P.Blazor-b08611e3-f8d4-4df1-a015-c51f061439aa</UserSecretsId>
     <Version>1.1.0</Version>
-    <AssemblyVersion>1.1.0.4</AssemblyVersion>
-    <FileVersion>1.1.0.4</FileVersion>
+    <AssemblyVersion>1.1.0.5</AssemblyVersion>
+    <FileVersion>1.1.0.5</FileVersion>
 
 	  <!-- Configure code analysis. 
 	  <AnalysisLevel>latest</AnalysisLevel>
@@ -30,7 +30,7 @@
 	<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.1" />
 	<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="9.0.1" />
 	<PackageReference Include="Microsoft.Extensions.Identity.Core" Version="9.0.1" />
-	<PackageReference Include="MudBlazor" Version="7.15.0" />
+	<PackageReference Include="MudBlazor" Version="8.0.0" />
 	<PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
   </ItemGroup>
 
