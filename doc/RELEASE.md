@@ -2,7 +2,7 @@
 1.1.0.5
 =======
 
-
+- CHANGE:   Update net8 SDK to 9.0.200
 - CHANGE:   Update packages
 - CHANGE:   Update Mudblazor
 
