@@ -3,6 +3,7 @@
 =======
 
 - CHANGE:   Update to 9.0.201
+- CHANGE:   Update Mudblazor
 
 1.1.0.5
 =======
