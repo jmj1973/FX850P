@@ -21,7 +21,8 @@
 
  ## Clean Architeture
 
-``` 
+```
+              (Use Cases)
   MVC - API - Application - Domain - Presisence - DB
   |       |   |                   |  |             |
   +-------+   +-------------------+  +-------------+
@@ -33,7 +34,7 @@
 
   API: (Web)
 
-  Application: (Core)
+  Application: (Use Cases / Core)
   - DTOs
   - Command
   - Queries
