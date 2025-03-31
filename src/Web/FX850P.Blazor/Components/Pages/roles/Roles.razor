@@ -126,13 +126,14 @@
     {
         var parameters = new DialogParameters();
         parameters.Add("role", new KeyValuePairViewModel<string>());
-        var dialog = await _dialogService.Show<AddOrUpdateRole>("Create a Role", parameters).Result;
+        var dialog = await _dialogService.ShowAsync<AddOrUpdateRole>("Create a Role", parameters);
+        var dialogResult = await dialog.Result;
 
-        if (dialog != null && dialog.Data != null)
+        if (dialogResult != null && !dialogResult.Canceled)
         {
             try
             {
-                KeyValuePairViewModel<string> newRole = (KeyValuePairViewModel<string>)dialog.Data!;
+                KeyValuePairViewModel<string> newRole = (KeyValuePairViewModel<string>)dialogResult.Data!;
                 var command = _mapper.Map<CreateRoleCommand>(newRole);
 
                 //Auditing
@@ -172,13 +173,14 @@
 
         var parameters = new DialogParameters();
         parameters.Add("role", role);
-        var dialog = await _dialogService.Show<AddOrUpdateRole>("Update a Role", parameters).Result;
+        var dialog = await _dialogService.ShowAsync<AddOrUpdateRole>("Update a Role", parameters);
+        var dialogResult = await dialog.Result;
 
-        if (dialog != null && dialog.Data != null)
+        if (dialogResult != null && !dialogResult.Canceled)
         {
             try
             {
-                KeyValuePairViewModel<string> updateRole = (KeyValuePairViewModel<string>)dialog.Data!;
+                KeyValuePairViewModel<string> updateRole = (KeyValuePairViewModel<string>)dialogResult.Data!;
                 var command = _mapper.Map<UpdateRoleCommand>(updateRole);
 
                 //Auditing

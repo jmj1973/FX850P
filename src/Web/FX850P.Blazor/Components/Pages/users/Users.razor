@@ -135,13 +135,14 @@
         var parameters = new DialogParameters();
         var user = new UserViewModel() { LockoutEnabled = false, Role = Roles.User.ToString() };
         parameters.Add("user", user);
-        var dialog = await _dialogService.Show<AddOrUpdateUser>("Create a User", parameters, dialogOptions).Result;
+        var dialog = await _dialogService.ShowAsync<AddOrUpdateUser>("Create a User", parameters, dialogOptions);
+        var dialogResult = await dialog.Result;
 
-        if (dialog != null && dialog.Data != null)
+        if (dialogResult != null && !dialogResult.Canceled)
         {
             try
             {
-                UserViewModel? newUser = dialog.Data as UserViewModel;
+                UserViewModel? newUser = dialogResult.Data as UserViewModel;
                 ArgumentNullException.ThrowIfNull(newUser);
 
                 var command = _mapper.Map<CreateUserCommand>(newUser);
@@ -194,13 +195,14 @@
 
         var parameters = new DialogParameters();
         parameters.Add("user", user);
-        var dialog = await _dialogService.Show<AddOrUpdateUser>("Update a User", parameters, dialogOptions).Result;
+        var dialog = await _dialogService.ShowAsync<AddOrUpdateUser>("Update a User", parameters, dialogOptions);
+        var dialogResult = await dialog.Result;
 
-        if (dialog != null && dialog.Data != null)
+        if (dialogResult != null && !dialogResult.Canceled)
         {
             try
             {
-                UserViewModel? updateUser = dialog.Data as UserViewModel;
+                UserViewModel? updateUser = dialogResult.Data as UserViewModel;
                 ArgumentNullException.ThrowIfNull(updateUser);
 
                 var command = _mapper.Map<UpdateUserCommand>(updateUser);
@@ -274,13 +276,14 @@
         var updatePassword = new UpdatePasswordViewModel();
         updatePassword.Id = id;
         parameters.Add("updatePassword", updatePassword);
-        var dialog = await _dialogService.Show<UpdatePasswordUser>("Change Password", parameters, dialogOptions).Result;
+        var dialog = await _dialogService.ShowAsync<UpdatePasswordUser>("Change Password", parameters, dialogOptions);
+        var dialogResult = await dialog.Result;
 
-        if (dialog != null && dialog.Data != null)
+        if (dialogResult != null && !dialogResult.Canceled)
         {
             try
             {
-                UpdatePasswordViewModel updateUpdatePassword = (UpdatePasswordViewModel)dialog.Data!;
+                UpdatePasswordViewModel updateUpdatePassword = (UpdatePasswordViewModel)dialogResult.Data!;
                 var command = _mapper.Map<UpdateUserPasswordCommand>(updateUpdatePassword);
 
                 await _mediator.Send(command);
