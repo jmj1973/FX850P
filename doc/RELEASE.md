@@ -1,4 +1,11 @@
 
+1.1.0.7
+=======
+
+- CHANGE:   Update net9 SDK to 9.0.203
+- CHANGE:   Update packages
+- CHANGE:   Update Mudblazor
+
 1.1.0.6
 =======
 
