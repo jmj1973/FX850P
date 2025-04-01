@@ -1,5 +1,6 @@
 ﻿@using System.Timers
 
+@implements IDisposable
 @inject ISnackbar Snackbar
 @inject IJSRuntime _jsRuntime
 @inject NavigationManager _navigationManager
@@ -14,6 +15,8 @@
     private Task<AuthenticationState> _authenticateState { get; set; } = default!;
 
     private Timer _timerObj = default!;
+
+    private DotNetObjectReference<MyMudProviders> dotNetObject { get; set; } = default!;
 
     protected override void OnInitialized()
     {
@@ -32,13 +35,15 @@
 
         if (firstRender)
         {
+            dotNetObject = DotNetObjectReference.Create(this);
+
             // Set the Timer delay.  5000 milliseconds, you can change it to 10 mins (600000).
             _timerObj = new Timer(5000); //Testing
                                          //_timerObj = new Timer(600000);
             _timerObj.Elapsed += UpdateTimer;
             _timerObj.AutoReset = false;
             // Identify whether the user is active or inactive using onmousemove and onkeypress in JS function.
-            await _jsRuntime.InvokeVoidAsync("timeOutCall", DotNetObjectReference.Create(this));
+            await _jsRuntime.InvokeVoidAsync("timeOutCall", dotNetObject);
             //StateHasChanged();
         }
     }
@@ -63,6 +68,11 @@
                 _navigationManager.NavigateTo("Account/Logout");
             }
         });
+    }
+
+    void IDisposable.Dispose()
+    {
+        dotNetObject?.Dispose();
     }
 
 }
