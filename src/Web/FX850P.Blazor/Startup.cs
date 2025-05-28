@@ -77,6 +77,8 @@ public class Startup
         services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
+        services.AddServerSideBlazor();
+
         services.AddMudServices();
 
         services.AddCascadingAuthenticationState();
