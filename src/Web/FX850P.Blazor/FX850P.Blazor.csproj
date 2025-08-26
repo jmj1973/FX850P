@@ -6,8 +6,8 @@
     <ImplicitUsings>false</ImplicitUsings>
     <UserSecretsId>aspnet-FX850P.Blazor-b08611e3-f8d4-4df1-a015-c51f061439aa</UserSecretsId>
     <Version>1.1.0</Version>
-    <AssemblyVersion>1.1.0.9</AssemblyVersion>
-    <FileVersion>1.1.0.9</FileVersion>
+    <AssemblyVersion>1.1.0.10</AssemblyVersion>
+    <FileVersion>1.1.0.10</FileVersion>
 
 	  <!-- Configure code analysis. 
 	  <AnalysisLevel>latest</AnalysisLevel>
@@ -22,21 +22,21 @@
   
   <ItemGroup>
 	<PackageReference Include="AutoMapper" Version="14.0.0" />
-	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.6" />
-	<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.6">
+	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.8" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.8">
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>
-	<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.6" />
-	<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="9.0.6" />
-	<PackageReference Include="Microsoft.Extensions.Identity.Core" Version="9.0.6" />
-	<PackageReference Include="MudBlazor" Version="8.7.0" />
+	<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8" />
+	<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="9.0.8" />
+	<PackageReference Include="Microsoft.Extensions.Identity.Core" Version="9.0.8" />
+	<PackageReference Include="MudBlazor" Version="8.11.0" />
 	<PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
   </ItemGroup>
 
 
 	<ItemGroup Condition="'$(MSBuildProjectExtension)' != '.dcproj'">
-		<PackageReference Include="SonarAnalyzer.CSharp" Version="10.11.0.117924">
+		<PackageReference Include="SonarAnalyzer.CSharp" Version="10.15.0.120848">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
