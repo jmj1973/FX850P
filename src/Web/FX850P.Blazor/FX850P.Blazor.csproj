@@ -6,8 +6,8 @@
     <ImplicitUsings>false</ImplicitUsings>
     <UserSecretsId>aspnet-FX850P.Blazor-b08611e3-f8d4-4df1-a015-c51f061439aa</UserSecretsId>
     <Version>1.1.0</Version>
-    <AssemblyVersion>1.1.0.10</AssemblyVersion>
-    <FileVersion>1.1.0.10</FileVersion>
+    <AssemblyVersion>1.1.0.11</AssemblyVersion>
+    <FileVersion>1.1.0.11</FileVersion>
 
 	  <!-- Configure code analysis. 
 	  <AnalysisLevel>latest</AnalysisLevel>
@@ -22,15 +22,15 @@
   
   <ItemGroup>
 	<PackageReference Include="AutoMapper" Version="14.0.0" />
-	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.8" />
-	<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.8">
+	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.9" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.9">
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>
-	<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8" />
-	<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="9.0.8" />
-	<PackageReference Include="Microsoft.Extensions.Identity.Core" Version="9.0.8" />
-	<PackageReference Include="MudBlazor" Version="8.11.0" />
+	<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.9" />
+	<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="9.0.9" />
+	<PackageReference Include="Microsoft.Extensions.Identity.Core" Version="9.0.9" />
+	<PackageReference Include="MudBlazor" Version="8.12.0" />
 	<PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
   </ItemGroup>
 

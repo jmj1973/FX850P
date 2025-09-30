@@ -1,4 +1,12 @@
 
+1.1.0.11
+========
+
+- CHANGE:   Update to 9.0.305
+- CHANGE:   Update packages
+
+
+
 1.1.0.10
 ========
 
