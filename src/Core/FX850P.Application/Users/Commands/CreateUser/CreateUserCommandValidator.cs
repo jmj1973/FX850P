@@ -1,6 +1,4 @@
 ﻿using FluentValidation;
-using FX850P.Application.Users.Dtos;
-using MediatR;
 
 namespace FX850P.Application.Users.Commands.CreateUser;
 

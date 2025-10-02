@@ -17,7 +17,10 @@ public class KeyValueActivePairViewModelValidator<TType> : AbstractValidator<Key
     {
         FluentValidation.Results.ValidationResult result = await ValidateAsync(ValidationContext<KeyValueActivePairViewModel<TType>>.CreateWithOptions((KeyValueActivePairViewModel<TType>)model, x => x.IncludeProperties(propertyName)));
         if (result.IsValid)
+        {
             return Array.Empty<string>();
+        }
+
         return result.Errors.Select(e => e.ErrorMessage);
     };
 

@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace FX850P.Blazor.ViewModels.UserViewModels;
+﻿namespace FX850P.Blazor.ViewModels.UserViewModels;
 
 public class UpdatePasswordViewModel
 {

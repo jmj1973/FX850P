@@ -4,10 +4,10 @@
 @rendermode InteractiveServer
 
 @using AutoMapper;
-@using MediatR;
 @using Microsoft.AspNetCore.Authorization
 @using FX850P.Application.Common.Dtos;
 @using FX850P.Application.Exceptions;
+@using FX850P.Application.Mediator.Contracts;
 @using FX850P.Application.Roles.Commands.CreateRole;
 @using FX850P.Application.Roles.Commands.DeleteRole;
 @using FX850P.Application.Roles.Commands.UpdateRole;
@@ -20,7 +20,7 @@
 @using System.Reflection;
 @using System.Threading
 
-@inject IMediator _mediator;
+@inject IApplicationMediator _application;
 @inject IMapper _mapper;
 @inject IDialogService _dialogService;
 @inject AuthenticationStateProvider _authenticationStateProvider;
@@ -106,7 +106,7 @@
                 PageSize = state.PageSize
             };
 
-        var result = await _mediator.Send(query, token);
+        var result = await _application.Send<GetRoleListQuery, QueryResultDto<KeyValuePairDto<string>>>(query, token);
 
         var data = _mapper.Map<IEnumerable<KeyValuePairDto<string>>, IEnumerable<KeyValuePairViewModel<string>>>(result.PageItems);
 
@@ -143,7 +143,7 @@
                 command.ModifiedById = command.CreatedById;
                 command.DateModified = command.DateCreated;
 
-                var result = await _mediator.Send(command);
+                var result = await _application.Send<CreateRoleCommand, KeyValuePairDto<string>>(command);
 
                 await _table.ReloadServerData();
             }
@@ -168,7 +168,7 @@
     private async Task Update(string id)
     {
         var query = new GetRoleDetailsQuery { Id = id };
-        var result = await _mediator.Send(query);
+        var result = await _application.Send<GetRoleDetailsQuery,KeyValuePairDto<string>>(query);
         var role = _mapper.Map<KeyValuePairViewModel<string>>(result);
 
         var parameters = new DialogParameters();
@@ -188,7 +188,7 @@
                 command.ModifiedById = authState.User.GetUserId();
                 command.DateModified = DateTime.Now.ToUniversalTime();
 
-                await _mediator.Send(command);
+                await _application.Send<UpdateRoleCommand,KeyValuePairDto<string>>(command);
 
                 await _table.ReloadServerData();
             }
@@ -227,7 +227,7 @@
                 command.ModifiedById = authState.User.GetUserId();
                 command.DateModified = DateTime.Now.ToUniversalTime();
 
-                await _mediator.Send(command);
+                await _application.Send<DeleteRoleCommand, KeyValuePairDto<string>>(command);
 
                 await _table.ReloadServerData();
             }

@@ -92,14 +92,14 @@ Reference
    https://github.com/AbdelmajidBa/CQRSPattern
    
    
-MediatR
-=======
+ApplicationMediator
+===================
 - Implement Commands and Queries operations.
 - Implement Notifications.
-- Use Dependency Injection to create a new instance of MediatR.
-- Use MediatR with Console application and Web API application.
+- Use Dependency Injection to create a new instance of ApplicationMediator.
+- Use ApplicationMediator with Console application and Web API application.
 
-MediatR has two kinds of messages it dispatches:
+ApplicationMediator has two kinds of messages it dispatches:
 
 - Request/response messages, dispatched to a single handler
 - Notification messages, dispatched to multiple handlers
@@ -107,13 +107,13 @@ MediatR has two kinds of messages it dispatches:
 
 Add New Product
 ---------------
-MediatR interface
+ApplicationMediator interface
 ```
-IRequest<out TResponse>
+IApplicationRequest<out TResponse>
 ```
 DTO
 ```
-public class AddNewProductCommand : IRequest<int>
+public class AddNewProductCommand : IApplicationRequest<int>
 {
     public Guid Id { get; set; }
     public string Name { get; set; }
@@ -122,15 +122,15 @@ public class AddNewProductCommand : IRequest<int>
 ```
 Handler
 ```
-public class AddNewProductCommandHandler : IRequestHandler<AddNewProductCommand, int>
+public class AddNewProductCommandHandler : IApplicationRequestHandler<AddNewProductCommand, int>
 {
     private readonly IApplicationContextInMemoryDB _context;
-    private readonly IMediator _mediator;
+    private readonly IApplicationMediator _application;
 
-    public AddNewProductCommandHandler(IApplicationContextInMemoryDB context, IMediator mediator)
+    public AddNewProductCommandHandler(IApplicationContextInMemoryDB context, IApplicationMediator application)
     {
         _context = context;
-        _mediator = mediator;
+        _application = application;
     }
 
     public async Task<int> Handle(AddNewProductCommand request, CancellationToken cancellationToken)
@@ -159,7 +159,7 @@ public class AddNewProductCommandHandler : IRequestHandler<AddNewProductCommand,
         await _context.SaveChangesAsync(cancellationToken);
 
         //notification
-        await _mediator.Publish(new ProductCreated(product));
+        //await _mediator.Publish(new ProductCreated(product));
 
         return 1;
     }
@@ -204,62 +204,37 @@ Calling the
 ```
 public class ProductMediatRController : ApiController
 {
-  private readonly IMediator _mediator;
+  private readonly IApplicationMediator _application;
 
-  public ProductMediatRController(IMediator mediator)
+  public ProductMediatRController(IApplicationMediator application)
   {
-      _mediator = mediator;
+      _application = application;
   }
   [HttpPost]
   public async Task<IActionResult> PostAsync(CommandsMediatR.AddNewProductCommand command)
   {
-      var response = await _mediator.Send(command);
+      var response = await _application.Send<AddNewProductCommand,int>(command);
       return NoContent();
   }
 }
 ```
 
-Register MediatR
-----------------
+Register ApplicationMediator
+----------------------------
 
 ```
-//CQRS Pattern with MediatR
+//CQRS Pattern with ApplicationMediator
 
-services.AddEntityFrameworkInMemoryDatabase()
-      .AddDbContext<ApplicationContextInMemoryDB>(opt => opt.UseInMemoryDatabase(databaseName: "CQRS-MediatR"), ServiceLifetime.Singleton)
-      .AddSingleton<IApplicationContextInMemoryDB>(p => p.GetService<ApplicationContextInMemoryDB>());
-services.AddMediatR(new Type[] 
-{ 
-  typeof(CommandsMediatR.AddNewProductCommand),
- 
-});
+        //Appliction Mediator
+        services.AddSingleton<IApplicationMediator, ApplicationMediator>();
+
+        //Application Behaviors
+        // User        
+        services.AddTransient<IApplicationRequestHandler<CreateUserCommand, UserDto>, CreateUserCommandHandler>();
+
+
 ```
 
-```
-private static IMediator BuildMediator()
-{
-    var services = new ServiceCollection();
-
-    services.AddDbContext<ApplicationContextInMemoryDB>(opt => opt.UseInMemoryDatabase(databaseName:"CQRS-MediatR"), ServiceLifetime.Singleton);
-    services.AddSingleton<IApplicationContextInMemoryDB>(p => p.GetService<ApplicationContextInMemoryDB>());
-    services.AddMediatR(new Type[] { typeof(CommandsMediatR.AddNewProductCommand),
-    });
-
-    var serilogLogger = new LoggerConfiguration()
-                .WriteTo.File($"{Environment.CurrentDirectory}{Path.DirectorySeparatorChar}Logs{Path.DirectorySeparatorChar}application.log")
-                .CreateLogger();
-
-    services.AddLogging(builder =>
-    {
-        builder.SetMinimumLevel(LogLevel.Information);
-        builder.AddSerilog(logger: serilogLogger, dispose: true);
-    });
-
-
-    var provider = services.BuildServiceProvider();
-    return provider.GetRequiredService<IMediator>();
-}
-```
 
 
 Reference

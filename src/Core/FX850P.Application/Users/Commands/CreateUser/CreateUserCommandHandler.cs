@@ -3,14 +3,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using FX850P.Application.Exceptions;
+using FX850P.Application.Mediator.Contracts;
 using FX850P.Application.Users.Dtos;
 using FX850P.Domain.Entities.Identity;
 using FX850P.Domain.Presistence.Interfaces;
-using MediatR;
 
 namespace FX850P.Application.Users.Commands.CreateUser;
 
-public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, UserDto>
+public class CreateUserCommandHandler : IApplicationRequestHandler<CreateUserCommand, UserDto>
 {
     private readonly IUserService _userService;
     private readonly IUnitOfWork _unitOfWork;
@@ -30,7 +30,9 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, UserD
         FluentValidation.Results.ValidationResult validationResult = await validator.ValidateAsync(request, cancellationToken);
 
         if (validationResult.IsValid == false)
+        {
             throw new ValidationException(validationResult.Errors);
+        }
 
         //Check if exist
         bool existingUser = await _userService.ExistAsync(u => u.UserName.ToUpper() == request.UserName.ToUpper());

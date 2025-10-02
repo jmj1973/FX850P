@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using FX850P.Application.Common.Dtos;
+using FX850P.Application.Mediator.Contracts;
 using FX850P.Application.Users.Dtos;
 using FX850P.Domain.Presistence.Interfaces;
 using FX850P.Domain.Resources;
-using MediatR;
 
 namespace FX850P.Application.Users.Queries.GetUserList;
 
-public class GetUserListQueryHandler : IRequestHandler<GetUserListQuery, QueryResultDto<UserDto>>
+public class GetUserListQueryHandler : IApplicationRequestHandler<GetUserListQuery, QueryResultDto<UserDto>>
 {
     private readonly IUserService _userService;
     private readonly IMapper _mapper;

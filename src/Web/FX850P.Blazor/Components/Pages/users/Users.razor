@@ -4,9 +4,10 @@
 @rendermode InteractiveServer
 
 @using AutoMapper;
-@using MediatR;
-@using Microsoft.AspNetCore.Authorization
+@using FX850P.Application.Common.Dtos
+@using Microsoft.AspNetCore.Authorization;
 @using FX850P.Application.Exceptions;
+@using FX850P.Application.Mediator.Contracts;
 @using FX850P.Application.Users.Commands.LockUser
 @using FX850P.Application.Users.Commands.UnlockUser
 @using FX850P.Application.Users.Commands.UpdateUserPassword
@@ -25,7 +26,7 @@
 @using System.Security.Claims;
 @using System.Threading
 
-@inject IMediator _mediator;
+@inject IApplicationMediator _application;
 @inject IMapper _mapper;
 @inject IDialogService _dialogService;
 @inject AuthenticationStateProvider _authenticationStateProvider;
@@ -116,7 +117,7 @@
                 PageSize = state.PageSize
             };
 
-        var result = await _mediator.Send(query, token);
+        var result = await _application.Send<GetUserListQuery, QueryResultDto<UserDto>>(query, token);
 
         var data = _mapper.Map<IEnumerable<UserDto>, IEnumerable<UserViewModel>>(result.PageItems);
 
@@ -156,12 +157,12 @@
                 command.ModifiedById = command.CreatedById;
                 command.DateModified = command.DateCreated;
 
-                var result = await _mediator.Send(command);
+                var result = await _application.Send<CreateUserCommand, UserDto>(command);
                 //Add roles
                 if (result != null)
                 {
                     var userRoleCommand = new AddRoleToUserCommand() { Id = result.Id, Role = newUser.Role };
-                    await _mediator.Send(userRoleCommand);
+                    await _application.Send<AddRoleToUserCommand, UserDto>(userRoleCommand);
                 }
 
                 await _table.ReloadServerData();
@@ -190,7 +191,7 @@
     {
         var dialogOptions = AppDialogOptions.NormalDialog();
         var query = new GetUserDetailsQuery { Id = id };
-        var result = await _mediator.Send(query);
+        var result = await _application.Send<GetUserDetailsQuery, UserDto>(query);
         var user = _mapper.Map<UserViewModel>(result);
 
         var parameters = new DialogParameters();
@@ -212,7 +213,7 @@
                 command.ModifiedById = authState.User.GetUserId();
                 command.DateModified = DateTime.Now.ToUniversalTime();
 
-                await _mediator.Send(command);
+                await _application.Send<UpdateUserCommand,UserDto>(command);
 
                 await _table.ReloadServerData();
             }
@@ -254,7 +255,7 @@
                 command.ModifiedById = authState.User.GetUserId();
                 command.DateModified = DateTime.Now.ToUniversalTime();
 
-                await _mediator.Send(command);
+                await _application.Send<DeleteUserCommand,UserDto>(command);
 
                 await _table.ReloadServerData();
             }
@@ -286,7 +287,7 @@
                 UpdatePasswordViewModel updateUpdatePassword = (UpdatePasswordViewModel)dialogResult.Data!;
                 var command = _mapper.Map<UpdateUserPasswordCommand>(updateUpdatePassword);
 
-                await _mediator.Send(command);
+                await _application.Send<UpdateUserPasswordCommand,UserDto>(command);
 
                 await _table.ReloadServerData();
             }
@@ -316,7 +317,7 @@
         {
             var command = new LockUserCommand() { Id = id };
 
-            await _mediator.Send(command);
+            await _application.Send<LockUserCommand, UserDto>(command);
 
             await _table.ReloadServerData();
         }
@@ -334,7 +335,7 @@
         {
             var command= new UnlockUserCommand() { Id = id };
 
-            await _mediator.Send(command);
+            await _application.Send<UnlockUserCommand, UserDto>(command);
 
             await _table.ReloadServerData();
         }

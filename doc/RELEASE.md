@@ -1,10 +1,15 @@
 
+1.2.0.1
+=======
+
+- CHANGE:   Replace MediatR with own implementation
+
+
 1.1.0.11
 ========
 
 - CHANGE:   Update to 9.0.305
 - CHANGE:   Update packages
-
 
 
 1.1.0.10

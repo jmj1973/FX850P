@@ -4,18 +4,18 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using FX850P.Application.Common.Dtos;
+using FX850P.Application.Mediator.Contracts;
 using FX850P.Application.Roles.Queries.GetRoleList;
 using FX850P.Blazor.Contracts;
 using FX850P.Blazor.ViewModels.CommonViewModels;
-using MediatR;
 
 namespace FX850P.Blazor.Services;
 
 public class RoleLookupService : IRoleLookupService
 {
-    private readonly IMediator _mediator;
+    private readonly IApplicationMediator _application;
 
-    public RoleLookupService(IMediator mediator) => _mediator = mediator;
+    public RoleLookupService(IApplicationMediator application) => _application = application;
 
     public async Task<List<KeyValuePairViewModel<string>>> ListAsync()
     {
@@ -28,7 +28,7 @@ public class RoleLookupService : IRoleLookupService
             PageSize = int.MaxValue
         };
 
-        QueryResultDto<KeyValuePairDto<string>> result = await _mediator.Send(query);
+        QueryResultDto<KeyValuePairDto<string>> result = await _application.Send< GetRoleListQuery, QueryResultDto<KeyValuePairDto<string>>>(query);
 
         var items = result.PageItems.AsQueryable().Select(_ToListViewModelSelector).ToList();
 

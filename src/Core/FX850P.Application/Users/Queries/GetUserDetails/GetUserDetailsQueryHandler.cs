@@ -3,13 +3,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using FX850P.Application.Exceptions;
+using FX850P.Application.Mediator.Contracts;
 using FX850P.Application.Users.Dtos;
 using FX850P.Domain.Presistence.Interfaces;
-using MediatR;
 
 namespace FX850P.Application.Users.Queries.GetUserDetails;
 
-public class GetUserDetailsQueryHandler : IRequestHandler<GetUserDetailsQuery, UserDto>
+public class GetUserDetailsQueryHandler : IApplicationRequestHandler<GetUserDetailsQuery, UserDto>
 {
     private readonly IUserService _userService;
     private readonly IMapper _mapper;

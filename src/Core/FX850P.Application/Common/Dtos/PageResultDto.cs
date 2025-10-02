@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FX850P.Application.Common.Dtos;
+﻿namespace FX850P.Application.Common.Dtos;
 
 public class PageResultDto
 {

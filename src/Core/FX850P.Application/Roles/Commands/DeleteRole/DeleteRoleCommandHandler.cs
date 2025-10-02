@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FX850P.Application.Common.Dtos;
 using FX850P.Application.Exceptions;
+using FX850P.Application.Mediator.Contracts;
 using FX850P.Domain.Presistence.Interfaces;
-using MediatR;
 
 
 namespace FX850P.Application.Roles.Commands.DeleteRole;
 
-public class DeleteRoleCommandHandler : IRequestHandler<DeleteRoleCommand, KeyValuePairDto<string>>
+public class DeleteRoleCommandHandler : IApplicationRequestHandler<DeleteRoleCommand, KeyValuePairDto<string>>
 {
     private readonly IRoleService _roleService;
     private readonly IUnitOfWork _unitOfWork;

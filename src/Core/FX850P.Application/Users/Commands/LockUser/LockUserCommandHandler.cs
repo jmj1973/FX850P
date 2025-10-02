@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using FX850P.Application.Exceptions;
+using FX850P.Application.Mediator.Contracts;
 using FX850P.Application.Users.Dtos;
 using FX850P.Domain.Presistence.Interfaces;
-using MediatR;
 
 namespace FX850P.Application.Users.Commands.LockUser;
 
-public class LockUserCommandHandler : IRequestHandler<LockUserCommand, UserDto>
+public class LockUserCommandHandler : IApplicationRequestHandler<LockUserCommand, UserDto>
 {
     private readonly IUserService _userService;
     private readonly IUnitOfWork _unitOfWork;

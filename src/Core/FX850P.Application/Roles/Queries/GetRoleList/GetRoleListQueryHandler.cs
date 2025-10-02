@@ -2,13 +2,13 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using FX850P.Application.Common.Dtos;
+using FX850P.Application.Mediator.Contracts;
 using FX850P.Domain.Presistence.Interfaces;
 using FX850P.Domain.Resources;
-using MediatR;
 
 namespace FX850P.Application.Roles.Queries.GetRoleList;
 
-public class GetRoleListQueryHandler : IRequestHandler<GetRoleListQuery, QueryResultDto<KeyValuePairDto<string>>>
+public class GetRoleListQueryHandler : IApplicationRequestHandler<GetRoleListQuery, QueryResultDto<KeyValuePairDto<string>>>
 {
     private readonly IRoleService _roleService;
     private readonly IMapper _mapper;

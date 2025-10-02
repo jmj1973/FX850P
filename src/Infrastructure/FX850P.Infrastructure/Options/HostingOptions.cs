@@ -51,9 +51,14 @@ public class HostingOptions
             var result = new List<string>();
 
             if (Port != 0)
+            {
                 result.Add($"http://*:{Port}");
+            }
+
             if (UseSSL)
+            {
                 result.Add($"https://*:{SslPort}");
+            }
 
             return result.ToArray();
         }

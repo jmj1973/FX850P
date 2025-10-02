@@ -17,7 +17,10 @@ public class P5010ViewModelValidator : AbstractValidator<P5010ViewModel>
     {
         FluentValidation.Results.ValidationResult result = await ValidateAsync(ValidationContext<P5010ViewModel>.CreateWithOptions((P5010ViewModel)model, x => x.IncludeProperties(propertyName)));
         if (result.IsValid)
+        {
             return Array.Empty<string>();
+        }
+
         return result.Errors.Select(e => e.ErrorMessage);
     };
 }

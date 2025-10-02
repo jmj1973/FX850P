@@ -32,7 +32,10 @@ public class UpdatePasswordViewModelValidator : AbstractValidator<UpdatePassword
     {
         FluentValidation.Results.ValidationResult result = await ValidateAsync(ValidationContext<UpdatePasswordViewModel>.CreateWithOptions((UpdatePasswordViewModel)model, x => x.IncludeProperties(propertyName)));
         if (result.IsValid)
+        {
             return Array.Empty<string>();
+        }
+
         return result.Errors.Select(e => e.ErrorMessage);
     };
 

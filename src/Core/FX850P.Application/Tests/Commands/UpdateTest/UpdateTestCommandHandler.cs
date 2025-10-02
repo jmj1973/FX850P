@@ -5,17 +5,17 @@
 // {3} <Item> lowercase
 
 using AutoMapper;
-using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 using FX850P.Application.Exceptions;
 using FX850P.Application.Tests.Dtos;
 using FX850P.Domain.Entities;
 using FX850P.Domain.Presistence.Interfaces;
+using FX850P.Application.Mediator.Contracts;
 
 namespace FX850P.Application.Tests.Commands.UpdateTest;
 
-public class UpdateTestCommandHandler : IRequestHandler<UpdateTestCommand, TestDto>
+public class UpdateTestCommandHandler : IApplicationRequestHandler<UpdateTestCommand, TestDto>
 {
     private readonly ITestRepository _repository;
     private readonly IUnitOfWork _unitOfWork;

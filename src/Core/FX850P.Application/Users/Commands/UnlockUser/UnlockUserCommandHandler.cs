@@ -2,13 +2,13 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using FX850P.Application.Exceptions;
+using FX850P.Application.Mediator.Contracts;
 using FX850P.Application.Users.Dtos;
 using FX850P.Domain.Presistence.Interfaces;
-using MediatR;
 
 namespace FX850P.Application.Users.Commands.UnlockUser;
 
-public class UnlockUserCommandHandler : IRequestHandler<UnlockUserCommand, UserDto>
+public class UnlockUserCommandHandler : IApplicationRequestHandler<UnlockUserCommand, UserDto>
 {
     private readonly IUserService _userService;
     private readonly IUnitOfWork _unitOfWork;

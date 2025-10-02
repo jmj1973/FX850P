@@ -1,9 +1,9 @@
-﻿using FX850P.Application.Users.Dtos;
-using MediatR;
+﻿using FX850P.Application.Mediator.Contracts;
+using FX850P.Application.Users.Dtos;
 
 namespace FX850P.Application.Users.Commands.UnlockUser;
 
-public class UnlockUserCommand : IRequest<UserDto>
+public class UnlockUserCommand : IApplicationRequest<UserDto>
 {
     public string Id { get; set; } = default!;
 }

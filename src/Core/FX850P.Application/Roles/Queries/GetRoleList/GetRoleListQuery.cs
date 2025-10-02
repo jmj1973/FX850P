@@ -1,10 +1,10 @@
 ﻿using FX850P.Application.Common.Dtos;
+using FX850P.Application.Mediator.Contracts;
 using FX850P.Domain.Presistence.Interfaces;
-using MediatR;
 
 namespace FX850P.Application.Roles.Queries.GetRoleList;
 
-public class GetRoleListQuery : IRequest<QueryResultDto<KeyValuePairDto<string>>>, IQueryObject
+public class GetRoleListQuery : IApplicationRequest<QueryResultDto<KeyValuePairDto<string>>>, IQueryObject
 {
     public string SearchString { get; set; } = default!;
     public string SortBy { get; set; } = default!;

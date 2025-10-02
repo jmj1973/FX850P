@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using FX850P.Application.Exceptions;
+using FX850P.Application.Mediator.Contracts;
 using FX850P.Application.Users.Commands.AddRoleUser;
 using FX850P.Application.Users.Dtos;
 using FX850P.Domain.Presistence.Interfaces;
-using MediatR;
 
 namespace FX850P.Application.Users.Commands.AddRoleToUser;
 
-public class AddRoleToUserCommandHandler : IRequestHandler<AddRoleToUserCommand, UserDto>
+public class AddRoleToUserCommandHandler : IApplicationRequestHandler<AddRoleToUserCommand, UserDto>
 {
     private readonly IUserService _userService;
     private readonly IUnitOfWork _unitOfWork;

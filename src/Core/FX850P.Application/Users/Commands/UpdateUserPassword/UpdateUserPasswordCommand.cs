@@ -1,9 +1,9 @@
-﻿using FX850P.Application.Users.Dtos;
-using MediatR;
+﻿using FX850P.Application.Mediator.Contracts;
+using FX850P.Application.Users.Dtos;
 
 namespace FX850P.Application.Users.Commands.UpdateUserPassword;
 
-public class UpdateUserPasswordCommand : IRequest<UserDto>
+public class UpdateUserPasswordCommand : IApplicationRequest<UserDto>
 {
     public string Id { get; set; } = default!;
     public string OldPassword { get; set; } = default!;

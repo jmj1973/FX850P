@@ -5,17 +5,17 @@
 // {3} <Item> lowercase
 
 using AutoMapper;
-using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 using FX850P.Application.Common.Dtos;
 using FX850P.Application.Tests.Dtos;
 using FX850P.Domain.Presistence.Interfaces;
 using FX850P.Domain.Resources;
+using FX850P.Application.Mediator.Contracts;
 
 namespace FX850P.Application.Tests.Queries.GetTestList;
 
-public class GetTestListQueryHandler : IRequestHandler<GetTestListQuery, QueryResultDto<TestDto>>
+public class GetTestListQueryHandler : IApplicationRequestHandler<GetTestListQuery, QueryResultDto<TestDto>>
 {
     private readonly ITestRepository _repository;
     private readonly IMapper _mapper;

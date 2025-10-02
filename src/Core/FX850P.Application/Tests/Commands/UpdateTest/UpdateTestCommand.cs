@@ -4,13 +4,13 @@
 // {2} <Item>
 // {3} <Item> lowercase
 
-using MediatR;
 using FX850P.Application.Common.Commands;
 using FX850P.Application.Tests.Dtos;
+using FX850P.Application.Mediator.Contracts;
 
 namespace FX850P.Application.Tests.Commands.UpdateTest;
 
-public class UpdateTestCommand : BaseAuditCommand, IRequest<TestDto>
+public class UpdateTestCommand : BaseAuditCommand, IApplicationRequest<TestDto>
 {
     public int Id { get; set; }
 }

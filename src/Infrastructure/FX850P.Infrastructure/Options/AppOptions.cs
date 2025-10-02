@@ -30,7 +30,9 @@ public class AppOptions
     public static AppOptions Clone(AppOptions other)
     {
         if (other != null)
+        {
             return new AppOptions(other.ProductName, other.PublicKey, other.Guid.ToString());
+        }
 
         return null;
     }

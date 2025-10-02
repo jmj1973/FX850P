@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using FX850P.Application.Common.Dtos;
 using FX850P.Application.Exceptions;
-using FX850P.Application.Users.Dtos;
+using FX850P.Application.Mediator.Contracts;
 using FX850P.Domain.Presistence.Interfaces;
-using MediatR;
 
 namespace FX850P.Application.Roles.Queries.GetRoleDetails;
 
-public class GetRoleDetailsQueryHandler : IRequestHandler<GetRoleDetailsQuery, KeyValuePairDto<string>>
+public class GetRoleDetailsQueryHandler : IApplicationRequestHandler<GetRoleDetailsQuery, KeyValuePairDto<string>>
 {
     private readonly IRoleService _roleService;
     private readonly IMapper _mapper;

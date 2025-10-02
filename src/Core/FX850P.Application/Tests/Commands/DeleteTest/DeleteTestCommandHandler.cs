@@ -5,7 +5,6 @@
 // {3} <Item> lowercase
 
 using AutoMapper;
-using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 using FX850P.Application.Exceptions;
@@ -15,7 +14,7 @@ using FX850P.Domain.Presistence.Interfaces;
 
 namespace FX850P.Application.Tests.Commands.DeleteTest;
 
-public class DeleteTestCommandHandler : IRequestHandler<DeleteTestCommand, TestDto>
+public class DeleteTestCommandHandler : IApplicaionRequestHandler<DeleteTestCommand, TestDto>
 {
     private readonly ITestRepository _repository;
     private readonly IUnitOfWork _unitOfWork;

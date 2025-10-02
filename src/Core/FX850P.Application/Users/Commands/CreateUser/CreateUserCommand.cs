@@ -1,10 +1,10 @@
 ﻿using FX850P.Application.Common.Commands;
+using FX850P.Application.Mediator.Contracts;
 using FX850P.Application.Users.Dtos;
-using MediatR;
 
 namespace FX850P.Application.Users.Commands.CreateUser;
 
-public class CreateUserCommand : BaseAuditCommand, IRequest<UserDto>
+public class CreateUserCommand : BaseAuditCommand, IApplicationRequest<UserDto>
 {
     public string FirstName { get; set; } = default!;
     public string LastName { get; set; } = default!;

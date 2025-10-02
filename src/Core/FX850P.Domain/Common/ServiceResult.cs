@@ -24,7 +24,10 @@ public class ServiceResult<TType>
     {
         _result = result;
         if (_result != null)
+        {
             Success();
+        }
+
         return this;
     }
 
