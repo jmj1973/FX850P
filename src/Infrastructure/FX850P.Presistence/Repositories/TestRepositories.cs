@@ -21,8 +21,8 @@ namespace FX850P.Presistence.Repositories;
 
 public class TestRepository : GenericRepository<Test>, ITestRepository
 {
-    private readonly IDbContextFactory<ApplicationDBContext> _factory;
-    public TestRepository(IDbContextFactory<ApplicationDBContext> factory) : base(factory) => _factory = factory;
+    private readonly ApplicationDBContext _context;
+    public TestRepository(ApplicationDBContext context) : base(context) => _context = context;
 
     public async Task<QueryResult<Test>> GetPagedListAsync(TestQuery query, CancellationToken cancellationToken)
     {
@@ -31,42 +31,39 @@ public class TestRepository : GenericRepository<Test>, ITestRepository
             Page = new PageResult()
         };
 
-        using (ApplicationDBContext context = _factory.CreateDbContext())
+        IQueryable<Test> queryDb = _context.Tests.AsQueryable();
+
+        var columnsOrder = new Dictionary<string, Expression<Func<Test, object>>>
         {
-            IQueryable<Test> queryDb = context.Tests.AsQueryable();
+            /*
+            ["Id"] = x => x.Id,
+            ["Number"] = x => x.Number,
+            ["Description"] = x => x.Description,
+            ["Price"] = x => x.Price,
+            ["Onhand"] = x => x.Onhand,
+            */
+        };
 
-            var columnsOrder = new Dictionary<string, Expression<Func<Test, object>>>
-            {
-                /*
-                ["Id"] = x => x.Id,
-                ["Number"] = x => x.Number,
-                ["Description"] = x => x.Description,
-                ["Price"] = x => x.Price,
-                ["Onhand"] = x => x.Onhand,
-                */
-            };
+        var columnsFilter = new Dictionary<bool, Expression<Func<Test, bool>>>
+        {
+            /*
+            [!string.IsNullOrWhiteSpace(query.SearchString)] = x => x.Number.Contains(query.SearchString) ||
+                                                                    x.Description.Contains(query.SearchString),
+            */
+        };
 
-            var columnsFilter = new Dictionary<bool, Expression<Func<Test, bool>>>
-            {
-                /*
-                [!string.IsNullOrWhiteSpace(query.SearchString)] = x => x.Number.Contains(query.SearchString) ||
-                                                                        x.Description.Contains(query.SearchString),
-                */
-            };
+        queryDb = queryDb.ApplyFiltering(query, columnsFilter);
 
-            queryDb = queryDb.ApplyFiltering(query, columnsFilter);
+        queryResult.Page.TotalItems = await queryDb.CountAsync(cancellationToken);
+        queryResult.Page.PageSize = query.PageSize;
+        queryResult.Page.Page = query.Page;
 
-            queryResult.Page.TotalItems = await queryDb.CountAsync(cancellationToken);
-            queryResult.Page.PageSize = query.PageSize;
-            queryResult.Page.Page = query.Page;
+        queryDb = queryDb.ApplyOrdering(query, columnsOrder);
+        queryDb = queryDb.ApplyPaging(query);
 
-            queryDb = queryDb.ApplyOrdering(query, columnsOrder);
-            queryDb = queryDb.ApplyPaging(query);
-
-            queryResult.PageItems = await queryDb.AsNoTracking()
-                                                 .ToListAsync(cancellationToken);
-        }
-
+        queryResult.PageItems = await queryDb.AsNoTracking()
+                                                .ToListAsync(cancellationToken);
+    
         return queryResult;
     }
 }

@@ -49,7 +49,7 @@ public class UpdateTestCommandHandler : IApplicationRequestHandler<UpdateTestCom
 
         _mapper.Map(request, test);
 
-        await _repository.SaveAsync(test, cancellationToken);
+        await _unitOfWork.SaveAsync(cancellationToken);
 
         return _mapper.Map<TestDto>(test);
     }

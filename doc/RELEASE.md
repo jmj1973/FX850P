@@ -4,6 +4,8 @@
 
 - CHANGE:   Replace MediatR with own implementation
 
+- CHANGE:   Change from IDbContextFactory (Singleton) to ApplicationDbContext (Scoped)
+
 
 1.1.0.11
 ========

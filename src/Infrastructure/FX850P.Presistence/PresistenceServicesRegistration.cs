@@ -22,7 +22,7 @@ public static class PresistenceServicesRegistration
         string? conStr = "";
 
         //https://www.reddit.com/r/Blazor/comments/ep3mwp/blazor_concurrency_problem_using_entity_framework/
-        services.AddDbContextFactory<ApplicationDBContext>(options =>
+        services.AddDbContext<ApplicationDBContext>(options =>
         {
             if (!string.IsNullOrEmpty(dbType))
             {
@@ -98,7 +98,7 @@ public static class PresistenceServicesRegistration
                 warnings.Log(RelationalEventId.PendingModelChangesWarning);
             });
             options.EnableSensitiveDataLogging();
-        });
+        }, ServiceLifetime.Scoped);
 
         /* Move to API of UI
         services.AddIdentity<ApplicationUser, ApplicationRole>()

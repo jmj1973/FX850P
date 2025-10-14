@@ -1,19 +1,14 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using FX850P.Domain.Presistence.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace FX850P.Presistence.Repositories;
 
 public class UnitOfWork : IUnitOfWork
 {
-    private readonly IDbContextFactory<ApplicationDBContext> _factory;
+    private readonly ApplicationDBContext _context;
 
-    public UnitOfWork(IDbContextFactory<ApplicationDBContext> factory) => _factory = factory;
+    public UnitOfWork(ApplicationDBContext context) => _context = context;
 
-    public Task<int> SaveAsync(CancellationToken cancellationToken)
-    {
-        using ApplicationDBContext context = _factory.CreateDbContext();
-        return context.SaveChangesAsync(cancellationToken);
-    }
+    public Task<int> SaveAsync(CancellationToken cancellationToken) => _context.SaveChangesAsync(cancellationToken);
 }
