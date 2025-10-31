@@ -49,11 +49,12 @@ public static class Program
         if (hostingOptions.UseSSL)
         {
             string? certificateLocation = Path.Combine(GetContentRoot(), hostingOptions.SSLCertificateName);
+            X509Certificate2 certificate = X509CertificateLoader.LoadPkcs12FromFile(certificateLocation, hostingOptions.SSLCertificatePassword);		
 
             options.ConfigureHttpsDefaults(listenOptions =>
             {
                 // certificate is an X509Certificate2
-                listenOptions.ServerCertificate = new X509Certificate2(certificateLocation, hostingOptions.SSLCertificatePassword);
+                listenOptions.ServerCertificate = certificate
                 listenOptions.AllowAnyClientCertificate();
             });
 
