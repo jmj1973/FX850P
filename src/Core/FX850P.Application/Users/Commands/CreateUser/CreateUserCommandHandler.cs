@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using FX850P.Application.Exceptions;
 using FX850P.Application.Mediator.Contracts;
 using FX850P.Application.Users.Dtos;
@@ -13,40 +10,38 @@ namespace FX850P.Application.Users.Commands.CreateUser;
 public class CreateUserCommandHandler : IApplicationRequestHandler<CreateUserCommand, UserDto>
 {
     private readonly IUserService _userService;
-    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public CreateUserCommandHandler(IUserService userService, IUnitOfWork unitOfWork, IMapper mapper)
+    public CreateUserCommandHandler(IUserService userService, IMapper mapper)
     {
         _userService = userService;
-        _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
-    public async Task<UserDto> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+    public async Task<UserDto> Handle(CreateUserCommand request, CancellationToken cancellationToken = default)
     {
         // Validate
         var validator = new CreateUserCommandValidator();
         FluentValidation.Results.ValidationResult validationResult = await validator.ValidateAsync(request, cancellationToken);
 
-        if (validationResult.IsValid == false)
+        if (!validationResult.IsValid)
         {
             throw new ValidationException(validationResult.Errors);
         }
 
         //Check if exist
-        bool existingUser = await _userService.ExistAsync(u => u.UserName.ToUpper() == request.UserName.ToUpper());
+        bool existingUser = await _userService.ExistAsync(u => u.UserName != null && u.UserName.ToUpper() == request.UserName.ToUpper(), cancellationToken);
 
         if (existingUser)
         {
-            throw new Exception($"Username '{request.UserName}' already exists.");
+            throw new DuplicateException($"Username '{request.UserName}' already exists.");
         }
 
-        bool existingEmail = await _userService.ExistAsync(u => u.Email.ToUpper() == request.Email.ToUpper());
+        bool existingEmail = await _userService.ExistAsync(u => u.Email != null && u.Email.ToUpper() == request.Email.ToUpper(), cancellationToken);
 
-        if (existingUser)
+        if (existingEmail)
         {
-            throw new Exception($"Email '{request.Email}' already exists.");
+            throw new DuplicateException($"Email '{request.Email}' already exists.");
         }
 
         // Add User
@@ -59,7 +54,7 @@ public class CreateUserCommandHandler : IApplicationRequestHandler<CreateUserCom
             EmailConfirmed = true
         };
 
-        await _userService.AddAsync(user, request.Password, request.Role);
+        await _userService.AddAsync(user, request.Password, request.Role, cancellationToken);
 
         UserDto returnUser = _mapper.Map<UserDto>(user);
         returnUser.Role = request.Role;

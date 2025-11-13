@@ -1,12 +1,8 @@
-﻿
-using System;
-using System.Threading.Tasks;
-
-namespace FX850P.Domain.Common;
+﻿namespace FX850P.Domain.Common;
 
 public class ServiceResult<TType>
 {
-    private TType _result = default(TType)!;
+    private TType _result { get; set; } = default!;
     public TType Result => _result;
 
     public bool IsValid { get; protected set; }
@@ -23,7 +19,7 @@ public class ServiceResult<TType>
     public ServiceResult<TType> SuccessIfNotNull(TType result)
     {
         _result = result;
-        if (_result != null)
+        if (!EqualityComparer<TType>.Default.Equals(_result, default))
         {
             Success();
         }
@@ -100,7 +96,7 @@ public class ServiceResult : ServiceResult<object>
     public new static ServiceResult SuccessResultIfNotNull(object obj)
     {
         var result = new ServiceResult();
-        result.Success();
+        result.SuccessIfNotNull(obj);
         return result;
     }
     public new static ServiceResult FailResult(string error)

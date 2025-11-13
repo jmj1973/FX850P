@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using FX850P.Application.Common.Dtos;
 using FX850P.Application.Exceptions;
 using FX850P.Application.Mediator.Contracts;
@@ -12,23 +10,21 @@ namespace FX850P.Application.Roles.Commands.UpdateRole;
 public class UpdateRoleCommandHandler : IApplicationRequestHandler<UpdateRoleCommand, KeyValuePairDto<string>>
 {
     private readonly IRoleService _roleService;
-    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public UpdateRoleCommandHandler(IRoleService roleService, IUnitOfWork unitOfWork, IMapper mapper)
+    public UpdateRoleCommandHandler(IRoleService roleService, IMapper mapper)
     {
         _roleService = roleService;
-        _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
-    public async Task<KeyValuePairDto<string>> Handle(UpdateRoleCommand request, CancellationToken cancellationToken)
+    public async Task<KeyValuePairDto<string>> Handle(UpdateRoleCommand request, CancellationToken cancellationToken = default)
     {
         // Validation
         var validator = new UpdateRoleCommandValidator();
         FluentValidation.Results.ValidationResult validationResult = await validator.ValidateAsync(request, cancellationToken);
 
-        if (validationResult.IsValid == false)
+        if (!validationResult.IsValid)
         {
             throw new ValidationException(validationResult.Errors);
         }
@@ -43,7 +39,7 @@ public class UpdateRoleCommandHandler : IApplicationRequestHandler<UpdateRoleCom
 
         _mapper.Map(request, role);
 
-        await _roleService.UpdateAsync(role);
+        await _roleService.UpdateAsync(role, cancellationToken);
 
         return _mapper.Map<KeyValuePairDto<string>>(role);
     }

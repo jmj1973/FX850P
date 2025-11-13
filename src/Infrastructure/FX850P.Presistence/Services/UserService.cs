@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 using FX850P.Domain.Common;
 using FX850P.Domain.Entities.Identity;
 using FX850P.Domain.Presistence.Interfaces;
@@ -20,7 +15,7 @@ public class UserService : IUserService
 
     public UserService(UserManager<ApplicationUser> userManager) => _userManager = userManager;
 
-    public async Task<QueryResult<ApplicationUser>> GetPagedListAsync(UserQuery query, CancellationToken cancellationToken)
+    public async Task<QueryResult<ApplicationUser>> GetPagedListAsync(UserQuery query, CancellationToken cancellationToken = default)
     {
         var queryResult = new QueryResult<ApplicationUser>()
         {
@@ -67,7 +62,7 @@ public class UserService : IUserService
         return await query.Where(predicate)
                           .FirstOrDefaultAsync();
     }
-    public async Task<ApplicationUser> FindUniqueAsync(Expression<Func<ApplicationUser, bool>> predicate, CancellationToken cancellationToken)
+    public async Task<ApplicationUser> FindUniqueAsync(Expression<Func<ApplicationUser, bool>> predicate, CancellationToken cancellationToken = default)
     {
         IQueryable<ApplicationUser> query = _userManager.Users;
 
@@ -83,7 +78,7 @@ public class UserService : IUserService
                           .AnyAsync(predicate);
     }
 
-    public async Task<bool> ExistAsync(Expression<Func<ApplicationUser, bool>> predicate, CancellationToken cancellationToken)
+    public async Task<bool> ExistAsync(Expression<Func<ApplicationUser, bool>> predicate, CancellationToken cancellationToken = default)
     {
         IQueryable<ApplicationUser> query = _userManager.Users;
 
@@ -125,7 +120,7 @@ public class UserService : IUserService
 
     public async Task UpdateAsync(ApplicationUser entity) => await _userManager.UpdateAsync(entity);
 
-    public async Task UpdateAsync(ApplicationUser entity, CancellationToken cancellationToken) => await _userManager.UpdateAsync(entity);
+    public async Task UpdateAsync(ApplicationUser entity, CancellationToken cancellationToken = default) => await _userManager.UpdateAsync(entity);
 
     public async Task<ServiceResult> UpdatePasswordAsync(ApplicationUser entity, string oldPassword, string newPassword)
     {

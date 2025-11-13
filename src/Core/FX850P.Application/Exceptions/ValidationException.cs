@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
 
 namespace FX850P.Application.Exceptions;
 
-public class ValidationException : ApplicationException
+public class ValidationException : Exception
 {
+    public IDictionary<string, string[]> Failures { get; }
+
+    public ValidationException(string message) : base(message) => Failures = new Dictionary<string, string[]>();
+
+    public ValidationException(string message, Exception innerException) : base(message, innerException) => Failures = new Dictionary<string, string[]>();
+
     public ValidationException() : base("One or more validation failures have occurred.") => Failures = new Dictionary<string, string[]>();
 
-    public ValidationException(List<ValidationFailure> failures) : this()
+    public ValidationException(IReadOnlyCollection<ValidationFailure> failures) : this()
     {
         IEnumerable<string> propertyNames = failures
             .Select(e => e.PropertyName)
@@ -26,5 +29,4 @@ public class ValidationException : ApplicationException
         }
     }
 
-    public IDictionary<string, string[]> Failures { get; }
 }

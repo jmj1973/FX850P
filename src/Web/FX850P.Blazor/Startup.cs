@@ -1,21 +1,12 @@
 ﻿using System.Reflection;
-using System.Threading.Tasks;
 using FX850P.Application;
 using FX850P.Blazor.Components.Account;
 using FX850P.Blazor.Extensions;
 using FX850P.Domain.Entities.Identity;
 using FX850P.Infrastructure;
 using FX850P.Presistence;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using MudBlazor.Services;
 using Serilog;
 

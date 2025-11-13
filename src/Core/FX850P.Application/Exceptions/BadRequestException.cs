@@ -1,12 +1,16 @@
-﻿
-using System;
+﻿namespace FX850P.Application.Exceptions;
 
-namespace FX850P.Application.Exceptions;
-
-public class BadRequestException : ApplicationException
+public class BadRequestException : Exception
 {
     public BadRequestException(string message) : base(message)
     {
 
+    }
+    public BadRequestException()
+    {
+    }
+
+    public BadRequestException(string message, Exception innerException) : base(message, innerException)
+    {
     }
 }

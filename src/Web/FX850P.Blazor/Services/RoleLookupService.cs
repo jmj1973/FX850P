@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 using FX850P.Application.Common.Dtos;
 using FX850P.Application.Mediator.Contracts;
 using FX850P.Application.Roles.Queries.GetRoleList;

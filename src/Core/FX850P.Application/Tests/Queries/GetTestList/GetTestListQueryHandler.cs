@@ -5,8 +5,6 @@
 // {3} <Item> lowercase
 
 using AutoMapper;
-using System.Threading;
-using System.Threading.Tasks;
 using FX850P.Application.Common.Dtos;
 using FX850P.Application.Tests.Dtos;
 using FX850P.Domain.Presistence.Interfaces;
@@ -26,7 +24,7 @@ public class GetTestListQueryHandler : IApplicationRequestHandler<GetTestListQue
         _mapper = mapper;
     }
 
-    public async Task<QueryResultDto<TestDto>> Handle(GetTestListQuery request, CancellationToken cancellationToken)
+    public async Task<QueryResultDto<TestDto>> Handle(GetTestListQuery request, CancellationToken cancellationToken = default)
     {
         TestQuery query = _mapper.Map<TestQuery>(request);
         Domain.Common.QueryResult<Domain.Entities.Test> queryResult = await _repository.GetPagedListAsync(query, cancellationToken);

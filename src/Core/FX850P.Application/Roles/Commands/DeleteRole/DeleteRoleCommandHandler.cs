@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using FX850P.Application.Common.Dtos;
 using FX850P.Application.Exceptions;
 using FX850P.Application.Mediator.Contracts;
@@ -12,17 +10,15 @@ namespace FX850P.Application.Roles.Commands.DeleteRole;
 public class DeleteRoleCommandHandler : IApplicationRequestHandler<DeleteRoleCommand, KeyValuePairDto<string>>
 {
     private readonly IRoleService _roleService;
-    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public DeleteRoleCommandHandler(IRoleService roleService, IUnitOfWork unitOfWork, IMapper mapper)
+    public DeleteRoleCommandHandler(IRoleService roleService, IMapper mapper)
     {
         _roleService = roleService;
-        _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
-    public async Task<KeyValuePairDto<string>> Handle(DeleteRoleCommand request, CancellationToken cancellationToken)
+    public async Task<KeyValuePairDto<string>> Handle(DeleteRoleCommand request, CancellationToken cancellationToken = default)
     {
         // Check if exist
         Domain.Entities.Identity.ApplicationRole? role = await _roleService.FindUniqueAsync(r => r.Id == request.Id, cancellationToken);

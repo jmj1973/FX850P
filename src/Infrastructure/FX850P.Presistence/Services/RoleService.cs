@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 using FX850P.Domain.Common;
 using FX850P.Domain.Entities.Identity;
 using FX850P.Domain.Presistence.Interfaces;
@@ -91,7 +86,7 @@ public class RoleService : IRoleService
     {
         IdentityResult result = await _roleManager.CreateAsync(entity);
 
-        if (result.Succeeded == false)
+        if (!result.Succeeded)
         {
             throw new Exception($"{result.Errors}");
         }
@@ -101,7 +96,7 @@ public class RoleService : IRoleService
     {
         IdentityResult result = await _roleManager.CreateAsync(entity);
 
-        if (result.Succeeded == false)
+        if (!result.Succeeded)
         {
             throw new Exception($"{result.Errors}");
         }

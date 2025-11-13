@@ -5,8 +5,6 @@
 // {3} <Item> lowercase
 
 using AutoMapper;
-using System.Threading;
-using System.Threading.Tasks;
 using FX850P.Application.Exceptions;
 using FX850P.Application.Tests.Dtos;
 using FX850P.Domain.Presistence.Interfaces;
@@ -25,7 +23,7 @@ public class GetTestDetailsQueryHandler : IApplicationRequestHandler<GetTestDeta
         _mapper = mapper;
     }
 
-    public async Task<TestDto> Handle(GetTestDetailsQuery request, CancellationToken cancellationToken)
+    public async Task<TestDto> Handle(GetTestDetailsQuery request, CancellationToken cancellationToken = default)
     {
         Domain.Entities.Test? test = await _repository.FindUniqueAsync(u => u.Id == request.Id, cancellationToken);
 

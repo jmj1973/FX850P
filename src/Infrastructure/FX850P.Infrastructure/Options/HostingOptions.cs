@@ -1,16 +1,11 @@
-﻿
-using System.Collections.Generic;
-
-namespace FX850P.Infrastructure.Options;
+﻿namespace FX850P.Infrastructure.Options;
 
 public class HostingOptions
 {
     //Define Hosting Options
     // To disable a scheme set port to 0.
     // Json Example (Disable Http)
-    // "HostingOptions": {
     //    "Port" : 0,    
-    // },
     public int Port { get; set; } = 5000;
     public int? SslPort { get; set; } = default!;
     public string SSLCertificateName { get; set; } = "jmj1973.pfx";
@@ -38,10 +33,8 @@ public class HostingOptions
                 return _redirect.Value;
             }
         }
-        set
-        {
-            _redirect = value;
-        }
+
+        set => _redirect = value;
     }
 
     public string[] Urls
@@ -64,7 +57,7 @@ public class HostingOptions
         }
     }
 
-    public bool UseSSL { get { return ((SslPort ?? 0) != 0); } }
+    public bool UseSSL => (SslPort ?? 0) != 0;
 
     public void Inject(HostingOptions other)
     {
@@ -74,11 +67,12 @@ public class HostingOptions
         SSLCertificatePassword = other.SSLCertificatePassword;
     }
 
-    public int GetPreferedPort()
+    public int PreferedPort
     {
-        int sslPort = (SslPort ?? Port);
-
-        return UseSSL ? sslPort : Port;
+        get
+        {
+            int sslPort = SslPort ?? Port;
+            return UseSSL ? sslPort : Port;
+        }
     }
-
 }

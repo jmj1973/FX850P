@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using FX850P.Application.Identity.Models;
+﻿using FX850P.Application.Identity.Models;
 
 namespace FX850P.Application.Identity.Interfaces;
 

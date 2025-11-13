@@ -1,7 +1,4 @@
-﻿
-using System;
-
-namespace FX850P.Application.Common.Commands;
+﻿namespace FX850P.Application.Common.Commands;
 
 public class BaseAuditCommand
 {

@@ -4,10 +4,6 @@
 // {2} <Item>
 // {3} <Item> lowercase
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FluentValidation;
 namespace FX850P.Blazor.ViewModels.TestViewModels;
 

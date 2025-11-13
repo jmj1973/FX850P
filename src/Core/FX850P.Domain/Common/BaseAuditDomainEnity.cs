@@ -1,5 +1,4 @@
-﻿using System;
-using FX850P.Domain.Entities.Identity;
+﻿using FX850P.Domain.Entities.Identity;
 
 namespace FX850P.Domain.Common;
 

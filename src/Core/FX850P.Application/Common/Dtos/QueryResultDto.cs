@@ -1,7 +1,4 @@
-﻿
-using System.Collections.Generic;
-
-namespace FX850P.Application.Common.Dtos;
+﻿namespace FX850P.Application.Common.Dtos;
 
 public class QueryResultDto<TEntityDto>
 {

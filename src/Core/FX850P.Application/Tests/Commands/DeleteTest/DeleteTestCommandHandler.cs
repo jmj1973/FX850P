@@ -5,8 +5,6 @@
 // {3} <Item> lowercase
 
 using AutoMapper;
-using System.Threading;
-using System.Threading.Tasks;
 using FX850P.Application.Exceptions;
 using FX850P.Application.Tests.Dtos;
 using FX850P.Domain.Entities;

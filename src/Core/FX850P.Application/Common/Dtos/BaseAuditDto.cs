@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FX850P.Application.Common.Dtos;
+﻿namespace FX850P.Application.Common.Dtos;
 
 public class BaseAuditDto<TType> : BaseDto<TType>
 {

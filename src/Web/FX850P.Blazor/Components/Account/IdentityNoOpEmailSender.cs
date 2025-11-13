@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using FX850P.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;

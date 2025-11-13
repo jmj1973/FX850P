@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using FX850P.Application.Common.Dtos;
 using FX850P.Application.Mediator.Contracts;
 using FX850P.Domain.Presistence.Interfaces;
@@ -19,7 +17,7 @@ public class GetRoleListQueryHandler : IApplicationRequestHandler<GetRoleListQue
         _mapper = mapper;
     }
 
-    public async Task<QueryResultDto<KeyValuePairDto<string>>> Handle(GetRoleListQuery request, CancellationToken cancellationToken)
+    public async Task<QueryResultDto<KeyValuePairDto<string>>> Handle(GetRoleListQuery request, CancellationToken cancellationToken = default)
     {
         RoleQuery roleQuery = _mapper.Map<RoleQuery>(request);
         Domain.Common.QueryResult<Domain.Entities.Identity.ApplicationRole> queryResult = await _roleService.GetPagedListAsync(roleQuery, cancellationToken);

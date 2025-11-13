@@ -1,6 +1,4 @@
-﻿
-using System;
-using FX850P.Blazor.ViewModels.UserViewModels;
+﻿using FX850P.Blazor.ViewModels.UserViewModels;
 
 namespace FX850P.Blazor.ViewModels.CommonViewModels;
 

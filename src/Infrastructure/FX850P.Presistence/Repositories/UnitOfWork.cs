@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using FX850P.Domain.Presistence.Interfaces;
+﻿using FX850P.Domain.Presistence.Interfaces;
 
 namespace FX850P.Presistence.Repositories;
 

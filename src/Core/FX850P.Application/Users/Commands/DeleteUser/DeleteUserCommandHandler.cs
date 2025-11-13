@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using FX850P.Application.Exceptions;
 using FX850P.Application.Mediator.Contracts;
 using FX850P.Application.Users.Dtos;
@@ -12,17 +10,15 @@ namespace FX850P.Application.Users.Commands.DeleteUser;
 public class DeleteUserCommandHandler : IApplicationRequestHandler<DeleteUserCommand, UserDto>
 {
     private readonly IUserService _userService;
-    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public DeleteUserCommandHandler(IUserService userService, IUnitOfWork unitOfWork, IMapper mapper)
+    public DeleteUserCommandHandler(IUserService userService, IMapper mapper)
     {
         _userService = userService;
-        _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
-    public async Task<UserDto> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
+    public async Task<UserDto> Handle(DeleteUserCommand request, CancellationToken cancellationToken = default)
     {
         // Check if exist
         Domain.Entities.Identity.ApplicationUser? user = await _userService.FindUniqueAsync(u => u.Id == request.Id, cancellationToken);

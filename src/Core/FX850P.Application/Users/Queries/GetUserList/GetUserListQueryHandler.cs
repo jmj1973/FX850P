@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using FX850P.Application.Common.Dtos;
 using FX850P.Application.Mediator.Contracts;
 using FX850P.Application.Users.Dtos;
@@ -20,7 +18,7 @@ public class GetUserListQueryHandler : IApplicationRequestHandler<GetUserListQue
         _mapper = mapper;
     }
 
-    public async Task<QueryResultDto<UserDto>> Handle(GetUserListQuery request, CancellationToken cancellationToken)
+    public async Task<QueryResultDto<UserDto>> Handle(GetUserListQuery request, CancellationToken cancellationToken = default)
     {
         UserQuery userQuery = _mapper.Map<UserQuery>(request);
         Domain.Common.QueryResult<Domain.Entities.Identity.ApplicationUser> queryResult = await _userService.GetPagedListAsync(userQuery, cancellationToken);

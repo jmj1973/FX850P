@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using FX850P.Application.Identity.Interfaces;
+﻿using FX850P.Application.Identity.Interfaces;
 using FX850P.Application.Identity.Models;
 using FX850P.Domain.Presistence.Interfaces;
 using FX850P.Presistence.Repositories;
@@ -45,7 +43,6 @@ public static class PresistenceServicesRegistration
                         options.UseNpgsql(configuration.GetConnectionString("PostgreSQLConnection"), options =>
                             options.MigrationsAssembly("FX850P.Presistence.PostgreSQL"));
                         break;
-                    case "mssql":
                     default:
                         //Must have this also "TrustServerCertificate=True"
                         conStr = configuration.GetConnectionString("DefaultConnection");

@@ -5,8 +5,6 @@
 // {3} <Item> lowercase
 
 using AutoMapper;
-using System.Threading;
-using System.Threading.Tasks;
 using FX850P.Application.Exceptions;
 using FX850P.Application.Tests.Dtos;
 using FX850P.Domain.Entities;
@@ -28,13 +26,13 @@ public class UpdateTestCommandHandler : IApplicationRequestHandler<UpdateTestCom
         _mapper = mapper;
     }
 
-    public async Task<TestDto> Handle(UpdateTestCommand request, CancellationToken cancellationToken)
+    public async Task<TestDto> Handle(UpdateTestCommand request, CancellationToken cancellationToken = default)
     {
         // Validation
         var validator = new UpdateTestCommandValidator();
-        FluentValidation.Results.ValidationResult validationResult = await validator.ValidateAsync(request, cancellationToken);
+        FluentValidation.Results.ValidationResult validationResult = await validator.ValidateAsync(request, cancellationToken = default);
 
-        if (validationResult.IsValid == false)
+        if (!validationResult.IsValid)
         {
             throw new ValidationException(validationResult.Errors);
         }

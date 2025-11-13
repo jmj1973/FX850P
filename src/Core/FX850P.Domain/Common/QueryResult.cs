@@ -1,7 +1,4 @@
-﻿
-using System.Collections.Generic;
-
-namespace FX850P.Domain.Common;
+﻿namespace FX850P.Domain.Common;
 
 public class QueryResult<TEntity>
 {

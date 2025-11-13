@@ -1,4 +1,11 @@
 
+1.2.0.3
+=======
+
+- CHANGE:   Using Direcpty Build and Packages
+- CHANGE:   Fixed warnings
+
+
 1.2.0.2
 =======
 

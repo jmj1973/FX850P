@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using FX850P.Application.Exceptions;
 using FX850P.Application.Mediator.Contracts;
 using FX850P.Application.Users.Dtos;
@@ -11,23 +9,21 @@ namespace FX850P.Application.Users.Commands.UpdateUserPassword;
 public class UpdateUserPasswordCommandHandler : IApplicationRequestHandler<UpdateUserPasswordCommand, UserDto>
 {
     private readonly IUserService _userService;
-    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public UpdateUserPasswordCommandHandler(IUserService userService, IUnitOfWork unitOfWork, IMapper mapper)
+    public UpdateUserPasswordCommandHandler(IUserService userService, IMapper mapper)
     {
         _userService = userService;
-        _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
-    public async Task<UserDto> Handle(UpdateUserPasswordCommand request, CancellationToken cancellationToken)
+    public async Task<UserDto> Handle(UpdateUserPasswordCommand request, CancellationToken cancellationToken = default)
     {
         // Validate
         var validator = new UpdateUserPasswordCommandValidator();
         FluentValidation.Results.ValidationResult validationResult = await validator.ValidateAsync(request, cancellationToken);
 
-        if (validationResult.IsValid == false)
+        if (!validationResult.IsValid)
         {
             throw new ValidationException(validationResult.Errors);
         }
@@ -42,7 +38,7 @@ public class UpdateUserPasswordCommandHandler : IApplicationRequestHandler<Updat
 
         Domain.Common.ServiceResult serviceResult = await _userService.UpdatePasswordAsync(user, request.OldPassword, request.NewPassword);
 
-        if (serviceResult.IsValid == false)
+        if (!serviceResult.IsValid)
         {
             throw new BadRequestException(serviceResult.Error);
         }

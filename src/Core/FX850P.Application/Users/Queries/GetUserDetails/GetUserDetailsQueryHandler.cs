@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using FX850P.Application.Exceptions;
 using FX850P.Application.Mediator.Contracts;
 using FX850P.Application.Users.Dtos;
@@ -20,7 +17,7 @@ public class GetUserDetailsQueryHandler : IApplicationRequestHandler<GetUserDeta
         _mapper = mapper;
     }
 
-    public async Task<UserDto> Handle(GetUserDetailsQuery request, CancellationToken cancellationToken)
+    public async Task<UserDto> Handle(GetUserDetailsQuery request, CancellationToken cancellationToken = default)
     {
         Domain.Entities.Identity.ApplicationUser? user = await _userService.FindUniqueAsync(u => u.Id == request.Id, cancellationToken);
 

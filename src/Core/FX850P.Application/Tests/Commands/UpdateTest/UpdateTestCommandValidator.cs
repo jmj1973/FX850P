@@ -12,14 +12,5 @@ public class UpdateTestCommandValidator : AbstractValidator<UpdateTestCommand>
 {
     public UpdateTestCommandValidator()
     {
-        /*
-        RuleFor(u => u.Number)
-            .NotEmpty().WithMessage("{PropertyName} is required.")
-            .NotNull();
-
-        RuleFor(u => u.Description)
-            .NotEmpty().WithMessage("{PropertyName} is required.")
-            .NotNull();
-        */
     }
 }

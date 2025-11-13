@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
 
@@ -13,7 +12,7 @@ public class TokenValidationOptions
     public bool ValidateAudience => !string.IsNullOrWhiteSpace(ValidAudience);
     public string ValidAudience { get; set; } = default!;
 
-    public bool RequireHttpsMetadata { get; set; } = false;
+    public bool RequireHttpsMetadata { get; set; }
 
     public string Key { get; set; } = "mysupersecret_secretkey!123";
     public SymmetricSecurityKey IssuerSigningKey => new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Key));

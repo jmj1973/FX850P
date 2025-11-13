@@ -14,10 +14,5 @@ public class TestConfiguration : IEntityTypeConfiguration<Test>
 {
     public void Configure(EntityTypeBuilder<Test> builder)
     {
-        /*
-        builder.Property(e => e.Description)
-               .IsRequired()
-               .HasMaxLength(20);
-        */
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 using FX850P.Domain.Common;
 using FX850P.Domain.Entities.Identity;
 using FX850P.Domain.Resources;

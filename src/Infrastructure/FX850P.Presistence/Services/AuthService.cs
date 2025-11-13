@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using FX850P.Application.Identity.Interfaces;
 using FX850P.Application.Identity.Models;
 using FX850P.Domain.Entities.Identity;

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using FX850P.Application.Mediator.Contracts;
+﻿using FX850P.Application.Mediator.Contracts;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FX850P.Application.Mediator;

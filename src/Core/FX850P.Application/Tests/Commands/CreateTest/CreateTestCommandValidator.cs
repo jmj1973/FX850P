@@ -12,15 +12,5 @@ public class CreateTestCommandValidator : AbstractValidator<CreateTestCommand>
 {
     public CreateTestCommandValidator()
     {
-        /*
-        RuleFor(u => u.Number)
-            .NotEmpty().WithMessage("{PropertyName} is required.")
-            .NotNull();
-
-        RuleFor(u => u.Description)
-            .NotEmpty().WithMessage("{PropertyName} is required.")
-            .NotNull();
-        */
     }
-
 }

@@ -5,8 +5,6 @@
 // {3} <Item> lowercase
 
 using AutoMapper;
-using System.Threading;
-using System.Threading.Tasks;
 using FX850P.Application.Exceptions;
 using FX850P.Application.Tests.Dtos;
 using FX850P.Domain.Entities;
@@ -28,33 +26,17 @@ public class CreateTestCommandHandler : IApplicationRequestHandler<CreateTestCom
         _mapper = mapper;
     }
 
-    public async Task<TestDto> Handle(CreateTestCommand request, CancellationToken cancellationToken)
+    public async Task<TestDto> Handle(CreateTestCommand request, CancellationToken cancellationToken = default)
     {
         // Validate
         var validator = new CreateTestCommandValidator();
         FluentValidation.Results.ValidationResult validationResult = await validator.ValidateAsync(request, cancellationToken);
 
-        if (validationResult.IsValid == false)
+        if (!validationResult.IsValid)
         {
             throw new ValidationException(validationResult.Errors);
         }
 
-        /*
-                    //Check if exist
-                    var existingUser = await _repository.ExistAsync(u => u.UserName.ToUpper() == request.UserName.ToUpper());
-
-                    if (existingUser)
-                    {
-                        throw new Exception($"Username '{request.UserName}' already exists.");
-                    }
-
-                    var existingEmail = await _userService.ExistAsync(u => u.Email.ToUpper() == request.Email.ToUpper());
-
-                    if (existingUser)
-                    {
-                        throw new Exception($"Email '{request.Email}' already exists.");
-                    }
-        */
         // Add Test
         Test test = _mapper.Map<Test>(request);
         await _repository.AddAsync(test, cancellationToken);

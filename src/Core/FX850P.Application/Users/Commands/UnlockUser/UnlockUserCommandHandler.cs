@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using FX850P.Application.Exceptions;
 using FX850P.Application.Mediator.Contracts;
 using FX850P.Application.Users.Dtos;
@@ -11,17 +9,15 @@ namespace FX850P.Application.Users.Commands.UnlockUser;
 public class UnlockUserCommandHandler : IApplicationRequestHandler<UnlockUserCommand, UserDto>
 {
     private readonly IUserService _userService;
-    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public UnlockUserCommandHandler(IUserService userService, IUnitOfWork unitOfWork, IMapper mapper)
+    public UnlockUserCommandHandler(IUserService userService, IMapper mapper)
     {
         _userService = userService;
-        _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
-    public async Task<UserDto> Handle(UnlockUserCommand request, CancellationToken cancellationToken)
+    public async Task<UserDto> Handle(UnlockUserCommand request, CancellationToken cancellationToken = default)
     {
         // Check if exist
         Domain.Entities.Identity.ApplicationUser? user = await _userService.FindUniqueAsync(u => u.Id == request.Id, cancellationToken);

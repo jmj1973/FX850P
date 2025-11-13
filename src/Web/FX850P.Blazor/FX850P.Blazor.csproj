@@ -1,9 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>false</ImplicitUsings>
     <UserSecretsId>aspnet-FX850P.Blazor-b08611e3-f8d4-4df1-a015-c51f061439aa</UserSecretsId>
     <Version>1.2.0</Version>
     <AssemblyVersion>1.2.0.2</AssemblyVersion>
@@ -21,27 +18,18 @@
   
   
   <ItemGroup>
-	<PackageReference Include="AutoMapper" Version="14.0.0" />
-	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.10" />
-	<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.10">
+	<PackageReference Include="AutoMapper" />
+	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Design" >
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>
-	<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.10" />
-	<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="9.0.10" />
-	<PackageReference Include="Microsoft.Extensions.Identity.Core" Version="9.0.10" />
-	<PackageReference Include="MudBlazor" Version="8.13.0" />
-	<PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
+	<PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+	<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" />
+	<PackageReference Include="Microsoft.Extensions.Identity.Core" />
+	<PackageReference Include="MudBlazor" />
+	<PackageReference Include="Serilog.AspNetCore" />
   </ItemGroup>
-
-
-	<ItemGroup Condition="'$(MSBuildProjectExtension)' != '.dcproj'">
-		<PackageReference Include="SonarAnalyzer.CSharp" Version="10.15.0.120848">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-	</ItemGroup>	
-	
   
   <ItemGroup>
     <ProjectReference Include="..\..\Core\FX850P.Application\FX850P.Application.csproj" />
