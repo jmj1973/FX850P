@@ -3,8 +3,8 @@
   <PropertyGroup>
     <UserSecretsId>aspnet-FX850P.Blazor-b08611e3-f8d4-4df1-a015-c51f061439aa</UserSecretsId>
     <Version>1.3.0</Version>
-    <AssemblyVersion>1.3.0.1</AssemblyVersion>
-    <FileVersion>1.3.0.1</FileVersion>
+    <AssemblyVersion>1.3.0.2</AssemblyVersion>
+    <FileVersion>1.3.0.2</FileVersion>
 
 	  <!-- Configure code analysis. 
 	  <AnalysisLevel>latest</AnalysisLevel>
