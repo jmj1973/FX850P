@@ -6,9 +6,9 @@ namespace FX850P.Presistence.Extensions;
 
 public static class IQueryableExtensions
 {
-    public static IQueryable<T> ApplyOrdering<T>(this IQueryable<T> query, IQueryObject queryObj, Dictionary<string, Expression<Func<T, object>>> columnsMap)
+    public static IQueryable<TType> ApplyOrdering<TType>(this IQueryable<TType> query, IQueryObject queryObj, Dictionary<string, Expression<Func<TType, object>>> columnsMap)
     {
-        if (string.IsNullOrWhiteSpace(queryObj.SortBy) || !columnsMap.TryGetValue(queryObj.SortBy, out Expression<Func<T, object>>? value))
+        if (string.IsNullOrWhiteSpace(queryObj.SortBy) || !columnsMap.TryGetValue(queryObj.SortBy, out Expression<Func<TType, object>>? value))
         {
             return query;
         }
@@ -23,7 +23,7 @@ public static class IQueryableExtensions
         }
     }
 
-    public static IQueryable<T> ApplyPaging<T>(this IQueryable<T> query, IQueryObject queryObj)
+    public static IQueryable<TType> ApplyPaging<TType>(this IQueryable<TType> query, IQueryObject queryObj)
     {
         if (queryObj.PageSize <= 0)
         {
@@ -38,11 +38,11 @@ public static class IQueryableExtensions
         return query.Skip((queryObj.Page - 1) * queryObj.PageSize).Take(queryObj.PageSize);
     }
 
-    public static IQueryable<T> ApplyFiltering<T, M>(this IQueryable<T> query, M filter, Dictionary<bool, Expression<Func<T, bool>>> columns)
+    public static IQueryable<TTYpe> ApplyFiltering<TTYpe>(this IQueryable<TTYpe> query, Dictionary<bool, Expression<Func<TTYpe, bool>>> columns)
     {
-        foreach (KeyValuePair<bool, Expression<Func<T, bool>>> column in columns)
+        foreach (KeyValuePair<bool, Expression<Func<TTYpe, bool>>> column in columns)
         {
-            Expression<Func<T, bool>> expression = column.Value;
+            Expression<Func<TTYpe, bool>> expression = column.Value;
             bool hasValue = column.Key;
 
             if (hasValue)
@@ -54,9 +54,9 @@ public static class IQueryableExtensions
         return query;
     }
 
-    public static IQueryable<T> ApplyFiltering<T, M>(this IQueryable<T> query, M filter, List<ColumnFilter<T>> columns)
+    public static IQueryable<TType> ApplyFiltering<TType>(this IQueryable<TType> query, List<ColumnFilter<TType>> columns)
     {
-        foreach (ColumnFilter<T> column in columns)
+        foreach (ColumnFilter<TType> column in columns)
         {
             if (column.HasValue)
             {

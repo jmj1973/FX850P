@@ -37,7 +37,7 @@ public class RoleService : IRoleService
             //[movieQuery.NumberInStock.HasValue] = x => x.NumberInStock == movieQuery.NumberInStock,
         };
 
-        queryDb = queryDb.ApplyFiltering(query, columnsFilter);
+        queryDb = queryDb.ApplyFiltering(columnsFilter);
 
         queryResult.Page.TotalItems = await queryDb.CountAsync(cancellationToken);
         queryResult.Page.PageSize = query.PageSize;
