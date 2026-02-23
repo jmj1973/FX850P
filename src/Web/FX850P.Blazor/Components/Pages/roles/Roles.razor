@@ -151,14 +151,14 @@
             {
                 foreach (var failure in ex.Failures)
                 {
-                    await _dialogService.ShowMessageBox("Warning",
+                    await _dialogService.ShowMessageBoxAsync("Warning",
                                                         failure.Value[0],
                                                         yesText: "OK", cancelText: "Cancel");
                 }
             }
             catch (Exception ex)
             {
-                await _dialogService.ShowMessageBox("Warning",
+                await _dialogService.ShowMessageBoxAsync("Warning",
                                                     ex.Message,
                                                     yesText: "OK", cancelText: "Cancel");
             }
@@ -196,14 +196,14 @@
             {
                 foreach (var failure in ex.Failures)
                 {
-                    await _dialogService.ShowMessageBox("Warning",
+                    await _dialogService.ShowMessageBoxAsync("Warning",
                                                         failure.Value[0],
                                                         yesText: "OK", cancelText: "Cancel");
                 }
             }
             catch (Exception ex)
             {
-                await _dialogService.ShowMessageBox("Warning",
+                await _dialogService.ShowMessageBoxAsync("Warning",
                                                     ex.Message,
                                                     yesText: "OK", cancelText: "Cancel");
             }
@@ -212,7 +212,7 @@
 
     private async Task Delete(string id)
     {
-        bool? result = await _dialogService.ShowMessageBox("Warning",
+        bool? result = await _dialogService.ShowMessageBoxAsync("Warning",
                                                             "Deleting can not be undone!",
                                                             yesText: "Delete!", cancelText: "Cancel");
 
@@ -233,7 +233,7 @@
             }
             catch (Exception ex)
             {
-                await _dialogService.ShowMessageBox("Warning",
+                await _dialogService.ShowMessageBoxAsync("Warning",
                                                     ex.Message,
                                                     yesText: "OK", cancelText: "Cancel");
             }
