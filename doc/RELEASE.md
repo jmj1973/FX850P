@@ -1,3 +1,10 @@
+1.3.0.6
+=======
+
+- CHANGE:   Update to 10.0.202
+- CHANGE:   Update packages
+
+
 1.3.0.5
 =======
 
