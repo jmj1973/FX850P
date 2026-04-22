@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using FX850P.Application.Common.Dtos;
+﻿using FX850P.Application.Common.Dtos;
 using FX850P.Application.Exceptions;
 using FX850P.Application.Mediator.Contracts;
 using FX850P.Domain.Entities.Identity;
@@ -10,13 +9,8 @@ namespace FX850P.Application.Roles.Commands.UpdateRole;
 public class UpdateRoleCommandHandler : IApplicationRequestHandler<UpdateRoleCommand, KeyValuePairDto<string>>
 {
     private readonly IRoleService _roleService;
-    private readonly IMapper _mapper;
 
-    public UpdateRoleCommandHandler(IRoleService roleService, IMapper mapper)
-    {
-        _roleService = roleService;
-        _mapper = mapper;
-    }
+    public UpdateRoleCommandHandler(IRoleService roleService) => _roleService = roleService;
 
     public async Task<KeyValuePairDto<string>> Handle(UpdateRoleCommand request, CancellationToken cancellationToken = default)
     {
@@ -37,10 +31,10 @@ public class UpdateRoleCommandHandler : IApplicationRequestHandler<UpdateRoleCom
             throw new NotFoundException(nameof(role), request.RoleId);
         }
 
-        _mapper.Map(request, role);
+        role = request.ToEntity(role);
 
         await _roleService.UpdateAsync(role, cancellationToken);
 
-        return _mapper.Map<KeyValuePairDto<string>>(role);
+        return role.ToDto();
     }
 }

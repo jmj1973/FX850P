@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿using FX850P.Application.Common;
 using FX850P.Application.Common.Dtos;
 using FX850P.Application.Mediator.Contracts;
 using FX850P.Domain.Presistence.Interfaces;
@@ -9,18 +9,13 @@ namespace FX850P.Application.Roles.Queries.GetRoleList;
 public class GetRoleListQueryHandler : IApplicationRequestHandler<GetRoleListQuery, QueryResultDto<KeyValuePairDto<string>>>
 {
     private readonly IRoleService _roleService;
-    private readonly IMapper _mapper;
 
-    public GetRoleListQueryHandler(IRoleService roleService, IMapper mapper)
-    {
-        _roleService = roleService;
-        _mapper = mapper;
-    }
+    public GetRoleListQueryHandler(IRoleService roleService) => _roleService = roleService;
 
     public async Task<QueryResultDto<KeyValuePairDto<string>>> Handle(GetRoleListQuery request, CancellationToken cancellationToken = default)
     {
-        RoleQuery roleQuery = _mapper.Map<RoleQuery>(request);
+        RoleQuery roleQuery = request.ToEntity();
         Domain.Common.QueryResult<Domain.Entities.Identity.ApplicationRole> queryResult = await _roleService.GetPagedListAsync(roleQuery, cancellationToken);
-        return _mapper.Map<QueryResultDto<KeyValuePairDto<string>>>(queryResult);
+        return queryResult.ToDto(RoleMapper.ToDto);
     }
 }

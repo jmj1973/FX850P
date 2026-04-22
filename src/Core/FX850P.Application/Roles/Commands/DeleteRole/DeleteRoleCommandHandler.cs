@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using FX850P.Application.Common.Dtos;
+﻿using FX850P.Application.Common.Dtos;
 using FX850P.Application.Exceptions;
 using FX850P.Application.Mediator.Contracts;
 using FX850P.Domain.Presistence.Interfaces;
@@ -10,13 +9,8 @@ namespace FX850P.Application.Roles.Commands.DeleteRole;
 public class DeleteRoleCommandHandler : IApplicationRequestHandler<DeleteRoleCommand, KeyValuePairDto<string>>
 {
     private readonly IRoleService _roleService;
-    private readonly IMapper _mapper;
 
-    public DeleteRoleCommandHandler(IRoleService roleService, IMapper mapper)
-    {
-        _roleService = roleService;
-        _mapper = mapper;
-    }
+    public DeleteRoleCommandHandler(IRoleService roleService) => _roleService = roleService;
 
     public async Task<KeyValuePairDto<string>> Handle(DeleteRoleCommand request, CancellationToken cancellationToken = default)
     {
@@ -30,6 +24,6 @@ public class DeleteRoleCommandHandler : IApplicationRequestHandler<DeleteRoleCom
 
         await _roleService.DeleteAsync(role);
 
-        return _mapper.Map<KeyValuePairDto<string>>(role);
+        return role.ToDto();
     }
 }

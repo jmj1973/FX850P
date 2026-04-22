@@ -18,15 +18,12 @@
   
   
   <ItemGroup>
-	<PackageReference Include="AutoMapper" />
 	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
 	<PackageReference Include="Microsoft.EntityFrameworkCore.Design">
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>
-	<PackageReference Include="Microsoft.Extensions.DependencyInjection" />
 	<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" />
-	<PackageReference Include="Microsoft.Extensions.Identity.Core" />
 	<PackageReference Include="MudBlazor" />
 	<PackageReference Include="Serilog.AspNetCore" />
   </ItemGroup>

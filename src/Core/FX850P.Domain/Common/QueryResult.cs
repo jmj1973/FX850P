@@ -3,5 +3,5 @@
 public class QueryResult<TEntity>
 {
     public PageResult Page { get; set; } = default!;
-    public IEnumerable<TEntity> PageItems { get; set; } = default(IEnumerable<TEntity>)!;
+    public IEnumerable<TEntity> PageItems { get; set; } = default!;
 }
