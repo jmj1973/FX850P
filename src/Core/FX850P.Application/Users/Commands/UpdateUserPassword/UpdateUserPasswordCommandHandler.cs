@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using FX850P.Application.Exceptions;
+﻿using FX850P.Application.Exceptions;
 using FX850P.Application.Mediator.Contracts;
 using FX850P.Application.Users.Dtos;
 using FX850P.Domain.Presistence.Interfaces;
@@ -9,13 +8,8 @@ namespace FX850P.Application.Users.Commands.UpdateUserPassword;
 public class UpdateUserPasswordCommandHandler : IApplicationRequestHandler<UpdateUserPasswordCommand, UserDto>
 {
     private readonly IUserService _userService;
-    private readonly IMapper _mapper;
 
-    public UpdateUserPasswordCommandHandler(IUserService userService, IMapper mapper)
-    {
-        _userService = userService;
-        _mapper = mapper;
-    }
+    public UpdateUserPasswordCommandHandler(IUserService userService) => _userService = userService;
 
     public async Task<UserDto> Handle(UpdateUserPasswordCommand request, CancellationToken cancellationToken = default)
     {
@@ -43,6 +37,6 @@ public class UpdateUserPasswordCommandHandler : IApplicationRequestHandler<Updat
             throw new BadRequestException(serviceResult.Error);
         }
 
-        return _mapper.Map<UserDto>(user);
+        return user.ToDto();
     }
 }

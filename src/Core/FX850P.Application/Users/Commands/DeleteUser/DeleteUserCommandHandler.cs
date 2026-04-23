@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using FX850P.Application.Exceptions;
+﻿using FX850P.Application.Exceptions;
 using FX850P.Application.Mediator.Contracts;
 using FX850P.Application.Users.Dtos;
 using FX850P.Domain.Presistence.Interfaces;
@@ -10,13 +9,8 @@ namespace FX850P.Application.Users.Commands.DeleteUser;
 public class DeleteUserCommandHandler : IApplicationRequestHandler<DeleteUserCommand, UserDto>
 {
     private readonly IUserService _userService;
-    private readonly IMapper _mapper;
 
-    public DeleteUserCommandHandler(IUserService userService, IMapper mapper)
-    {
-        _userService = userService;
-        _mapper = mapper;
-    }
+    public DeleteUserCommandHandler(IUserService userService) => _userService = userService;
 
     public async Task<UserDto> Handle(DeleteUserCommand request, CancellationToken cancellationToken = default)
     {
@@ -30,6 +24,6 @@ public class DeleteUserCommandHandler : IApplicationRequestHandler<DeleteUserCom
 
         await _userService.DeleteAsync(user);
 
-        return _mapper.Map<UserDto>(user);
+        return user.ToDto();
     }
 }

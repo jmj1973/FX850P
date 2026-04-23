@@ -4,7 +4,6 @@
 // {2} <Item>
 // {3} <Item> lowercase
 
-using AutoMapper;
 using FX850P.Application.Exceptions;
 using FX850P.Application.Tests.Dtos;
 using FX850P.Domain.Entities;
@@ -17,13 +16,11 @@ public class UpdateTestCommandHandler : IApplicationRequestHandler<UpdateTestCom
 {
     private readonly ITestRepository _repository;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IMapper _mapper;
 
-    public UpdateTestCommandHandler(ITestRepository repository, IUnitOfWork unitOfWork, IMapper mapper)
+    public UpdateTestCommandHandler(ITestRepository repository, IUnitOfWork unitOfWork)
     {
         _repository = repository;
         _unitOfWork = unitOfWork;
-        _mapper = mapper;
     }
 
     public async Task<TestDto> Handle(UpdateTestCommand request, CancellationToken cancellationToken = default)
@@ -45,10 +42,10 @@ public class UpdateTestCommandHandler : IApplicationRequestHandler<UpdateTestCom
             throw new NotFoundException(nameof(test), request.Id);
         }
 
-        _mapper.Map(request, test);
+        test = request.ToEntity(test);
 
         await _unitOfWork.SaveAsync(cancellationToken);
 
-        return _mapper.Map<TestDto>(test);
+        return test.ToDto();
     }
 }

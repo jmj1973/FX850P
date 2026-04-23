@@ -3,7 +3,6 @@
 @page "/roles"
 @rendermode InteractiveServer
 
-@using AutoMapper;
 @using Microsoft.AspNetCore.Authorization
 @using FX850P.Application.Common.Dtos;
 @using FX850P.Application.Exceptions;
@@ -21,7 +20,6 @@
 @using System.Threading
 
 @inject IApplicationMediator _application;
-@inject IMapper _mapper;
 @inject IDialogService _dialogService;
 @inject AuthenticationStateProvider _authenticationStateProvider;
 
@@ -108,7 +106,7 @@
 
         var result = await _application.Send<GetRoleListQuery, QueryResultDto<KeyValuePairDto<string>>>(query, token);
 
-        var data = _mapper.Map<IEnumerable<KeyValuePairDto<string>>, IEnumerable<KeyValuePairViewModel<string>>>(result.PageItems);
+        var data = result.PageItems.Select(dto => dto.ToViewModel());
 
         return new TableData<KeyValuePairViewModel<string>>() { Items = data, TotalItems = result.Page.TotalItems };
     }
@@ -134,7 +132,7 @@
             try
             {
                 KeyValuePairViewModel<string> newRole = (KeyValuePairViewModel<string>)dialogResult.Data!;
-                var command = _mapper.Map<CreateRoleCommand>(newRole);
+                var command = newRole.ToCreateCommand();
 
                 //Auditing
                 var authState = await _authenticateState;
@@ -169,7 +167,7 @@
     {
         var query = new GetRoleDetailsQuery { Id = id };
         var result = await _application.Send<GetRoleDetailsQuery,KeyValuePairDto<string>>(query);
-        var role = _mapper.Map<KeyValuePairViewModel<string>>(result);
+        var role = result.ToViewModel();
 
         var parameters = new DialogParameters();
         parameters.Add("role", role);
@@ -181,8 +179,7 @@
             try
             {
                 KeyValuePairViewModel<string> updateRole = (KeyValuePairViewModel<string>)dialogResult.Data!;
-                var command = _mapper.Map<UpdateRoleCommand>(updateRole);
-
+                var command = updateRole.ToUpdateCommand();
                 //Auditing
                 var authState = await _authenticateState;
                 command.ModifiedById = authState.User.GetUserId();

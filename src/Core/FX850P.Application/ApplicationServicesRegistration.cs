@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using FX850P.Application.Common.Dtos;
+﻿using FX850P.Application.Common.Dtos;
 using FX850P.Application.Mediator;
 using FX850P.Application.Mediator.Contracts;
 using FX850P.Application.Roles.Commands.CreateRole;
@@ -18,7 +17,6 @@ using FX850P.Application.Users.Commands.UpdateUserPassword;
 using FX850P.Application.Users.Dtos;
 using FX850P.Application.Users.Queries.GetUserDetails;
 using FX850P.Application.Users.Queries.GetUserList;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 
@@ -26,10 +24,8 @@ namespace FX850P.Application;
 
 public static class ApplicationServicesRegistration
 {
-    public static IServiceCollection ConfigureApplicationServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection ConfigureApplicationServices(this IServiceCollection services)
     {
-        services.AddAutoMapper(Assembly.GetExecutingAssembly());
-
         //Appliction Mediator
         services.AddSingleton<IApplicationMediator, ApplicationMediator>();
 

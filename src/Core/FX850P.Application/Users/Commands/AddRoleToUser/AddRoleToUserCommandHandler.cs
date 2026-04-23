@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using FX850P.Application.Exceptions;
+﻿using FX850P.Application.Exceptions;
 using FX850P.Application.Mediator.Contracts;
 using FX850P.Application.Users.Commands.AddRoleUser;
 using FX850P.Application.Users.Dtos;
@@ -10,13 +9,8 @@ namespace FX850P.Application.Users.Commands.AddRoleToUser;
 public class AddRoleToUserCommandHandler : IApplicationRequestHandler<AddRoleToUserCommand, UserDto>
 {
     private readonly IUserService _userService;
-    private readonly IMapper _mapper;
 
-    public AddRoleToUserCommandHandler(IUserService userService, IMapper mapper)
-    {
-        _userService = userService;
-        _mapper = mapper;
-    }
+    public AddRoleToUserCommandHandler(IUserService userService) => _userService = userService;
 
     public async Task<UserDto> Handle(AddRoleToUserCommand request, CancellationToken cancellationToken = default)
     {
@@ -36,7 +30,7 @@ public class AddRoleToUserCommandHandler : IApplicationRequestHandler<AddRoleToU
 
         await _userService.AddRoleToUser(user, request.Role);
 
-        UserDto returnUser = _mapper.Map<UserDto>(user);
+        UserDto returnUser = user.ToDto();
         returnUser.Role = request.Role;
 
         return returnUser;

@@ -28,12 +28,7 @@ public class AuthService : IAuthService
 
     public async Task<AuthResponse> Login(AuthRequest request)
     {
-        ApplicationUser? user = await _userManager.FindByEmailAsync(request.Email);
-
-        if (user == null)
-        {
-            throw new Exception($"User with {request.Email} not found.");
-        }
+        ApplicationUser? user = await _userManager.FindByEmailAsync(request.Email) ?? throw new Exception($"User with {request.Email} not found.");
 
         SignInResult result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, lockoutOnFailure: false);
 

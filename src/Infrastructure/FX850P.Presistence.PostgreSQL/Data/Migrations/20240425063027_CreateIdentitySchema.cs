@@ -23,10 +23,7 @@ public partial class CreateIdentitySchema : Migration
                 NormalizedName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                 ConcurrencyStamp = table.Column<string>(type: "text", nullable: true)
             },
-            constraints: table =>
-            {
-                table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-            });
+            constraints: table => table.PrimaryKey("PK_AspNetRoles", x => x.Id));
 
         migrationBuilder.CreateTable(
             name: "AspNetUsers",
@@ -50,10 +47,7 @@ public partial class CreateIdentitySchema : Migration
                 LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
                 AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
             },
-            constraints: table =>
-            {
-                table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-            });
+            constraints: table => table.PrimaryKey("PK_AspNetUsers", x => x.Id));
 
         migrationBuilder.CreateTable(
             name: "AspNetRoleClaims",

@@ -14,7 +14,7 @@ public abstract class Specification<TType> : ISpecification<TType>
 
     public virtual bool IsSatisfiedBy(TType candidate)
     {
-        _compiledFunc = _compiledFunc ?? Expression.Compile();
+        _compiledFunc ??= Expression.Compile();
         return _compiledFunc(candidate);
     }
 

@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿using FX850P.Application.Common;
 using FX850P.Application.Common.Dtos;
 using FX850P.Application.Mediator.Contracts;
 using FX850P.Application.Users.Dtos;
@@ -10,18 +10,13 @@ namespace FX850P.Application.Users.Queries.GetUserList;
 public class GetUserListQueryHandler : IApplicationRequestHandler<GetUserListQuery, QueryResultDto<UserDto>>
 {
     private readonly IUserService _userService;
-    private readonly IMapper _mapper;
 
-    public GetUserListQueryHandler(IUserService userService, IMapper mapper)
-    {
-        _userService = userService;
-        _mapper = mapper;
-    }
+    public GetUserListQueryHandler(IUserService userService) => _userService = userService;
 
     public async Task<QueryResultDto<UserDto>> Handle(GetUserListQuery request, CancellationToken cancellationToken = default)
     {
-        UserQuery userQuery = _mapper.Map<UserQuery>(request);
+        UserQuery userQuery = request.ToEntity();
         Domain.Common.QueryResult<Domain.Entities.Identity.ApplicationUser> queryResult = await _userService.GetPagedListAsync(userQuery, cancellationToken);
-        return _mapper.Map<QueryResultDto<UserDto>>(queryResult);
+        return queryResult.ToDto(UserMapper.ToDto);
     }
 }

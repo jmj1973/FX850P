@@ -82,24 +82,19 @@ public class Startup
                 .AddSignInManager()
                 .AddDefaultTokenProviders();
 
-        services.ConfigureApplicationServices(Configuration);
-        services.ConfigureInfrastructureServices(Configuration);
+        services.ConfigureApplicationServices();
+        services.ConfigureInfrastructureServices();
         services.ConfigurePresistenceServices(Configuration);
 
         // Add Authentication: Cookies and JwtBearer
         services.AddAuthentication(Configuration);
 
-        services.AddCors(o =>
-        {
-            o.AddPolicy(DefaultCorsPolicyName, builder =>
+        services.AddCors(o => o.AddPolicy(DefaultCorsPolicyName, builder =>
                 builder.AllowAnyOrigin()
                        .AllowAnyMethod()
-                       .AllowAnyHeader());
-        });
+                       .AllowAnyHeader()));
 
-        services.AddAutoMapper(Assembly.GetExecutingAssembly());
-
-        services.ConfigureBlazorServices(Configuration);
+        services.ConfigureBlazorServices();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

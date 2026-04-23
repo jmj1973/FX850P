@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using FX850P.Application.Exceptions;
+﻿using FX850P.Application.Exceptions;
 using FX850P.Application.Mediator.Contracts;
 using FX850P.Application.Users.Dtos;
 using FX850P.Domain.Presistence.Interfaces;
@@ -9,13 +8,8 @@ namespace FX850P.Application.Users.Queries.GetUserDetails;
 public class GetUserDetailsQueryHandler : IApplicationRequestHandler<GetUserDetailsQuery, UserDto>
 {
     private readonly IUserService _userService;
-    private readonly IMapper _mapper;
 
-    public GetUserDetailsQueryHandler(IUserService userService, IMapper mapper)
-    {
-        _userService = userService;
-        _mapper = mapper;
-    }
+    public GetUserDetailsQueryHandler(IUserService userService) => _userService = userService;
 
     public async Task<UserDto> Handle(GetUserDetailsQuery request, CancellationToken cancellationToken = default)
     {
@@ -30,7 +24,7 @@ public class GetUserDetailsQueryHandler : IApplicationRequestHandler<GetUserDeta
 
         string? role = roles.FirstOrDefault();
 
-        UserDto returnUser = _mapper.Map<UserDto>(user);
+        UserDto returnUser = user.ToDto();
 
         returnUser.Role = string.IsNullOrWhiteSpace(role) ? "User" : role;
 

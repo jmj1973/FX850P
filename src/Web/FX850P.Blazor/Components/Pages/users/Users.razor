@@ -3,7 +3,6 @@
 @page "/users"
 @rendermode InteractiveServer
 
-@using AutoMapper;
 @using FX850P.Application.Common.Dtos
 @using Microsoft.AspNetCore.Authorization;
 @using FX850P.Application.Exceptions;
@@ -25,9 +24,9 @@
 @using FX850P.Presistence.Constants;
 @using System.Security.Claims;
 @using System.Threading
+@using UniMPS.App.EmbeddingService.ViewModels.UserViewModels
 
 @inject IApplicationMediator _application;
-@inject IMapper _mapper;
 @inject IDialogService _dialogService;
 @inject AuthenticationStateProvider _authenticationStateProvider;
 
@@ -119,7 +118,7 @@
 
         var result = await _application.Send<GetUserListQuery, QueryResultDto<UserDto>>(query, token);
 
-        var data = _mapper.Map<IEnumerable<UserDto>, IEnumerable<UserViewModel>>(result.PageItems);
+        var data = result.PageItems.Select(dto => dto.ToViewModel());
 
         return new TableData<UserViewModel>() { Items = data, TotalItems = result.Page.TotalItems };
     }
@@ -146,7 +145,7 @@
                 UserViewModel? newUser = dialogResult.Data as UserViewModel;
                 ArgumentNullException.ThrowIfNull(newUser);
 
-                var command = _mapper.Map<CreateUserCommand>(newUser);
+                var command = newUser.ToCreateCommand();
                 command.UserName = command.Email;
                 command.Password = Passwords.User.Default;
 
@@ -192,7 +191,7 @@
         var dialogOptions = AppDialogOptions.NormalDialog();
         var query = new GetUserDetailsQuery { Id = id };
         var result = await _application.Send<GetUserDetailsQuery, UserDto>(query);
-        var user = _mapper.Map<UserViewModel>(result);
+        var user = result.ToViewModel();
 
         var parameters = new DialogParameters();
         parameters.Add("user", user);
@@ -206,7 +205,7 @@
                 UserViewModel? updateUser = dialogResult.Data as UserViewModel;
                 ArgumentNullException.ThrowIfNull(updateUser);
 
-                var command = _mapper.Map<UpdateUserCommand>(updateUser);
+                var command = updateUser.ToUpdateCommand();
 
                 //Auditing
                 var authState = await _authenticateState;
@@ -285,7 +284,7 @@
             try
             {
                 UpdatePasswordViewModel updateUpdatePassword = (UpdatePasswordViewModel)dialogResult.Data!;
-                var command = _mapper.Map<UpdateUserPasswordCommand>(updateUpdatePassword);
+                var command = updateUpdatePassword.ToUpdatePasswordCommand();
 
                 await _application.Send<UpdateUserPasswordCommand,UserDto>(command);
 

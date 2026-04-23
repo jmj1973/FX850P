@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using FX850P.Application.Exceptions;
+﻿using FX850P.Application.Exceptions;
 using FX850P.Application.Mediator.Contracts;
 using FX850P.Application.Users.Dtos;
 using FX850P.Domain.Presistence.Interfaces;
@@ -9,13 +8,8 @@ namespace FX850P.Application.Users.Commands.UpdateUser;
 public class UpdateUserCommandHandler : IApplicationRequestHandler<UpdateUserCommand, UserDto>
 {
     private readonly IUserService _userService;
-    private readonly IMapper _mapper;
 
-    public UpdateUserCommandHandler(IUserService userService, IMapper mapper)
-    {
-        _userService = userService;
-        _mapper = mapper;
-    }
+    public UpdateUserCommandHandler(IUserService userService) => _userService = userService;
 
     public async Task<UserDto> Handle(UpdateUserCommand request, CancellationToken cancellationToken = default)
     {
@@ -36,7 +30,7 @@ public class UpdateUserCommandHandler : IApplicationRequestHandler<UpdateUserCom
             throw new NotFoundException(nameof(user), request.Id);
         }
 
-        _mapper.Map(request, user);
+        user = request.ToEntity(user);
 
         await _userService.UpdateAsync(user, cancellationToken);
 
@@ -49,7 +43,7 @@ public class UpdateUserCommandHandler : IApplicationRequestHandler<UpdateUserCom
 
         await _userService.AddRoleToUser(user, request.Role);
 
-        UserDto returnUser = _mapper.Map<UserDto>(user);
+        UserDto returnUser = user.ToDto();
         returnUser.Role = request.Role;
 
         return returnUser;

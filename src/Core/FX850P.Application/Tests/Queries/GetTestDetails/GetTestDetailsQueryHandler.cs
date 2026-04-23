@@ -4,7 +4,6 @@
 // {2} <Item>
 // {3} <Item> lowercase
 
-using AutoMapper;
 using FX850P.Application.Exceptions;
 using FX850P.Application.Tests.Dtos;
 using FX850P.Domain.Presistence.Interfaces;
@@ -15,13 +14,8 @@ namespace FX850P.Application.Tests.Queries.GetTestDetails;
 public class GetTestDetailsQueryHandler : IApplicationRequestHandler<GetTestDetailsQuery, TestDto>
 {
     private readonly ITestRepository _repository;
-    private readonly IMapper _mapper;
 
-    public GetTestDetailsQueryHandler(ITestRepository repository, IMapper mapper)
-    {
-        _repository = repository;
-        _mapper = mapper;
-    }
+    public GetTestDetailsQueryHandler(ITestRepository repository) => _repository = repository;
 
     public async Task<TestDto> Handle(GetTestDetailsQuery request, CancellationToken cancellationToken = default)
     {
@@ -32,6 +26,6 @@ public class GetTestDetailsQueryHandler : IApplicationRequestHandler<GetTestDeta
             throw new NotFoundException(nameof(test), request.Id);
         }
 
-        return _mapper.Map<TestDto>(test);
+        return test.ToDto();
     }
 }

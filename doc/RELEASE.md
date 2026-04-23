@@ -1,3 +1,11 @@
+1.4.0.1
+=======
+
+- CHANGE:   Update to 10.0.203
+- CHANGE:   Update packages
+- CHANGE:   Remove AutoMapper
+
+
 1.3.0.6
 =======
 

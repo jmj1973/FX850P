@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using FX850P.Application.Exceptions;
+﻿using FX850P.Application.Exceptions;
 using FX850P.Application.Mediator.Contracts;
 using FX850P.Application.Users.Dtos;
 using FX850P.Domain.Entities.Identity;
@@ -10,13 +9,8 @@ namespace FX850P.Application.Users.Commands.CreateUser;
 public class CreateUserCommandHandler : IApplicationRequestHandler<CreateUserCommand, UserDto>
 {
     private readonly IUserService _userService;
-    private readonly IMapper _mapper;
 
-    public CreateUserCommandHandler(IUserService userService, IMapper mapper)
-    {
-        _userService = userService;
-        _mapper = mapper;
-    }
+    public CreateUserCommandHandler(IUserService userService) => _userService = userService;
 
     public async Task<UserDto> Handle(CreateUserCommand request, CancellationToken cancellationToken = default)
     {
@@ -56,7 +50,7 @@ public class CreateUserCommandHandler : IApplicationRequestHandler<CreateUserCom
 
         await _userService.AddAsync(user, request.Password, request.Role, cancellationToken);
 
-        UserDto returnUser = _mapper.Map<UserDto>(user);
+        UserDto returnUser = user.ToDto();
         returnUser.Role = request.Role;
 
         return returnUser;

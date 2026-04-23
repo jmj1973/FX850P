@@ -60,7 +60,7 @@ public static class BlazorServiceExtensions
     }
 
 
-    public static IServiceCollection ConfigureBlazorServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection ConfigureBlazorServices(this IServiceCollection services)
     {
         services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
