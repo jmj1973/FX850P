@@ -1,3 +1,10 @@
+1.4.0.2
+=======
+
+- CHANGE:   Update to 10.0.300
+- CHANGE:   Update packages
+
+
 1.4.0.1
 =======
 
