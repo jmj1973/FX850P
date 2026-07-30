@@ -1,0 +1,51 @@
+//Paramter map for string format
+// {0} <App>  
+// {1} <Item> plural
+// {2} <Item>
+// {3} <Item> lowercase
+
+using Application.Exceptions;
+using Application.Tests.Dtos;
+using Domain.Entities;
+using Domain.Presistence.Interfaces;
+using Application.Mediator.Contracts;
+
+namespace Application.Tests.Commands.UpdateTest;
+
+public class UpdateTestCommandHandler : IApplicationRequestHandler<UpdateTestCommand, TestDto>
+{
+    private readonly ITestRepository _repository;
+    private readonly IUnitOfWork _unitOfWork;
+
+    public UpdateTestCommandHandler(ITestRepository repository, IUnitOfWork unitOfWork)
+    {
+        _repository = repository;
+        _unitOfWork = unitOfWork;
+    }
+
+    public async Task<TestDto> Handle(UpdateTestCommand request, CancellationToken cancellationToken = default)
+    {
+        // Validation
+        var validator = new UpdateTestCommandValidator();
+        FluentValidation.Results.ValidationResult validationResult = await validator.ValidateAsync(request, cancellationToken = default);
+
+        if (!validationResult.IsValid)
+        {
+            throw new ValidationException(validationResult.Errors);
+        }
+
+        // Check if exist
+        Test? test = await _repository.FindUniqueAsync(u => u.Id == request.Id, cancellationToken);
+
+        if (test is null)
+        {
+            throw new NotFoundException(nameof(test), request.Id);
+        }
+
+        test = request.ToEntity(test);
+
+        await _unitOfWork.SaveAsync(cancellationToken);
+
+        return test.ToDto();
+    }
+}

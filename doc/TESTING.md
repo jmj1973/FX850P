@@ -8,10 +8,10 @@ dotnet tool install -g dotnet-reportgenerator-globaltool
 11.1. Add package refrences
 
 ```
-dotnet add test/Web/FX850P.Blazor.Tests package Microsoft.NET.Test.Sdk
-dotnet add test/Web/FX850P.Blazor.Tests package xunit
-dotnet add test/Web/FX850P.Blazor.Tests package xunit.runner.visualstudio
-dotnet add test/Web/FX850P.Blazor.Tests package coverlet.collector    
+dotnet add test/Web/FX850P.Tests package Microsoft.NET.Test.Sdk
+dotnet add test/Web/FX850P.Tests package xunit
+dotnet add test/Web/FX850P.Tests package xunit.runner.visualstudio
+dotnet add test/Web/FX850P.Tests package coverlet.collector    
 
 ```
 
@@ -20,7 +20,7 @@ Must be repeated for all the test projects
 11.2. Add project refrences
 
 ```
-dotnet add test/Web/FX850P.Blazor.Tests/FX850P.Blazor.Tests.csproj reference src/Web/FX850P.Blazor/FX850P.Blazor.csproj
+dotnet add test/Web/FX850P.Tests/FX850P.Blazor.Tests.csproj reference src/Web/FX850P.Blazor/FX850P.Blazor.csproj
 ```
 
 Must be repeated for all the test projects

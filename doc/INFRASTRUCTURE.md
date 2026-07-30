@@ -1,11 +1,11 @@
 # Steps
 
 ```
-dotnet add src/Infrastructure/FX850P.Infrastructure package Microsoft.
+dotnet add src/Infrastructure/Infrastructure package Microsoft.
 Extensions.DependencyInjection
-dotnet add src/Infrastructure/FX850P.Infrastructure package Microsoft.
+dotnet add src/Infrastructure/Infrastructure package Microsoft.
 Extensions.Configuration
-dotnet add src/Infrastructure/FX850P.Infrastructure package Microsoft.
+dotnet add src/Infrastructure/Infrastructure package Microsoft.
 Extensions.Configuration.Binder
 ```   
 

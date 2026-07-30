@@ -11,8 +11,8 @@ dotnet add src/Web/FX850P.Api package Microsoft.Extensions.Hosting.WindowsServic
 7.1. Add the reference projects
 
    ```
-   dotnet add src/Web/FX850P.Api reference src/Core/FX850P.Application/FX850P.Application.csproj
-   dotnet add src/Web/FX850P.Api reference src/Infrastructure/FX850P.Infrastructure/FX850P.Infrastructure.csproj
+   dotnet add src/Web/FX850P.Api reference src/Core/Application/Application.csproj
+   dotnet add src/Web/FX850P.Api reference src/Infrastructure/Infrastructure/Infrastructure.csproj
    dotnet add src/Web/FX850P.Api reference src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj
    ```
 

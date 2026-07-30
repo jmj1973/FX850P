@@ -1,0 +1,317 @@
+2025-11-26 09:41:38.946 +02:00 [INF] User profile is available. Using 'C:\Users\janj\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-11-26 09:41:41.494 +02:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+2025-11-26 09:41:42.341 +02:00 [ERR] The model for context 'ApplicationDBContext' changes each time it is built. This is usually caused by dynamic values used in a 'HasData' call (e.g. `new DateTime()`, `Guid.NewGuid()`). Add a new migration and examine its contents to locate the cause, and replace the dynamic call with a static, hardcoded value. See https://aka.ms/efcore-docs-pending-changes.
+2025-11-26 09:41:42.851 +02:00 [INF] Executed DbCommand (27ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-11-26 09:41:42.872 +02:00 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2025-11-26 09:41:42.912 +02:00 [INF] Executed DbCommand (33ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2025-11-26 09:41:43.001 +02:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2025-11-26 09:41:43.022 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-11-26 09:41:43.030 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2025-11-26 09:41:43.058 +02:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2025-11-26 09:41:43.071 +02:00 [INF] No migrations were applied. The database is already up to date.
+2025-11-26 09:41:43.082 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+2025-11-26 09:41:43.455 +02:00 [WRN] Overriding address(es) 'http://*:40000, https://*:40001'. Binding to endpoints defined via IConfiguration and/or UseKestrel() instead.
+2025-11-26 09:41:43.471 +02:00 [INF] Certificate with thumbprint 0C04ACD44EA7222CE174622B108C7FB8A8A402D3 lacks the subjectAlternativeName (SAN) extension and may not be accepted by browsers.
+2025-11-26 09:41:43.530 +02:00 [INF] Now listening on: https://0.0.0.0:40001
+2025-11-26 09:41:43.535 +02:00 [INF] Now listening on: http://0.0.0.0:40000
+2025-11-26 09:41:43.555 +02:00 [INF] No action descriptors found. This may indicate an incorrectly configured application or missing application parts. To learn more, visit https://aka.ms/aspnet/mvc/app-parts
+2025-11-26 09:41:43.652 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-11-26 09:41:43.656 +02:00 [INF] Hosting environment: Development
+2025-11-26 09:41:43.660 +02:00 [INF] Content root path: C:\projects\jmj1973\FX850P\src\Web\FX850P.Blazor\bin\Debug\net10.0\
+2025-11-26 09:41:49.862 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/ - null null
+2025-11-26 09:41:49.959 +02:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-11-26 09:41:49.967 +02:00 [INF] AuthenticationScheme: Identity.Application was challenged.
+2025-11-26 09:41:49.974 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/ - 302 null null 123.2453ms
+2025-11-26 09:41:49.982 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/Account/Login?ReturnUrl=%2F - null null
+2025-11-26 09:41:50.005 +02:00 [INF] Executing endpoint '/Account/Login (/Account/Login)'
+2025-11-26 09:41:50.307 +02:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-11-26 09:41:50.359 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2025-11-26 09:41:50.369 +02:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-11-26 09:41:50.502 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/_content/MudBlazor/MudBlazor.min.7c7lhmh1j6.css - null null
+2025-11-26 09:41:50.503 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/app.vj1hmjlz7t.css - null null
+2025-11-26 09:41:50.503 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/FX850P.Blazor.ecovp8v06e.styles.css - null null
+2025-11-26 09:41:50.503 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/bootstrap/bootstrap.min.grcrty03hn.css - null null
+2025-11-26 09:41:50.597 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/_framework/blazor.web.js - null null
+2025-11-26 09:41:50.607 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/_content/MudBlazor/MudBlazor.min.js - null null
+2025-11-26 09:41:50.609 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/_framework/aspnetcore-browser-refresh.js - null null
+2025-11-26 09:41:50.610 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:41:50.613 +02:00 [INF] Executed endpoint '/Account/Login (/Account/Login)'
+2025-11-26 09:41:50.613 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:41:50.618 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:41:50.626 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:41:50.633 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:41:50.640 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:41:50.685 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/_framework/aspnetcore-browser-refresh.js - 200 16511 application/javascript; charset=utf-8 75.3659ms
+2025-11-26 09:41:50.733 +02:00 [INF] Sending file. Request path: 'app.vj1hmjlz7t.css'. Physical path: 'C:\projects\jmj1973\FX850P\src\Web\FX850P.Blazor\obj\Debug\net10.0\compressed\gaz90gatpy-{0}-vj1hmjlz7t-vj1hmjlz7t.gz'
+2025-11-26 09:41:50.733 +02:00 [INF] Sending file. Request path: 'FX850P.Blazor.ecovp8v06e.styles.css'. Physical path: 'C:\projects\jmj1973\FX850P\src\Web\FX850P.Blazor\obj\Debug\net10.0\compressed\ntcve86v05-{0}-ecovp8v06e-ecovp8v06e.gz'
+2025-11-26 09:41:50.748 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:41:50.751 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:41:50.754 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/app.vj1hmjlz7t.css - 200 736 text/css 251.7933ms
+2025-11-26 09:41:50.755 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/Account/Login?ReturnUrl=%2F - 200 null text/html; charset=utf-8 773.8763ms
+2025-11-26 09:41:50.758 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/FX850P.Blazor.ecovp8v06e.styles.css - 200 2731 text/css 255.2231ms
+2025-11-26 09:41:50.761 +02:00 [INF] Sending file. Request path: 'bootstrap/bootstrap.min.grcrty03hn.css'. Physical path: 'C:\projects\jmj1973\FX850P\src\Web\FX850P.Blazor\obj\Debug\net10.0\compressed\e46sheidlq-{0}-grcrty03hn-grcrty03hn.gz'
+2025-11-26 09:41:50.761 +02:00 [INF] Sending file. Request path: '_content/MudBlazor/MudBlazor.min.js'. Physical path: 'C:\projects\jmj1973\FX850P\src\Web\FX850P.Blazor\obj\Debug\net10.0\compressed\0wz98yz2xy-{0}-f96y5mhlyw-f96y5mhlyw.gz'
+2025-11-26 09:41:50.761 +02:00 [INF] Sending file. Request path: '_framework/blazor.web.js'. Physical path: 'C:\projects\jmj1973\FX850P\src\Web\FX850P.Blazor\obj\Debug\net10.0\compressed\dl97khar3p-{0}-j8lzlu28q6-j8lzlu28q6.gz'
+2025-11-26 09:41:50.773 +02:00 [INF] Sending file. Request path: '_content/MudBlazor/MudBlazor.min.7c7lhmh1j6.css'. Physical path: 'C:\Users\janj\.nuget\packages\mudblazor\8.15.0\staticwebassets\MudBlazor.min.css'
+2025-11-26 09:41:50.794 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:41:50.796 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:41:50.799 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:41:50.802 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:41:50.805 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/bootstrap/bootstrap.min.grcrty03hn.css - 200 233021 text/css 302.259ms
+2025-11-26 09:41:50.809 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/_content/MudBlazor/MudBlazor.min.js - 200 16413 text/javascript 207.2956ms
+2025-11-26 09:41:50.811 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/_framework/blazor.web.js - 200 55155 text/javascript 214.6959ms
+2025-11-26 09:41:50.814 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/_content/MudBlazor/MudBlazor.min.7c7lhmh1j6.css - 200 610885 text/css 311.2632ms
+2025-11-26 09:41:51.115 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/favicon.ico - null null
+2025-11-26 09:41:51.123 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:41:51.135 +02:00 [INF] Sending file. Request path: 'favicon.ico'. Physical path: 'C:\projects\jmj1973\FX850P\src\Web\FX850P.Blazor\obj\Debug\net10.0\compressed\ysxtvlep9s-{0}-2jeq8efc6q-2jeq8efc6q.gz'
+2025-11-26 09:41:51.137 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:41:51.139 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/favicon.ico - 200 15119 image/x-icon 24.1922ms
+2025-11-26 09:42:12.376 +02:00 [INF] Request starting HTTP/2 POST https://localhost:40001/Account/Login?ReturnUrl=%2F - application/x-www-form-urlencoded 268
+2025-11-26 09:42:12.392 +02:00 [INF] CORS policy execution successful.
+2025-11-26 09:42:12.410 +02:00 [INF] Executing endpoint '/Account/Login (/Account/Login)'
+2025-11-26 09:42:12.420 +02:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-11-26 09:42:12.445 +02:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-11-26 09:42:12.911 +02:00 [INF] Executed DbCommand (77ms) [Parameters=[@normalizedUserName='ADMINISTRATOR@JMJ1973.CO.ZA' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @normalizedUserName
+2025-11-26 09:42:13.095 +02:00 [INF] Executed endpoint '/Account/Login (/Account/Login)'
+2025-11-26 09:42:13.103 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/bootstrap/bootstrap.min.grcrty03hn.css - null null
+2025-11-26 09:42:13.156 +02:00 [INF] Request finished HTTP/2 POST https://localhost:40001/Account/Login?ReturnUrl=%2F - 200 null text/html; charset=utf-8 779.4505ms
+2025-11-26 09:42:13.108 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/_framework/blazor.web.js - null null
+2025-11-26 09:42:13.104 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/FX850P.Blazor.ecovp8v06e.styles.css - null null
+2025-11-26 09:42:13.104 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/app.vj1hmjlz7t.css - null null
+2025-11-26 09:42:13.104 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/_content/MudBlazor/MudBlazor.min.7c7lhmh1j6.css - null null
+2025-11-26 09:42:13.151 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/_framework/aspnetcore-browser-refresh.js - null null
+2025-11-26 09:42:13.151 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/_content/MudBlazor/MudBlazor.min.js - null null
+2025-11-26 09:42:13.176 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:13.179 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:13.184 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:13.163 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:13.189 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:13.196 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/_framework/aspnetcore-browser-refresh.js - 200 16511 application/javascript; charset=utf-8 44.7538ms
+2025-11-26 09:42:13.199 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:13.203 +02:00 [INF] The file _framework/blazor.web.js was not modified
+2025-11-26 09:42:13.203 +02:00 [INF] Sending file. Request path: 'FX850P.Blazor.ecovp8v06e.styles.css'. Physical path: 'C:\projects\jmj1973\FX850P\src\Web\FX850P.Blazor\obj\Debug\net10.0\compressed\ntcve86v05-{0}-ecovp8v06e-ecovp8v06e.gz'
+2025-11-26 09:42:13.205 +02:00 [INF] Sending file. Request path: 'app.vj1hmjlz7t.css'. Physical path: 'C:\projects\jmj1973\FX850P\src\Web\FX850P.Blazor\obj\Debug\net10.0\compressed\gaz90gatpy-{0}-vj1hmjlz7t-vj1hmjlz7t.gz'
+2025-11-26 09:42:13.208 +02:00 [INF] The file _content/MudBlazor/MudBlazor.min.7c7lhmh1j6.css was not modified
+2025-11-26 09:42:13.210 +02:00 [INF] Sending file. Request path: 'bootstrap/bootstrap.min.grcrty03hn.css'. Physical path: 'C:\projects\jmj1973\FX850P\src\Web\FX850P.Blazor\obj\Debug\net10.0\compressed\e46sheidlq-{0}-grcrty03hn-grcrty03hn.gz'
+2025-11-26 09:42:13.216 +02:00 [INF] The file _content/MudBlazor/MudBlazor.min.js was not modified
+2025-11-26 09:42:13.218 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:13.220 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:13.223 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:13.225 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:13.227 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:13.229 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:13.231 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/_framework/blazor.web.js - 304 null text/javascript 126.3231ms
+2025-11-26 09:42:13.233 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/FX850P.Blazor.ecovp8v06e.styles.css - 200 2731 text/css 129.2897ms
+2025-11-26 09:42:13.235 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/app.vj1hmjlz7t.css - 200 736 text/css 131.308ms
+2025-11-26 09:42:13.237 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/_content/MudBlazor/MudBlazor.min.7c7lhmh1j6.css - 304 null text/css 133.6971ms
+2025-11-26 09:42:13.239 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/bootstrap/bootstrap.min.grcrty03hn.css - 200 233021 text/css 136.9426ms
+2025-11-26 09:42:13.242 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/_content/MudBlazor/MudBlazor.min.js - 304 null text/javascript 90.2426ms
+2025-11-26 09:42:34.125 +02:00 [INF] Request starting HTTP/2 POST https://localhost:40001/Account/Login?ReturnUrl=%2F - application/x-www-form-urlencoded 273
+2025-11-26 09:42:34.132 +02:00 [INF] CORS policy execution successful.
+2025-11-26 09:42:34.134 +02:00 [INF] Executing endpoint '/Account/Login (/Account/Login)'
+2025-11-26 09:42:34.155 +02:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-11-26 09:42:34.175 +02:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-11-26 09:42:34.259 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@normalizedUserName='ADMINISTRATOR@JMJ1973.CO.ZA' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @normalizedUserName
+2025-11-26 09:42:34.398 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@user_Id='8e445865-a24d-4543-a6c6-9443d048cdb9' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[ClaimType], [a].[ClaimValue], [a].[UserId]
+FROM [AspNetUserClaims] AS [a]
+WHERE [a].[UserId] = @user_Id
+2025-11-26 09:42:34.458 +02:00 [INF] Executed DbCommand (10ms) [Parameters=[@userId='8e445865-a24d-4543-a6c6-9443d048cdb9' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a1].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN (
+    SELECT [a0].[Id], [a0].[Name]
+    FROM [AspNetRoles] AS [a0]
+    WHERE [a0].[Discriminator] = N'ApplicationRole'
+) AS [a1] ON [a].[RoleId] = [a1].[Id]
+WHERE [a].[UserId] = @userId
+2025-11-26 09:42:34.510 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@normalizedName='ADMINISTRATOR' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Discriminator], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[Discriminator] = N'ApplicationRole' AND [a].[NormalizedName] = @normalizedName
+2025-11-26 09:42:34.574 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@role_Id='cbc43a8e-f7bb-4445-baaf-1add431ffbbf' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[ClaimType], [a].[ClaimValue]
+FROM [AspNetRoleClaims] AS [a]
+WHERE [a].[RoleId] = @role_Id
+2025-11-26 09:42:34.590 +02:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2025-11-26 09:42:34.596 +02:00 [INF] User logged in.
+2025-11-26 09:42:39.044 +02:00 [INF] Executed endpoint '/Account/Login (/Account/Login)'
+2025-11-26 09:42:39.052 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/ - null null
+2025-11-26 09:42:39.060 +02:00 [INF] Request finished HTTP/2 POST https://localhost:40001/Account/Login?ReturnUrl=%2F - 302 null text/html; charset=utf-8 4935.6288ms
+2025-11-26 09:42:39.068 +02:00 [INF] Executing endpoint '/ (/)'
+2025-11-26 09:42:39.137 +02:00 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (User)
+2025-11-26 09:42:39.247 +02:00 [INF] Executed endpoint '/ (/)'
+2025-11-26 09:42:39.263 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/bootstrap/bootstrap.min.grcrty03hn.css - null null
+2025-11-26 09:42:39.263 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/_content/MudBlazor/MudBlazor.min.7c7lhmh1j6.css - null null
+2025-11-26 09:42:39.264 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/app.vj1hmjlz7t.css - null null
+2025-11-26 09:42:39.263 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/FX850P.Blazor.ecovp8v06e.styles.css - null null
+2025-11-26 09:42:39.300 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/_content/MudBlazor/MudBlazor.min.js - null null
+2025-11-26 09:42:39.295 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/_framework/blazor.web.js - null null
+2025-11-26 09:42:39.300 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/_framework/aspnetcore-browser-refresh.js - null null
+2025-11-26 09:42:39.305 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:39.308 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:39.309 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/ - 200 null text/html; charset=utf-8 257.151ms
+2025-11-26 09:42:39.313 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:39.339 +02:00 [INF] The file _content/MudBlazor/MudBlazor.min.7c7lhmh1j6.css was not modified
+2025-11-26 09:42:39.341 +02:00 [INF] Sending file. Request path: 'bootstrap/bootstrap.min.grcrty03hn.css'. Physical path: 'C:\projects\jmj1973\FX850P\src\Web\FX850P.Blazor\obj\Debug\net10.0\compressed\e46sheidlq-{0}-grcrty03hn-grcrty03hn.gz'
+2025-11-26 09:42:39.318 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:39.324 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:39.328 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:39.336 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/_framework/aspnetcore-browser-refresh.js - 200 16511 application/javascript; charset=utf-8 36.0121ms
+2025-11-26 09:42:39.347 +02:00 [INF] Sending file. Request path: 'app.vj1hmjlz7t.css'. Physical path: 'C:\projects\jmj1973\FX850P\src\Web\FX850P.Blazor\obj\Debug\net10.0\compressed\gaz90gatpy-{0}-vj1hmjlz7t-vj1hmjlz7t.gz'
+2025-11-26 09:42:39.349 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:39.351 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:39.354 +02:00 [INF] Sending file. Request path: 'FX850P.Blazor.ecovp8v06e.styles.css'. Physical path: 'C:\projects\jmj1973\FX850P\src\Web\FX850P.Blazor\obj\Debug\net10.0\compressed\ntcve86v05-{0}-ecovp8v06e-ecovp8v06e.gz'
+2025-11-26 09:42:39.356 +02:00 [INF] The file _content/MudBlazor/MudBlazor.min.js was not modified
+2025-11-26 09:42:39.357 +02:00 [INF] The file _framework/blazor.web.js was not modified
+2025-11-26 09:42:39.364 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:39.366 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/_content/MudBlazor/MudBlazor.min.7c7lhmh1j6.css - 304 null text/css 103.1614ms
+2025-11-26 09:42:39.369 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/bootstrap/bootstrap.min.grcrty03hn.css - 200 233021 text/css 105.6519ms
+2025-11-26 09:42:39.371 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:39.373 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:39.375 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:39.377 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/app.vj1hmjlz7t.css - 200 736 text/css 113.0018ms
+2025-11-26 09:42:39.391 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/FX850P.Blazor.ecovp8v06e.styles.css - 200 2731 text/css 127.6756ms
+2025-11-26 09:42:39.393 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/_content/MudBlazor/MudBlazor.min.js - 304 null text/javascript 96.8402ms
+2025-11-26 09:42:39.395 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/_framework/blazor.web.js - 304 null text/javascript 99.8535ms
+2025-11-26 09:42:39.454 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/_blazor/initializers - null null
+2025-11-26 09:42:39.463 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:39.470 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:39.472 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/_blazor/initializers - 200 null application/json; charset=utf-8 18.6821ms
+2025-11-26 09:42:39.480 +02:00 [INF] Request starting HTTP/2 POST https://localhost:40001/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-11-26 09:42:39.487 +02:00 [INF] CORS policy execution successful.
+2025-11-26 09:42:39.490 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:39.501 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:39.503 +02:00 [INF] Request finished HTTP/2 POST https://localhost:40001/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 23.2277ms
+2025-11-26 09:42:39.514 +02:00 [INF] Request starting HTTP/2 CONNECT https://localhost:40001/_blazor?id=35hcw4V20h7zpZZqkGjJiA - null null
+2025-11-26 09:42:39.520 +02:00 [INF] CORS policy execution successful.
+2025-11-26 09:42:39.523 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:42:39.732 +02:00 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (User)
+2025-11-26 09:42:48.567 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [AspNetUsers] AS [a]
+2025-11-26 09:42:48.634 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@p='0', @p0='20'], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+ORDER BY [a].[Id]
+OFFSET @p ROWS FETCH NEXT @p0 ROWS ONLY
+2025-11-26 09:42:49.412 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [AspNetRoles] AS [a]
+WHERE [a].[Discriminator] = N'ApplicationRole'
+2025-11-26 09:42:49.428 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@p='0', @p0='20'], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[ConcurrencyStamp], [a].[Discriminator], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[Discriminator] = N'ApplicationRole'
+ORDER BY [a].[Id]
+OFFSET @p ROWS FETCH NEXT @p0 ROWS ONLY
+2025-11-26 09:42:55.047 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/Account/Logout - null null
+2025-11-26 09:42:55.056 +02:00 [INF] Executing endpoint '/Account/Logout (/Account/Logout)'
+2025-11-26 09:42:55.068 +02:00 [INF] AuthenticationScheme: Identity.Application signed out.
+2025-11-26 09:42:55.070 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2025-11-26 09:42:55.073 +02:00 [INF] AuthenticationScheme: Identity.TwoFactorUserId signed out.
+2025-11-26 09:43:03.279 +02:00 [INF] Executed endpoint '/Account/Logout (/Account/Logout)'
+2025-11-26 09:43:03.286 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/Account/Login - null null
+2025-11-26 09:43:03.288 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/Account/Logout - 302 null text/html; charset=utf-8 8240.6785ms
+2025-11-26 09:43:03.293 +02:00 [INF] Executing endpoint '/Account/Login (/Account/Login)'
+2025-11-26 09:43:03.302 +02:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-11-26 09:43:03.302 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/Account/Logout - null null
+2025-11-26 09:43:03.306 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2025-11-26 09:43:03.312 +02:00 [INF] Executing endpoint '/Account/Logout (/Account/Logout)'
+2025-11-26 09:43:03.314 +02:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-11-26 09:43:03.316 +02:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-11-26 09:43:03.320 +02:00 [INF] Executed endpoint '/Account/Login (/Account/Login)'
+2025-11-26 09:43:04.400 +02:00 [INF] Executed endpoint '/Account/Logout (/Account/Logout)'
+2025-11-26 09:43:04.401 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/Account/Login - 200 null text/html; charset=utf-8 1114.9773ms
+2025-11-26 09:43:04.404 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/Account/Logout - 302 null text/html; charset=utf-8 1101.7448ms
+2025-11-26 09:43:04.404 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/Account/Login - null null
+2025-11-26 09:43:04.419 +02:00 [INF] Executing endpoint '/Account/Login (/Account/Login)'
+2025-11-26 09:43:04.424 +02:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-11-26 09:43:04.426 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2025-11-26 09:43:04.429 +02:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-11-26 09:43:04.434 +02:00 [INF] Executed endpoint '/Account/Login (/Account/Login)'
+2025-11-26 09:43:04.440 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/Account/Login - 200 null text/html; charset=utf-8 35.5877ms
+2025-11-26 09:43:04.441 +02:00 [INF] Request starting HTTP/2 POST https://localhost:40001/_blazor/disconnect - multipart/form-data; boundary=----WebKitFormBoundaryhBynd734axMJsN4T 359
+2025-11-26 09:43:04.448 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/_framework/blazor.web.js - null null
+2025-11-26 09:43:04.447 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/_content/MudBlazor/MudBlazor.min.7c7lhmh1j6.css - null null
+2025-11-26 09:43:04.448 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/bootstrap/bootstrap.min.grcrty03hn.css - null null
+2025-11-26 09:43:04.448 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/FX850P.Blazor.ecovp8v06e.styles.css - null null
+2025-11-26 09:43:04.449 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/_content/MudBlazor/MudBlazor.min.js - null null
+2025-11-26 09:43:04.448 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/app.vj1hmjlz7t.css - null null
+2025-11-26 09:43:04.452 +02:00 [INF] CORS policy execution successful.
+2025-11-26 09:43:04.457 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:43:04.463 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:43:04.467 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:43:04.471 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:43:04.476 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:43:04.478 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:43:04.480 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:43:04.481 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:43:04.484 +02:00 [INF] The file _framework/blazor.web.js was not modified
+2025-11-26 09:43:04.486 +02:00 [INF] The file _content/MudBlazor/MudBlazor.min.7c7lhmh1j6.css was not modified
+2025-11-26 09:43:04.490 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/_framework/aspnetcore-browser-refresh.js - null null
+2025-11-26 09:43:04.491 +02:00 [INF] Sending file. Request path: 'FX850P.Blazor.ecovp8v06e.styles.css'. Physical path: 'C:\projects\jmj1973\FX850P\src\Web\FX850P.Blazor\obj\Debug\net10.0\compressed\ntcve86v05-{0}-ecovp8v06e-ecovp8v06e.gz'
+2025-11-26 09:43:04.494 +02:00 [INF] The file _content/MudBlazor/MudBlazor.min.js was not modified
+2025-11-26 09:43:04.496 +02:00 [INF] Request finished HTTP/2 CONNECT https://localhost:40001/_blazor?id=35hcw4V20h7zpZZqkGjJiA - 200 null null 24981.8255ms
+2025-11-26 09:43:04.498 +02:00 [INF] Sending file. Request path: 'app.vj1hmjlz7t.css'. Physical path: 'C:\projects\jmj1973\FX850P\src\Web\FX850P.Blazor\obj\Debug\net10.0\compressed\gaz90gatpy-{0}-vj1hmjlz7t-vj1hmjlz7t.gz'
+2025-11-26 09:43:04.501 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:43:04.503 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:43:04.508 +02:00 [INF] Sending file. Request path: 'bootstrap/bootstrap.min.grcrty03hn.css'. Physical path: 'C:\projects\jmj1973\FX850P\src\Web\FX850P.Blazor\obj\Debug\net10.0\compressed\e46sheidlq-{0}-grcrty03hn-grcrty03hn.gz'
+2025-11-26 09:43:04.509 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:43:04.522 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/_framework/blazor.web.js - 304 null text/javascript 73.0341ms
+2025-11-26 09:43:04.523 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/_content/MudBlazor/MudBlazor.min.7c7lhmh1j6.css - 304 null text/css 76.1249ms
+2025-11-26 09:43:04.527 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:43:04.530 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/FX850P.Blazor.ecovp8v06e.styles.css - 200 2731 text/css 82.1411ms
+2025-11-26 09:43:04.543 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/bootstrap/bootstrap.min.grcrty03hn.css - 200 233021 text/css 95.6648ms
+2025-11-26 09:43:04.520 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/_framework/aspnetcore-browser-refresh.js - 200 16511 application/javascript; charset=utf-8 29.0652ms
+2025-11-26 09:43:04.511 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:43:04.520 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:43:04.552 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:43:04.563 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/_content/MudBlazor/MudBlazor.min.js - 304 null text/javascript 114.5877ms
+2025-11-26 09:43:04.565 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/app.vj1hmjlz7t.css - 200 736 text/css 117.0274ms
+2025-11-26 09:43:04.567 +02:00 [INF] Request finished HTTP/2 POST https://localhost:40001/_blazor/disconnect - 200 0 null 125.4214ms
+2025-11-26 09:43:04.596 +02:00 [INF] Request starting HTTP/2 GET https://localhost:40001/favicon.ico - null null
+2025-11-26 09:43:04.602 +02:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:43:04.605 +02:00 [INF] Sending file. Request path: 'favicon.ico'. Physical path: 'C:\projects\jmj1973\FX850P\src\Web\FX850P.Blazor\obj\Debug\net10.0\compressed\ysxtvlep9s-{0}-2jeq8efc6q-2jeq8efc6q.gz'
+2025-11-26 09:43:04.607 +02:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-11-26 09:43:04.609 +02:00 [INF] Request finished HTTP/2 GET https://localhost:40001/favicon.ico - 200 15119 image/x-icon 13.15ms

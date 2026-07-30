@@ -1,9 +1,9 @@
 # Steps
 
 ```
-dotnet add src/Core/FX850P.Domain package Microsoft.Extensions.DependencyInjection
-dotnet add src/Core/FX850P.Domain package Microsoft.Extensions.Configuration
-dotnet add src/Core/FX850P.Domain package Microsoft.AspNetCore.Identity.EntityFrameworkCore
+dotnet add src/Core/Domain package Microsoft.Extensions.DependencyInjection
+dotnet add src/Core/Domain package Microsoft.Extensions.Configuration
+dotnet add src/Core/Domain package Microsoft.AspNetCore.Identity.EntityFrameworkCore
 ```       
 
 3.1. Create the Common Classes

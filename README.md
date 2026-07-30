@@ -72,29 +72,29 @@
     ```    
 
  2. Setup some Clean archtecture projects
-    - FX850P.Application (Core)
+    - Application (Core)
        Class Library .NET 9.0
        ```
-       dotnet new classlib -f net9.0 -n FX850P.Application -o src/Core/FX850P.Application
-       dotnet sln add src/Core/FX850P.Application/FX850P.Application.csproj
+       dotnet new classlib -f net9.0 -n Application -o src/Core/Application
+       dotnet sln add src/Core/Application/Application.csproj
        ```
     - FX850P.Clean.Domain (Core)
        Class Library .NET 9.0
        ```
-       dotnet new classlib -f net9.0 -n FX850P.Domain -o src/Core/FX850P.Domain
-       dotnet sln add src/Core/FX850P.Domain/FX850P.Domain.csproj
+       dotnet new classlib -f net9.0 -n Domain -o src/Core/Domain
+       dotnet sln add src/Core/Domain/Domain.csproj
        ```       
-    - FX850P.Infrastructure (Infrastructure)
+    - Infrastructure (Infrastructure)
        Class Library .NET 9.0
        ```
-       dotnet new classlib -f net9.0 -n FX850P.Infrastructure -o src/Infrastructure/FX850P.Infrastructure
-       dotnet sln add src/Infrastructure/FX850P.Infrastructure/FX850P.Infrastructure.csproj
+       dotnet new classlib -f net9.0 -n Infrastructure -o src/Infrastructure/Infrastructure
+       dotnet sln add src/Infrastructure/Infrastructure/Infrastructure.csproj
        ```              
-    - FX850P.Presistence (Infrastructure)
+    - Persistence (Infrastructure)
        Class Library .NET 9.0
        ```
-       dotnet new classlib -f net9.0 -n FX850P.Presistence -o src/Infrastructure/FX850P.Presistence
-       dotnet sln add src/Infrastructure/FX850P.Presistence/FX850P.Presistence.csproj
+       dotnet new classlib -f net9.0 -n Persistence -o src/Infrastructure/Persistence
+       dotnet sln add src/Infrastructure/Persistence/Persistence.csproj
        ```    
     - FX850P.Api (Web)
        ASP.NET Core Web API .NET 9.0

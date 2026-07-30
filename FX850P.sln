@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.10.34928.147
+# Visual Studio Version 18
+VisualStudioVersion = 18.8.12023.21
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EA94CDC3-CAF5-468A-A1AA-B79E17ACCA79}"
 EndProject
@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		LICENSE = LICENSE
 		doc\LINUX.md = doc\LINUX.md
 		doc\MVC.md = doc\MVC.md
-		doc\PRESISTENCE.md = doc\PRESISTENCE.md
+		doc\PERSISTENCE.md = doc\PERSISTENCE.md
 		README.md = README.md
 		doc\RELEASE.md = doc\RELEASE.md
 		doc\TESTING.md = doc\TESTING.md
@@ -34,21 +34,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{ABFFDA0B-A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{CA9C1AA6-14EB-4790-9A36-024D6BECA5A2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FX850P.Domain", "src\Core\FX850P.Domain\FX850P.Domain.csproj", "{A05C3F26-2CF5-4026-8A55-8E4E4EFDB127}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\Core\Domain\Domain.csproj", "{A05C3F26-2CF5-4026-8A55-8E4E4EFDB127}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FX850P.Application", "src\Core\FX850P.Application\FX850P.Application.csproj", "{122570FA-C7C7-4DC9-85C6-5EA3CF9D4D5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "src\Core\Application\Application.csproj", "{122570FA-C7C7-4DC9-85C6-5EA3CF9D4D5C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FX850P.Infrastructure", "src\Infrastructure\FX850P.Infrastructure\FX850P.Infrastructure.csproj", "{3C757C11-ED1E-4CA7-8B6F-66DC4E12AA1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\Infrastructure\Infrastructure\Infrastructure.csproj", "{3C757C11-ED1E-4CA7-8B6F-66DC4E12AA1F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FX850P.Presistence", "src\Infrastructure\FX850P.Presistence\FX850P.Presistence.csproj", "{CFEA726B-C0BF-4B74-8540-CECF6CB28263}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "src\Infrastructure\Persistence\Persistence.csproj", "{CFEA726B-C0BF-4B74-8540-CECF6CB28263}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FX850P.Presistence.MSSQL", "src\Infrastructure\FX850P.Presistence.MSSQL\FX850P.Presistence.MSSQL.csproj", "{6A66489B-7FBE-4645-A2F3-D15FD52CB265}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence.MSSQL", "src\Infrastructure\Persistence.MSSQL\Persistence.MSSQL.csproj", "{6A66489B-7FBE-4645-A2F3-D15FD52CB265}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FX850P.Presistence.PostgreSQL", "src\Infrastructure\FX850P.Presistence.PostgreSQL\FX850P.Presistence.PostgreSQL.csproj", "{B8068529-BC59-4683-8652-5E059071FD6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence.PostgreSQL", "src\Infrastructure\Persistence.PostgreSQL\Persistence.PostgreSQL.csproj", "{B8068529-BC59-4683-8652-5E059071FD6F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FX850P.Presistence.SQLite", "src\Infrastructure\FX850P.Presistence.SQLite\FX850P.Presistence.SQLite.csproj", "{163076C1-09E7-4EFF-9112-DE9F43F43A9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence.SQLite", "src\Infrastructure\Persistence.SQLite\Persistence.SQLite.csproj", "{163076C1-09E7-4EFF-9112-DE9F43F43A9F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FX850P.Blazor", "src\Web\FX850P.Blazor\FX850P.Blazor.csproj", "{3284110C-C8CC-4480-A985-EDE8A128F0AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FX850P", "src\Web\FX850P\FX850P.csproj", "{3284110C-C8CC-4480-A985-EDE8A128F0AB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{6A1F187E-5EA3-4891-B08E-F33BD1310FAB}"
 EndProject
@@ -56,7 +56,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{6A8461A6-A847-459E-8C42-38BC578E68E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FX850P.Blazor.Tests", "test\Web\FX850P.Blazor.Tests\FX850P.Blazor.Tests.csproj", "{28E34085-CDE4-4C11-BA88-2A4E0DB34972}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FX850P.Tests", "test\Web\FX850P.Tests\FX850P.Tests.csproj", "{2AB582F7-FE74-3FFF-C52E-CB242C8DE432}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -96,10 +96,10 @@ Global
 		{3284110C-C8CC-4480-A985-EDE8A128F0AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3284110C-C8CC-4480-A985-EDE8A128F0AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3284110C-C8CC-4480-A985-EDE8A128F0AB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{28E34085-CDE4-4C11-BA88-2A4E0DB34972}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{28E34085-CDE4-4C11-BA88-2A4E0DB34972}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{28E34085-CDE4-4C11-BA88-2A4E0DB34972}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{28E34085-CDE4-4C11-BA88-2A4E0DB34972}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AB582F7-FE74-3FFF-C52E-CB242C8DE432}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AB582F7-FE74-3FFF-C52E-CB242C8DE432}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AB582F7-FE74-3FFF-C52E-CB242C8DE432}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AB582F7-FE74-3FFF-C52E-CB242C8DE432}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,7 +119,7 @@ Global
 		{6A1F187E-5EA3-4891-B08E-F33BD1310FAB} = {D130A20F-4DDC-4E82-8951-AC2331BC4429}
 		{510BBCD6-C573-4A1F-9906-E1385FDEC03A} = {D130A20F-4DDC-4E82-8951-AC2331BC4429}
 		{6A8461A6-A847-459E-8C42-38BC578E68E2} = {D130A20F-4DDC-4E82-8951-AC2331BC4429}
-		{28E34085-CDE4-4C11-BA88-2A4E0DB34972} = {6A8461A6-A847-459E-8C42-38BC578E68E2}
+		{2AB582F7-FE74-3FFF-C52E-CB242C8DE432} = {6A8461A6-A847-459E-8C42-38BC578E68E2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AEA8B5DF-044A-465F-A79B-A01911E66819}

@@ -1,0 +1,18 @@
+//Paramter map for string format
+// {0} <App>  
+// {1} <Item> plural
+// {2} <Item>
+// {3} <Item> lowercase
+
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Domain.Entities;
+
+namespace Persistence.Configurations;
+
+public class TestConfiguration : IEntityTypeConfiguration<Test>
+{
+    public void Configure(EntityTypeBuilder<Test> builder)
+    {
+    }
+}

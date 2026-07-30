@@ -1,17 +1,17 @@
 # Steps
 
 ```
-dotnet add src/Core/FX850P.Application package Microsoft.Extensions.DependencyInjection
-dotnet add src/Core/FX850P.Application package Microsoft.Extensions.Configuration       
-dotnet add src/Core/FX850P.Application package AutoMapper.Extensions.Microsoft.DependencyInjection
-dotnet add src/Core/FX850P.Application package MediatR
-dotnet add src/Core/FX850P.Application package FluentValidation
+dotnet add src/Core/Application package Microsoft.Extensions.DependencyInjection
+dotnet add src/Core/Application package Microsoft.Extensions.Configuration       
+dotnet add src/Core/Application package AutoMapper.Extensions.Microsoft.DependencyInjection
+dotnet add src/Core/Application package MediatR
+dotnet add src/Core/Application package FluentValidation
 ```      
 
 5.1. Add the Domain reference project
 
    ```
-   dotnet add src/Core/FX850P.Application reference src/Core/FX850P.Domain/FX850P.Domain.csproj
+   dotnet add src/Core/Application reference src/Core/Domain/Domain.csproj
    ```
 
 5.2. Create the Application Services Registration

@@ -1,0 +1,4 @@
+2026-07-29 13:59:32.145 +02:00 [INF] User profile is available. Using 'C:\Users\janj\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-07-29 13:59:34.016 +02:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+2026-07-29 14:03:08.211 +02:00 [INF] User profile is available. Using 'C:\Users\janj\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-07-29 14:03:09.663 +02:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
