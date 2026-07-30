@@ -29,6 +29,11 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
     public async Task<TEntity?> FindUniqueAsync(Expression<Func<TEntity, bool>> predicate) => await _context.Set<TEntity>().Where(predicate).AsNoTracking().FirstOrDefaultAsync();
     public async Task<TEntity?> FindUniqueAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken) => await _context.Set<TEntity>().Where(predicate).AsNoTracking().FirstOrDefaultAsync(cancellationToken);
 
+    public async Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate) =>
+    await _context.Set<TEntity>().Where(predicate).AsNoTracking().CountAsync();
+    public async Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken) =>
+        await _context.Set<TEntity>().Where(predicate).AsNoTracking().CountAsync(cancellationToken);
+
     public void Remove(TEntity entity) => _context.Set<TEntity>().Remove(entity);
     public void RemoveRange(IEnumerable<TEntity> entities) => _context.Set<TEntity>().RemoveRange(entities);
 
