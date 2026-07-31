@@ -1,6 +1,6 @@
 ﻿using Application.Identity.Interfaces;
 using Application.Identity.Models;
-using Domain.Presistence.Interfaces;
+using Domain.Persistence.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;

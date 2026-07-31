@@ -3,26 +3,26 @@
 @page "/users"
 @rendermode InteractiveServer
 
+@using System.Threading
 @using Application.Common.Dtos
-@using Microsoft.AspNetCore.Authorization;
 @using Application.Exceptions;
 @using Application.Mediator.Contracts;
+@using Application.Users.Commands.AddRoleToUser
+@using Application.Users.Commands.CreateUser;
+@using Application.Users.Commands.DeleteUser;
 @using Application.Users.Commands.LockUser
 @using Application.Users.Commands.UnlockUser
+@using Application.Users.Commands.UpdateUser;
 @using Application.Users.Commands.UpdateUserPassword
 @using Application.Users.Dtos;
-@using Application.Users.Commands.AddRoleUser;
-@using Application.Users.Commands.CreateUser;
-@using Application.Users.Commands.UpdateUser;
-@using Application.Users.Commands.DeleteUser;
 @using Application.Users.Queries.GetUserDetails;
 @using Application.Users.Queries.GetUserList;
 @using FX850P.Components.Common
 @using FX850P.Constants
 @using FX850P.Extensions
 @using FX850P.ViewModels.UserViewModels;
+@using Microsoft.AspNetCore.Authorization;
 @using Persistence.Constants;
-@using System.Threading
 
 @inject IApplicationMediator _application;
 @inject IDialogService _dialogService;

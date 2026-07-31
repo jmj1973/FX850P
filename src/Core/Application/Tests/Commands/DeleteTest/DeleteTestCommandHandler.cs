@@ -7,7 +7,7 @@
 using Application.Exceptions;
 using Application.Tests.Dtos;
 using Domain.Entities;
-using Domain.Presistence.Interfaces;
+using Domain.Persistence.Interfaces;
 
 namespace Application.Tests.Commands.DeleteTest;
 

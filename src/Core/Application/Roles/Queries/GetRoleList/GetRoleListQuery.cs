@@ -1,7 +1,7 @@
 ﻿using Application.Common.Dtos;
 using Application.Common.Dtos;
 using Application.Mediator.Contracts;
-using Domain.Presistence.Interfaces;
+using Domain.Persistence.Interfaces;
 
 namespace Application.Roles.Queries.GetRoleList;
 

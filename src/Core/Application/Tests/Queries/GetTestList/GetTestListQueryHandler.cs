@@ -6,10 +6,10 @@
 
 using Application.Common.Dtos;
 using Application.Tests.Dtos;
-using Domain.Presistence.Interfaces;
 using Domain.Resources;
 using Application.Mediator.Contracts;
 using Application.Common;
+using Domain.Persistence.Interfaces;
 
 namespace Application.Tests.Queries.GetTestList;
 

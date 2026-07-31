@@ -1,8 +1,7 @@
 ﻿using Application.Exceptions;
 using Application.Mediator.Contracts;
 using Application.Users.Dtos;
-using Domain.Presistence.Interfaces;
-
+using Domain.Persistence.Interfaces;
 
 namespace Application.Users.Commands.DeleteUser;
 

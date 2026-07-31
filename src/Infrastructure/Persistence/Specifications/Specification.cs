@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-using Domain.Presistence.Interfaces;
+using Domain.Persistence.Interfaces;
 
 namespace Persistence.Specifications;
 

@@ -2,7 +2,7 @@
 using Application.Common.Dtos;
 using Application.Mediator.Contracts;
 using Application.Users.Dtos;
-using Domain.Presistence.Interfaces;
+using Domain.Persistence.Interfaces;
 using Domain.Resources;
 
 namespace Application.Users.Queries.GetUserList;

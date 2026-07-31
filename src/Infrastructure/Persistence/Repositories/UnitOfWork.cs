@@ -1,4 +1,4 @@
-﻿using Domain.Presistence.Interfaces;
+﻿using Domain.Persistence.Interfaces;
 
 namespace Persistence.Repositories;
 

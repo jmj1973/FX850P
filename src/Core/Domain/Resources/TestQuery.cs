@@ -4,7 +4,7 @@
 // {2} <Item>
 // {3} <Item> lowercase
 
-using Domain.Presistence.Interfaces;
+using Domain.Persistence.Interfaces;
 
 namespace Domain.Resources;
 

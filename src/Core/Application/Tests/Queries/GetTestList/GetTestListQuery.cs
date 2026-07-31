@@ -7,7 +7,7 @@
 using Application.Common.Dtos;
 using Application.Mediator.Contracts;
 using Application.Tests.Dtos;
-using Domain.Presistence.Interfaces;
+using Domain.Persistence.Interfaces;
 
 namespace Application.Tests.Queries.GetTestList;
 

@@ -3,7 +3,7 @@ using Domain.Common;
 using Domain.Entities.Identity;
 using Domain.Resources;
 
-namespace Domain.Presistence.Interfaces;
+namespace Domain.Persistence.Interfaces;
 
 public interface IRoleService
 {

@@ -1,5 +1,4 @@
-﻿
-namespace Domain.Presistence.Interfaces;
+﻿namespace Domain.Persistence.Interfaces;
 
 public interface IQueryObject
 {

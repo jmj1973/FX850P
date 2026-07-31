@@ -8,7 +8,6 @@ using Application.Roles.Commands.UpdateRole;
 using Application.Roles.Queries.GetRoleDetails;
 using Application.Roles.Queries.GetRoleList;
 using Application.Users.Commands.AddRoleToUser;
-using Application.Users.Commands.AddRoleUser;
 using Application.Users.Commands.CreateUser;
 using Application.Users.Commands.DeleteUser;
 using Application.Users.Commands.LockUser;

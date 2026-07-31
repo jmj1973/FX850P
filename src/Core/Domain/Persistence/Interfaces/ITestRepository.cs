@@ -8,7 +8,7 @@ using Domain.Common;
 using Domain.Entities;
 using Domain.Resources;
 
-namespace Domain.Presistence.Interfaces;
+namespace Domain.Persistence.Interfaces;
 
 public interface ITestRepository : IGenericRepository<Test>
 {

@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Domain.Common;
-using Domain.Presistence.Interfaces;
+using Domain.Persistence.Interfaces;
 
 namespace Persistence.Extensions;
 

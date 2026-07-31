@@ -8,10 +8,10 @@ using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Domain.Common;
 using Domain.Entities;
-using Domain.Presistence.Interfaces;
 using Domain.Resources;
 using Persistence;
 using Persistence.Extensions;
+using Domain.Persistence.Interfaces;
 
 namespace Persistence.Repositories;
 

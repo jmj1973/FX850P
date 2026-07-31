@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Domain.Common;
 using Domain.Entities.Identity;
-using Domain.Presistence.Interfaces;
+using Domain.Persistence.Interfaces;
 using Domain.Resources;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

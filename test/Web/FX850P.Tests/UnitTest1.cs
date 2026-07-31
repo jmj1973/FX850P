@@ -1,4 +1,4 @@
-﻿namespace FX850P.Blazor.Tests;
+﻿namespace FX850P.Tests;
 
 public class UnitTest1
 {

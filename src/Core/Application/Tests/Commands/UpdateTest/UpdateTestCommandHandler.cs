@@ -7,8 +7,8 @@
 using Application.Exceptions;
 using Application.Tests.Dtos;
 using Domain.Entities;
-using Domain.Presistence.Interfaces;
 using Application.Mediator.Contracts;
+using Domain.Persistence.Interfaces;
 
 namespace Application.Tests.Commands.UpdateTest;
 
