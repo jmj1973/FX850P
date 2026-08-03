@@ -5,7 +5,7 @@
   <!--.NET 9 packages. Most of them will work on .NET 8. If you need to, make the updates here individually.-->
   <ItemGroup>
     <!-- Static code analysis -->
-    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.30.0.144632" />
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.31.0.145097" />
     <!-- Common -->
     <PackageVersion Include="AutoMapper" Version="14.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.10" />
