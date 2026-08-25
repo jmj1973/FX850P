@@ -30,7 +30,7 @@
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.7" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.WindowsServices" Version="10.0.11" />
     <PackageVersion Include="Microsoft.Extensions.Identity.Core" Version="10.0.7" />
-    <PackageVersion Include="MudBlazor" Version="9.8.0" />
+    <PackageVersion Include="MudBlazor" Version="9.9.0" />
     <PackageVersion Include="Serilog.AspNetCore" Version="10.0.0" />
     <!-- Testing -->
     <PackageVersion Include="coverlet.collector" Version="10.0.1" />
